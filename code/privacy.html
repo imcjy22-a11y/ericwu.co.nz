@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Team Eric Wu - Ray White Elite</title>
+    <meta name="description" content="Privacy Policy for Team Eric Wu. Learn how we collect, use, and protect your personal information in compliance with the New Zealand Privacy Act 2020.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Core Variables --- */
+        :root {
+            --rw-yellow: #ffe500;
+            --deep-dark: #111111;
+            --footer-bg: #1a1a1a;
+            --text-gray: #b3b3b3;
+            --pure-white: #ffffff;
+            --light-grey: #f8f9fa;
+            --text-body: #444444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text-body); background: var(--light-grey); overflow-x: hidden; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--deep-dark); }
+
+        /* --- 2. Header / Navigation --- */
+        header { position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 2000; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        header.scrolled { background: rgba(0,0,0,0.95); padding: 12px 5%; backdrop-filter: blur(10px); border-bottom: 2px solid var(--rw-yellow);}
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 13px; text-transform: uppercase; font-weight: 400; opacity: 0.8; transition: 0.3s; }
+        nav a:hover { opacity: 1; color: var(--rw-yellow); }
+        .btn-appraisal { background: var(--rw-yellow); color: #000; padding: 10px 22px; font-weight: 700; text-decoration: none; border-radius: 2px; font-size: 12px; transition: 0.3s;}
+        .btn-appraisal:hover { background: #fff; }
+
+        .nav-close { display: none; }
+
+        /* --- 3. Page Header --- */
+        .page-header { background-color: var(--deep-dark); color: white; padding: 160px 5% 80px 5%; text-align: center; }
+        .page-header h1 { color: white; font-size: 3rem; margin-bottom: 15px; }
+        .page-header p { font-size: 1rem; color: var(--text-gray); font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- 4. Legal Content Container --- */
+        .legal-content {
+            max-width: 900px;
+            margin: -40px auto 100px auto;
+            background: var(--pure-white);
+            padding: 60px 80px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--rw-yellow);
+            position: relative;
+            z-index: 10;
+        }
+
+        .legal-content h2 { font-size: 1.8rem; margin: 40px 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .legal-content h2:first-child { margin-top: 0; }
+        .legal-content p { margin-bottom: 20px; font-size: 1.05rem; color: #555; line-height: 1.8; }
+        .legal-content ul { margin: 0 0 25px 40px; color: #555; font-size: 1.05rem; line-height: 1.8; }
+        .legal-content li { margin-bottom: 10px; }
+        .legal-content a { color: var(--deep-dark); font-weight: 600; text-decoration: underline; text-decoration-color: var(--rw-yellow); text-decoration-thickness: 2px; transition: 0.3s;}
+        .legal-content a:hover { background-color: var(--rw-yellow); text-decoration: none; }
+
+        /* --- 5. Footer --- */
+        footer { background: var(--footer-bg); color: white; padding: 80px 8% 40px 8%; width: 100%; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px; margin-bottom: 30px;}
+        .footer-col h4 { color: white; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem;}
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { color: var(--text-gray); text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .footer-col a:hover { color: var(--rw-yellow); padding-left: 5px; }
+        .footer-col p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 10px; }
+        .footer-bottom { text-align: center; color: var(--text-gray); font-size: 0.8rem; }
+        .social-placeholder { background: #2a2a2a; padding: 30px; text-align: center; border-radius: 5px; border: 1px dashed #555; color: #888; }
+
+        /* Responsive */
+        .hamburger { display: none; }
+
+        @media (max-width: 768px) {
+            header { padding: 14px 5%; }
+            header img { height: 48px !important; }
+            nav { display: none; }
+            .btn-appraisal { display: none; }
+
+            .hamburger {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 6px;
+                z-index: 3000;
+                line-height: 1;
+            }
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 1500;
+            }
+            .nav-overlay.open { display: block; }
+            nav {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: 72%;
+                max-width: 280px;
+                height: 100vh;
+                background: #0d0d0d;
+                border-left: 1px solid rgba(255,229,0,0.15);
+                z-index: 2500;
+                padding: 70px 35px 40px 35px;
+                transform: translateX(100%);
+                transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+                overflow-y: auto;
+                justify-content: flex-start;
+            }
+            nav.open { transform: translateX(0); }
+            nav a {
+                display: block;
+                margin: 0;
+                padding: 13px 0;
+                font-size: 0.78rem;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: rgba(255,255,255,0.65);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                transition: color 0.2s;
+            }
+            nav a:hover { color: white; }
+            nav a.active-page { color: var(--rw-yellow) !important; opacity: 1; }
+            nav a.nav-cta {
+                display: block;
+                margin-top: 28px;
+                padding: 13px 0;
+                background: var(--rw-yellow);
+                color: #000 !important;
+                text-align: center;
+                font-weight: 700;
+                border-radius: 2px;
+                border-bottom: none;
+                font-size: 0.78rem;
+                letter-spacing: 2px;
+            }
+            nav a.nav-cta:hover { background: white; }
+            .nav-close {
+                position: absolute;
+                top: 18px; right: 20px;
+                background: none;
+                border: none;
+                color: rgba(255,255,255,0.4);
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: color 0.2s;
+            }
+            .nav-close:hover { color: white; }
+            .nav-close::before { content: '✕'; font-size: 0.75rem; }
+
+            .page-header h1 { font-size: 2.2rem; }
+            .legal-content { padding: 30px 20px; margin: -20px 4% 60px 4%; width: 92%; }
+            .legal-content p { font-size: 0.9rem; }
+            .legal-content ul { font-size: 0.9rem; margin-left: 20px; }
+            .legal-content h2 { font-size: 1.3rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            footer { padding: 55px 6% 30px 6%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v25.0&appId=APP_ID"></script>
+
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+    <header id="main-header">
+        <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="images/logo.png" alt="Team Eric Wu Logo" style="height: 100px; width: auto; object-fit: contain;">
+        </a>
+        <nav id="main-nav">
+            <button class="nav-close" onclick="closeMenu()">Close</button>
+            <a href="index.html#home" onclick="closeMenu()">Home</a>
+            <a href="about.html"      onclick="closeMenu()">About Us</a>
+            <a href="listings.html"   onclick="closeMenu()">Listings</a>
+            <a href="sold.html"       onclick="closeMenu()">Recent Sold</a>
+            <a href="review.html"     onclick="closeMenu()">Reviews</a>
+            <a href="faq.html"        onclick="closeMenu()">FAQ's</a>
+            <a href="blog.html"       onclick="closeMenu()">Blog</a>
+            <a href="contact.html"    onclick="closeMenu()" class="nav-cta">Free Appraisal</a>
+        </nav>
+        <a href="contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+        <button class="hamburger" id="hamburger" onclick="openMenu()" aria-label="Open menu">&#9783;</button>
+    </header>
+
+    <section class="page-header">
+        <h1>Privacy Policy</h1>
+    </section>
+
+    <main class="legal-content">
+        <h2>1. Introduction</h2>
+        <p>Welcome to the official website of <strong>Team Eric Wu</strong>, operating under Ray White Elite. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe, transparent, and responsible manner. This Privacy Policy outlines how we collect, use, disclose, and protect your information in accordance with the <strong>New Zealand Privacy Act 2020</strong>.</p>
+
+        <h2>2. Information We Collect</h2>
+        <p>In the course of providing premium real estate services in East Auckland, we may collect the following types of personal information:</p>
+        <ul>
+            <li><strong>Contact Information:</strong> Your name, email address, phone number, and physical address.</li>
+            <li><strong>Property Information:</strong> Details regarding your property when you request a free appraisal, including address, property features, and your timeline for selling.</li>
+            <li><strong>Technical Data:</strong> Information such as your IP address, browser type, and interactions with our website (via cookies) to help us improve our digital services.</li>
+        </ul>
+
+        <h2>3. How We Use Your Information</h2>
+        <p>We collect your personal information strictly for the purpose of conducting our real estate business. Specifically, we use it to:</p>
+        <ul>
+            <li>Provide you with accurate property appraisals and market insights.</li>
+            <li>Communicate with you regarding properties for sale, auction updates, or relevant real estate news.</li>
+            <li>Facilitate the buying or selling process, including preparing legal documents and marketing materials.</li>
+            <li>Comply with our legal and regulatory obligations, including the Anti-Money Laundering and Countering Financing of Terrorism (AML/CFT) Act 2009.</li>
+        </ul>
+
+        <h2>4. Sharing Your Information</h2>
+        <p>We do not sell, rent, or trade your personal information. We may share your data only in the following circumstances:</p>
+        <ul>
+            <li><strong>Ray White Network:</strong> With the wider Ray White corporate network for administrative, compliance, or marketing purposes as part of our franchise agreement.</li>
+            <li><strong>Third-Party Service Providers:</strong> Trusted partners who assist us in operating our website, conducting our business (such as marketing agencies or IT support), or servicing you, provided they agree to keep this information confidential.</li>
+            <li><strong>Legal Requirements:</strong> When required by law to disclose information to government or regulatory authorities.</li>
+        </ul>
+
+        <h2>5. Data Storage and Security</h2>
+        <p>We take reasonable steps to ensure your personal information is protected from loss, unauthorized access, modification, or disclosure. Your data is stored securely on encrypted digital platforms and internal Customer Relationship Management (CRM) systems utilized by Team Eric Wu and Ray White.</p>
+
+        <h2>6. Your Rights</h2>
+        <p>Under the Privacy Act 2020, you have the right to request access to the personal information we hold about you and to ask for it to be corrected if you believe it is inaccurate. If you wish to be removed from our mailing lists or marketing databases, you can opt-out at any time by contacting us.</p>
+
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions or concerns regarding this Privacy Policy, or if you wish to exercise your rights regarding your personal data, please contact us at:</p>
+        <p>
+            <strong>Team Eric Wu | Ray White</strong><br>
+            Email: <a href="mailto:eric.wu@raywhite.com">eric.wu@raywhite.com</a><br>
+            Phone: 021 586 868
+        </p>
+
+    </main>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MENU</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="eric-wu.html">Eric Wu</a></li>
+                    <li><a href="listings.html">Current Listings</a></li>
+                    <li><a href="sold.html">Sold</a></li>
+                    <li><a href="index.html#reviews">Reviews</a></li>
+                    <li><a href="faq.html">FAQ's</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>CONTACT US</h4>
+                <p><strong>Phone:</strong><br> 021 586 868</p>
+                <p style="margin-top: 15px;"><strong>Email:</strong><br> <a href="mailto:eric.wu@raywhite.com">eric.wu@raywhite.com</a></p>
+                <p style="margin-top: 15px;"><strong>Active Service Locations:</strong><br>
+                    East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>FOLLOW US</h4>
+                <div style="background: white; border-radius: 8px; overflow: hidden; height: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <div class="fb-page" 
+                         data-href="https://www.facebook.com/TeamEricRaywhite/" 
+                         data-tabs="timeline" 
+                         data-width="500" 
+                         data-height="300" 
+                         data-small-header="true" 
+                         data-adapt-container-width="true" 
+                         data-hide-cover="false" 
+                         data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-i      &copy; 2026 Team Eric Wu | Ray White. All Rights Reserved.
+        </div>
+    </footer>
+
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) { header.classList.add('scrolled'); } 
+            else { header.classList.remove('scrolled'); }
+        });
+        function openMenu() {
+            document.getElementById('main-nav').classList.add('open');
+            document.getElementById('nav-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            document.getElementById('main-nav').classList.remove('open');
+            document.getElementById('nav-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

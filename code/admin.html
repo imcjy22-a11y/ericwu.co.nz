@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>团队官网 管理后台</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;min-height:100vh;color:#1a1a1a}
+.header{background:#fff;border-bottom:1px solid #e8e8e5;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+.header-dot{width:10px;height:10px;background:#E24B4A;border-radius:50%}
+.header-title{font-size:15px;font-weight:600;flex:1}
+.api-status{font-size:12px;padding:4px 10px;border-radius:12px;white-space:nowrap}
+.api-status.ok{background:#e8f5e9;color:#2e7d32}
+.api-status.none{background:#fff3e0;color:#e65100}
+.api-toggle{font-size:12px;color:#888;cursor:pointer;padding:5px 10px;border:1px solid #e0e0e0;border-radius:6px;background:#f9f9f9}
+.api-toggle:hover{background:#f0f0f0}
+.api-bar{background:#fffbf0;border-bottom:1px solid #f0e8c8;padding:14px 24px;display:none;flex-direction:column;gap:10px}
+.api-bar.show{display:flex}
+.api-row{display:flex;gap:8px;align-items:center}
+.api-row label{font-size:12px;color:#888;white-space:nowrap;font-weight:500;width:130px;flex-shrink:0}
+.api-row input{flex:1;padding:7px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;font-family:monospace}
+.api-row input:focus{outline:none;border-color:#E24B4A}
+.api-row button{padding:7px 14px;background:#E24B4A;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-weight:500;white-space:nowrap}
+.api-note{font-size:12px;color:#888;padding:6px 0 0 138px;line-height:1.5}
+.tabs{background:#fff;border-bottom:1px solid #e8e8e5;padding:0 24px;display:flex}
+.tab{padding:13px 18px;font-size:13px;color:#888;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;font-weight:500}
+.tab.active{color:#E24B4A;border-bottom-color:#E24B4A}
+.tab:hover:not(.active){color:#444}
+.content{padding:20px 24px;max-width:860px;margin:0 auto}
+.card{background:#fff;border:1px solid #e8e8e5;border-radius:12px;padding:20px;margin-bottom:16px}
+.card-title{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px}
+.field{margin-bottom:13px}
+.lbl{display:block;font-size:12px;font-weight:500;color:#666;margin-bottom:5px}
+.lbl span{color:#aaa;font-weight:400}
+input[type=text],input[type=password],textarea,select{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:7px;font-size:13px;font-family:inherit;color:#1a1a1a;background:#fff;transition:border .15s;outline:none}
+input[type=text]:focus,textarea:focus,select:focus{border-color:#E24B4A;box-shadow:0 0 0 3px rgba(226,75,74,.08)}
+textarea{min-height:160px;resize:vertical;line-height:1.6}
+.input-row{display:flex;gap:8px}
+.input-row input{flex:1}
+.img-upload-area{border:2px dashed #ddd;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;position:relative;overflow:hidden}
+.img-upload-area:hover{border-color:#E24B4A;background:#fff8f8}
+.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:28px;margin-bottom:6px}
+.upload-text{font-size:13px;color:#888;line-height:1.6}
+.upload-text strong{color:#E24B4A}
+.img-preview{margin-top:12px;position:relative}
+.img-preview img{width:100%;max-height:180px;object-fit:cover;border-radius:8px;display:block}
+.img-remove{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.upload-prog{font-size:12px;margin-top:6px;display:none}
+.ai-box{background:#f0f7ff;border:1px solid #c8dff7;border-radius:10px;padding:16px;margin:16px 0;display:none}
+.ai-box-title{font-size:11px;font-weight:600;color:#1565c0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+.ai-field{margin-bottom:12px}
+.btn{padding:9px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-red{background:#E24B4A;color:#fff}.btn-red:hover{background:#c0392b}.btn-red:disabled{opacity:.5;cursor:not-allowed}
+.btn-blue{background:#1565c0;color:#fff}.btn-blue:hover{background:#0d47a1}.btn-blue:disabled{opacity:.5;cursor:not-allowed}
+.btn-green{background:#27ae60;color:#fff}.btn-green:hover{background:#229954}
+.btn-ghost{background:#f5f5f5;color:#555;border:1px solid #e0e0e0}.btn-ghost:hover{background:#ececec}
+.btn-danger{background:#fdecea;color:#c0392b;border:1px solid #f5c6c6;font-size:12px;padding:5px 11px}.btn-danger:hover{background:#fad7d5}
+.spin{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.list-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f0f0}
+.list-item:last-child{border-bottom:none}
+.list-thumb{width:60px;height:44px;object-fit:cover;border-radius:7px;background:#f0f0f0;flex-shrink:0}
+.list-info{flex:1;min-width:0}
+.list-title{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-meta{font-size:12px;color:#999;margin-top:2px}
+.list-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.list-link{font-size:12px;color:#1a73e8;text-decoration:none}.list-link:hover{text-decoration:underline}
+.badge{display:inline-block;background:#f0f0f0;color:#888;border-radius:10px;font-size:11px;padding:2px 8px;margin-left:6px}
+.empty{text-align:center;padding:36px;color:#bbb;font-size:13px}
+.preview{border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-top:14px}
+.preview-img{width:100%;height:180px;object-fit:cover;display:block;background:#f0f0f0}
+.preview-body{padding:14px}
+.preview-addr{font-size:15px;font-weight:600;margin-bottom:3px}
+.preview-sub{font-size:12px;color:#999;margin-bottom:10px}
+.preview-stats{display:flex;gap:16px;font-size:13px;color:#555;margin-bottom:8px}
+.preview-price{font-size:14px;font-weight:600;color:#E24B4A}
+.preview-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid #f0f0f0;background:#fafafa}
+.dup-warn{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:13px;color:#f57f17;margin-top:10px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px}
+.modal{background:#fff;border-radius:14px;padding:26px;width:100%;max-width:340px}
+.modal-title{font-size:16px;font-weight:600;margin-bottom:8px}
+.modal-body{font-size:13px;color:#666;line-height:1.6;margin-bottom:22px}
+.modal-btns{display:flex;gap:8px}
+.toast{position:fixed;bottom:24px;right:24px;padding:11px 18px;border-radius:9px;font-size:13px;font-weight:500;z-index:300;animation:ti .2s ease;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.toast.ok{background:#27ae60;color:#fff}
+.toast.err{background:#E24B4A;color:#fff}
+@keyframes ti{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.status-line{font-size:12px;color:#999;margin-top:8px;min-height:16px}
+.status-line.err{color:#E24B4A}
+.hint{font-size:12px;color:#aaa;margin-top:10px;padding:10px;background:#f9f9f9;border-radius:6px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-dot"></div>
+  <span class="header-title">团队官网 管理后台</span>
+  <span class="api-status none" id="api-badge">⚠ 未设置 API Key</span>
+  <button class="api-toggle" onclick="toggleApi()">⚙ API Key 设置</button>
+</div>
+
+<div class="api-bar" id="api-bar">
+  <div class="api-row">
+    <label>Gemini Key（免费）</label>
+    <input type="password" id="gemini-input" placeholder="AIza..." />
+    <button onclick="saveKeys()">保存</button>
+  </div>
+  <div class="api-note">📝 Blog AI 分析用 Gemini · 去 <strong>aistudio.google.com</strong> 免费获取</div>
+  <div class="api-row">
+    <label>Anthropic Key</label>
+    <input type="password" id="ant-input" placeholder="sk-ant-（可选，用于自动抓取 Ray White）" />
+  </div>
+  <div class="api-note">🏠 Ray White 自动读取需要此 Key，没有则手动管理 Listing</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('listings',this)">🏠 房源 Listings</button>
+  <button class="tab" onclick="switchTab('blog',this)">📝 Blog 文章</button>
+</div>
+
+<div class="content">
+
+  <!-- LISTINGS TAB -->
+  <div id="tab-listings">
+    <div class="card">
+      <div class="card-title">新增 Listing</div>
+      <div class="input-row">
+        <input type="text" id="rw-url" placeholder="粘贴 Ray White 链接..." />
+        <button class="btn btn-red" id="fetch-btn" onclick="fetchListing()">读取信息</button>
+      </div>
+      <div class="status-line" id="fetch-status"></div>
+      <div id="dup-warn" style="display:none" class="dup-warn">⚠ 该地址已存在于数据库，请检查是否重复！</div>
+      <div id="preview-area"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">当前 Listings <span class="badge" id="lc">0</span></div>
+      <div id="listings-list"><div class="empty">加载中...</div></div>
+    </div>
+  </div>
+
+  <!-- BLOG TAB -->
+  <div id="tab-blog" style="display:none">
+    <div class="card">
+      <div class="card-title">新增文章</div>
+      <div class="field">
+        <label class="lbl">标题 *</label>
+        <input type="text" id="b-title" placeholder="例：2026年奥克兰东区房市分析" />
+      </div>
+      <div class="field">
+        <label class="lbl">文章内容 *</label>
+        <textarea id="b-content" placeholder="在这里粘贴或输入完整文章内容..."></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">封面图片 <span>（可选，上传后永久保存）</span></label>
+        <div class="img-upload-area">
+          <input type="file" id="img-file" accept="image/jpeg,image/png,image/webp" onchange="handleImg(this)">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text">点击选择图片 / 拖拽到此处<br><strong>支持 JPG · PNG · WebP</strong></div>
+        </div>
+        <div class="upload-prog" id="upload-prog"></div>
+        <div id="img-preview"></div>
+      </div>
+      <button class="btn btn-blue" id="ai-btn" onclick="runAI()" style="margin-bottom:12px">
+        ✨ AI 分析 → 自动生成分类 / 摘要 / SEO 关键词
+      </button>
+      <div class="hint">填好标题和正文后点上方按钮，AI 自动分析，结果可编辑后发布。需要先设置 Gemini Key（免费）。</div>
+
+      <div class="ai-box" id="ai-box">
+        <div class="ai-box-title">✨ AI 分析结果（可直接编辑）</div>
+        <div class="ai-field">
+          <label class="lbl">文章分类</label>
+          <select id="b-category">
+            <option>Market Trends</option>
+            <option>Selling Tips</option>
+            <option>Buying Guide</option>
+            <option>Investment</option>
+            <option>Property Advice</option>
+            <option>Suburb Profiles</option>
+            <option>Infrastructure</option>
+          </select>
+        </div>
+        <div class="ai-field">
+          <label class="lbl">简介摘要 <span>（显示在 Blog 卡片上）</span></label>
+          <textarea id="b-summary" style="min-height:75px"></textarea>
+        </div>
+        <div class="ai-field">
+          <label class="lbl">SEO 关键词 <span>（逗号分隔）</span></label>
+          <input type="text" id="b-keywords">
+        </div>
+      </div>
+
+      <input type="hidden" id="b-img-url" value="">
+      <br>
+      <button class="btn btn-green" onclick="saveBlog()">✓ 发布文章</button>
+    </div>
+    <div class="card">
+      <div class="card-title">已发布文章 <span class="badge" id="bc">0</span></div>
+      <div id="blogs-list"><div class="empty">加载中...</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="overlay" id="modal" style="display:none">
+  <div class="modal">
+    <div class="modal-title">确认删除</div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-btns">
+      <button class="btn btn-danger" style="flex:1;padding:10px" onclick="doDelete()">确认删除</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">取消</button>
+    </div>
+  </div>
+</div>
+<div class="toast ok" id="toast" style="display:none"></div>
+
+<script>
+const SB   = 'https://lvdmqgyrgkzywoqvmjlh.supabase.co';
+const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzI4NjYsImV4cCI6MjA5MTI0ODg2Nn0.tvm_agT2XEwXPUyNQPoUxQSkn188b2ZryYC-p54n8Rc';
+const SVC  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTY3Mjg2NiwiZXhwIjoyMDkxMjQ4ODY2fQ.B_kljNNxLsqIzzZnWlrZc2zH3Kb5w0bTcDrDJ7pYagM';
+const SBH  = {'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON,'Prefer':'return=representation'};
+
+let previewData=null, delTarget=null, currentListings=[];
+
+// ── Keys ──────────────────────────────────────
+function getGemini(){return localStorage.getItem('gemini_key')||''}
+function getAnt(){return localStorage.getItem('ant_key')||''}
+
+function saveKeys(){
+  const g=document.getElementById('gemini-input').value.trim();
+  const a=document.getElementById('ant-input').value.trim();
+  if(g&&!g.startsWith('AIza')){toast('Gemini Key 格式不对，应以 AIza 开头','err');return}
+  if(a&&!a.startsWith('sk-ant-')){toast('Anthropic Key 格式不对，应以 sk-ant- 开头','err');return}
+  if(g)localStorage.setItem('gemini_key',g);
+  if(a)localStorage.setItem('ant_key',a);
+  updateBadge();
+  document.getElementById('api-bar').classList.remove('show');
+  toast('API Key 已保存 ✓');
+}
+
+function updateBadge(){
+  const b=document.getElementById('api-badge');
+  const g=getGemini(), a=getAnt();
+  if(g&&a){b.textContent='✓ Gemini + Anthropic';b.className='api-status ok'}
+  else if(g){b.textContent='✓ Gemini Key 已设置';b.className='api-status ok'}
+  else if(a){b.textContent='✓ Anthropic Key 已设置';b.className='api-status ok'}
+  else{b.textContent='⚠ 未设置 API Key';b.className='api-status none'}
+}
+
+function toggleApi(){
+  const bar=document.getElementById('api-bar');
+  if(bar.classList.toggle('show')){
+    document.getElementById('gemini-input').value=getGemini();
+    document.getElementById('ant-input').value=getAnt();
+  }
+}
+
+// ── Tabs ─────────────────────────────────────
+function switchTab(n,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-listings').style.display=n==='listings'?'':'none';
+  document.getElementById('tab-blog').style.display=n==='blog'?'':'none';
+}
+
+// ── Toast / Status ────────────────────────────
+function toast(msg,type='ok'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className='toast '+type;el.style.display='block';
+  clearTimeout(el._t);el._t=setTimeout(()=>el.style.display='none',3200);
+}
+function setStatus(msg,err=false){
+  const el=document.getElementById('fetch-status');
+  el.textContent=msg;el.className='status-line'+(err?' err':'');
+}
+
+// ── Supabase ──────────────────────────────────
+async function sbGet(t){const r=await fetch(SB+'/rest/v1/'+t+'?select=*&order=created_at.desc',{headers:SBH});return r.json()}
+async function sbPost(t,d){const r=await fetch(SB+'/rest/v1/'+t,{method:'POST',headers:SBH,body:JSON.stringify(d)});return r.json()}
+async function sbDel(t,id){await fetch(SB+'/rest/v1/'+t+'?id=eq.'+id,{method:'DELETE',headers:SBH})}
+
+// ── Image Upload ──────────────────────────────
+function handleImg(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    document.getElementById('img-preview').innerHTML=
+      '<div class="img-preview"><img src="'+e.target.result+'">'+
+      '<button class="img-remove" onclick="removeImg()">✕</button></div>';
+  };
+  reader.readAsDataURL(file);
+  uploadImg(file);
+}
+async function uploadImg(file){
+  const prog=document.getElementById('upload-prog');
+  prog.style.display='block';prog.style.color='#888';prog.textContent='上传中...';
+  try{
+    const ext=file.name.split('.').pop().toLowerCase()||'jpg';
+    const fname='blog-'+Date.now()+'.'+ext;
+    const r=await fetch(SB+'/storage/v1/object/blog-images/'+fname,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+SVC,'Content-Type':file.type},
+      body:file
+    });
+    if(!r.ok)throw new Error(await r.text());
+    document.getElementById('b-img-url').value=SB+'/storage/v1/object/public/blog-images/'+fname;
+    prog.textContent='✓ 上传成功';prog.style.color='#27ae60';
+    setTimeout(()=>prog.style.display='none',2000);
+  }catch(e){prog.textContent='上传失败';prog.style.color='#E24B4A';}
+}
+function removeImg(){
+  document.getElementById('img-preview').innerHTML='';
+  document.getElementById('img-file').value='';
+  document.getElementById('b-img-url').value='';
+  document.getElementById('upload-prog').style.display='none';
+}
+
+// ── Gemini API ────────────────────────────────
+async function callGemini(prompt){
+  const key=getGemini();
+  const r=await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+    {method:'POST',headers:{'Content-Type':'application/json'},
+     body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
+       generationConfig:{temperature:0.3,maxOutputTokens:4000}})}
+  );
+  const d=await r.json();
+  if(!d.candidates)throw new Error(JSON.stringify(d));
+  return d.candidates[0].content.parts[0].text;
+}
+
+// ── Gemini with Search (for Ray White fetch) ──
+async function callGeminiSearch(prompt){
+  const key=getGemini();
+  const r=await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+    {method:'POST',headers:{'Content-Type':'application/json'},
+     body:JSON.stringify({
+       tools:[{google_search:{}}],
+       contents:[{parts:[{text:prompt}]}],
+       generationConfig:{temperature:0.1,maxOutputTokens:1000}
+     })}
+  );
+  const d=await r.json();
+  if(!d.candidates)throw new Error(JSON.stringify(d));
+  return d.candidates[0].content.parts.map(p=>p.text||'').join('');
+}
+
+// ── Anthropic API ─────────────────────────────
+async function callAnt(prompt,useSearch=false){
+  const key=getAnt();
+  const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]};
+  if(useSearch)body.tools=[{type:'web_search_20250305',name:'web_search'}];
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify(body)
+  });
+  const d=await r.json();
+  if(!d.content)throw new Error(d.error?.message||'API error');
+  // handle tool loop
+  if(d.stop_reason==='tool_use'){
+    const msgs=[{role:'user',content:prompt},{role:'assistant',content:d.content}];
+    const res=d.content.filter(b=>b.type==='tool_use').map(b=>({type:'tool_result',tool_use_id:b.id,content:'done'}));
+    msgs.push({role:'user',content:res});
+    const r2=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({...body,messages:msgs})
+    });
+    const d2=await r2.json();
+    return d2.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+  }
+  return d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+}
+
+function extractJSON(txt){
+  const c=txt.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim();
+  const m=c.match(/\{[\s\S]*\}/);
+  if(!m)return null;
+  try{return JSON.parse(m[0])}catch{try{return JSON.parse(m[0].replace(/,\s*([}\]])/g,'$1'))}catch{return null}}
+}
+
+// ── AI Blog Analysis ──────────────────────────
+async function runAI(){
+  const title=document.getElementById('b-title').value.trim();
+  const content=document.getElementById('b-content').value.trim();
+  if(!title||!content){toast('请先填写标题和文章内容','err');return}
+
+  const hasGemini=!!getGemini(), hasAnt=!!getAnt();
+  if(!hasGemini&&!hasAnt){toast('请先设置 Gemini Key（点右上角 ⚙）','err');return}
+
+  const btn=document.getElementById('ai-btn');
+  btn.innerHTML='<span class="spin"></span> AI 分析中...';btn.disabled=true;
+
+  const prompt=`You are a real estate content analyst and formatter for an Auckland property team website. Analyze this blog post and return ONLY a raw JSON object with no markdown code fences, no explanation:
+{
+  "category": "one of exactly: Market Trends | Selling Tips | Buying Guide | Investment | Property Advice | Suburb Profiles | Infrastructure",
+  "summary": "2-3 sentence engaging English summary for the blog card, highlighting key insight for Auckland property buyers/sellers",
+  "keywords": "6-10 comma-separated SEO keywords targeting Auckland real estate searches",
+  "html_content": "The full article content converted to clean HTML. Use <p> for paragraphs, <h2> for major headings, <h3> for subheadings, <strong> for bold key terms, <ul><li> for bullet point lists, <blockquote> for pull quotes. Preserve all the original information but format it properly. Do not include <html>, <head>, <body> tags - just the inner content."
+}
+
+Title: ${title}
+Content: ${content.substring(0,3000)}`;
+
+  try{
+    let txt='';
+    if(hasGemini){txt=await callGemini(prompt)}
+    else{txt=await callAnt(prompt,false)}
+
+    const data=extractJSON(txt);
+    if(!data)throw new Error('无法解析AI结果，请重试');
+
+    const sel=document.getElementById('b-category');
+    for(let i=0;i<sel.options.length;i++){if(sel.options[i].value===data.category){sel.selectedIndex=i;break}}
+    document.getElementById('b-summary').value=data.summary||'';
+    document.getElementById('b-keywords').value=data.keywords||'';
+    if(data.html_content){document.getElementById('b-content').value=data.html_content;}
+    document.getElementById('ai-box').style.display='block';
+    toast('AI 分析完成！正文已转为 HTML 格式，请检查后发布');
+  }catch(e){toast('分析失败：'+e.message.substring(0,60),'err');}
+
+  btn.innerHTML='✨ AI 分析 → 自动生成分类 / 摘要 / SEO 关键词';btn.disabled=false;
+}
+
+// ── Save Blog ─────────────────────────────────
+async function saveBlog(){
+  const title=document.getElementById('b-title').value.trim();
+  const content=document.getElementById('b-content').value.trim();
+  if(!title||!content){toast('请填写标题和内容','err');return}
+  const aiShown=document.getElementById('ai-box').style.display!=='none';
+  if(!aiShown&&!confirm('还没有运行 AI 分析，确定直接发布吗？'))return;
+  try{
+    await sbPost('blogs',{
+      title,content,
+      summary:document.getElementById('b-summary').value.trim(),
+      category:document.getElementById('b-category').value||'Market Trends',
+      keywords:document.getElementById('b-keywords').value.trim(),
+      cover_image:document.getElementById('b-img-url').value||''
+    });
+    toast('文章已发布！');
+    ['b-title','b-content','b-summary','b-keywords'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('b-img-url').value='';
+    document.getElementById('ai-box').style.display='none';
+    removeImg();loadBlogs();
+  }catch(e){toast('发布失败，请重试','err');}
+}
+
+async function loadBlogs(){
+  try{
+    const data=await sbGet('blogs');
+    const list=Array.isArray(data)?data:[];
+    document.getElementById('bc').textContent=list.length;
+    const el=document.getElementById('blogs-list');
+    if(!list.length){el.innerHTML='<div class="empty">暂无文章</div>';return}
+    el.innerHTML=list.map(function(b){
+      return '<div class="list-item">'+
+        (b.cover_image?'<img class="list-thumb" src="'+b.cover_image+'" onerror="this.style.opacity=\'.3\'" />'
+          :'<div class="list-thumb"></div>')+
+        '<div class="list-info">'+
+        '<div class="list-title">'+(b.title||'无标题')+'</div>'+
+        '<div class="list-meta">'+(b.category||'')+' · '+new Date(b.created_at).toLocaleDateString('zh-CN')+'</div>'+
+        '</div>'+
+        '<div class="list-actions">'+
+        '<button class="btn btn-danger" onclick="askDel(\'blogs\',\''+b.id+'\',\''+
+          (b.title||'').replace(/'/g,"\\'")+'\')" >删除</button>'+
+        '</div></div>';
+    }).join('');
+  }catch(e){document.getElementById('blogs-list').innerHTML='<div class="empty">加载失败</div>';}
+}
+
+// ── Listings ──────────────────────────────────
+function normAddr(a){return(a||'').toLowerCase().replace(/\s+/g,' ').trim()}
+function isDup(addr){return currentListings.some(function(l){return normAddr(l.address)===normAddr(addr)})}
+
+async function fetchListing(){
+  const url=document.getElementById('rw-url').value.trim();
+  if(!url)return;
+  const hasGemini=!!getGemini(), hasAnt=!!getAnt();
+  if(!hasGemini&&!hasAnt){toast('请先设置 API Key（点右上角 ⚙）','err');return}
+
+  const btn=document.getElementById('fetch-btn');
+  btn.innerHTML='<span class="spin"></span>读取中...';btn.disabled=true;
+  document.getElementById('preview-area').innerHTML='';
+  document.getElementById('dup-warn').style.display='none';
+  setStatus('正在读取页面...');
+
+  const prompt='Go to this Ray White NZ listing URL and extract the property data: '+url+'\n\nReturn ONLY a raw JSON object with no markdown:\n{"address":"full street address","suburb":"suburb only","bedrooms":0,"bathrooms":0,"garages":0,"land_area":"000 m²","building_area":"000 m²","price":"price string","description":"first 250 chars of description","image_url":"first photo URL from cdn6.ep.dynamics.net","raywhite_url":"'+url+'"}\nUse 0 for unknown numbers, empty string for unknown text.';
+
+  try{
+    let txt='';
+    if(hasAnt){txt=await callAnt(prompt,true)}
+    else{txt=await callGeminiSearch(prompt)}
+
+    const data=extractJSON(txt);
+    if(!data||!data.address)throw new Error('无法解析房源信息，请重试');
+    previewData=Object.assign({},data,{raywhite_url:url});
+    if(isDup(previewData.address))document.getElementById('dup-warn').style.display='block';
+    showPreview(previewData);setStatus('');
+  }catch(e){setStatus('读取失败：'+e.message.substring(0,80),true);}
+  btn.innerHTML='读取信息';btn.disabled=false;
+}
+
+function showPreview(d){
+  document.getElementById('preview-area').innerHTML=
+    '<div class="preview">'+
+    (d.image_url?'<img class="preview-img" src="'+d.image_url+'" onerror="this.style.display=\'none\'" />':'')+
+    '<div class="preview-body">'+
+    '<div class="preview-addr">'+(d.address||'地址未识别')+'</div>'+
+    '<div class="preview-sub">'+(d.suburb||'')+
+      (d.land_area?' · 地 '+d.land_area:'')+
+      (d.building_area?' · 建 '+d.building_area:'')+'</div>'+
+    '<div class="preview-stats"><span>🛏 '+(d.bedrooms||0)+' 房</span><span>🚿 '+(d.bathrooms||0)+' 卫</span><span>🚗 '+(d.garages||0)+' 车位</span></div>'+
+    '<div class="preview-price">'+(d.price||'')+'</div>'+
+    '</div>'+
+    '<div class="preview-foot">'+
+    '<button class="btn btn-green" onclick="saveListing()">✓ 确认发布</button>'+
+    '<button class="btn btn-ghost" onclick="cancelPreview()">取消</button>'+
+    '</div></div>';
+}
+
+async function saveListing(){
+  if(!previewData)return;
+  await sbPost('listings',previewData);
+  toast('Listing 已发布！');
+  document.getElementById('rw-url').value='';
+  document.getElementById('preview-area').innerHTML='';
+  document.getElementById('dup-warn').style.display='none';
+  previewData=null;setStatus('');loadListings();
+}
+function cancelPreview(){
+  document.getElementById('preview-area').innerHTML='';
+  document.getElementById('rw-url').value='';
+  document.getElementById('dup-warn').style.display='none';
+  previewData=null;setStatus('');
+}
+
+async function loadListings(){
+  try{
+    const data=await sbGet('listings');
+    currentListings=Array.isArray(data)?data:[];
+    document.getElementById('lc').textContent=currentListings.length;
+    const el=document.getElementById('listings-list');
+    if(!currentListings.length){el.innerHTML='<div class="empty">暂无 Listing</div>';return}
+    el.innerHTML=currentListings.map(function(l){
+      return '<div class="list-item">'+
+        (l.image_url?'<img class="list-thumb" src="'+l.image_url+'" onerror="this.style.opacity=\'.3\'" />'
+          :'<div class="list-thumb"></div>')+
+        '<div class="list-info">'+
+        '<div class="list-title">'+(l.address||'无地址')+'</div>'+
+        '<div class="list-meta">'+(l.suburb||'')+' · '+(l.bedrooms||0)+'房 '+(l.bathrooms||0)+'卫 · '+(l.price||'')+'</div>'+
+        '</div>'+
+        '<div class="list-actions">'+
+        (l.raywhite_url?'<a class="list-link" href="'+l.raywhite_url+'" target="_blank" rel="noopener noreferrer" onclick="window.open(\''+l.raywhite_url+'\',\'_blank\');return false;">查看</a>':'')+
+        '<button class="btn btn-danger" onclick="askDel(\'listings\',\''+l.id+'\',\''+
+          (l.address||'').replace(/'/g,"\\'")+'\')">删除</button>'+
+        '</div></div>';
+    }).join('');
+  }catch(e){document.getElementById('listings-list').innerHTML='<div class="empty">加载失败</div>';}
+}
+
+// ── Delete ────────────────────────────────────
+function askDel(tbl,id,name){
+  delTarget={tbl,id,name};
+  document.getElementById('modal-body').textContent='确定要删除「'+name+'」吗？此操作无法撤销。';
+  document.getElementById('modal').style.display='flex';
+}
+async function doDelete(){
+  if(!delTarget)return;
+  await sbDel(delTarget.tbl,delTarget.id);
+  toast('已删除');closeModal();
+  if(delTarget.tbl==='listings')loadListings();else loadBlogs();
+}
+function closeModal(){delTarget=null;document.getElementById('modal').style.display='none'}
+
+updateBadge();loadListings();loadBlogs();
+</script>
+</body>
+</html>

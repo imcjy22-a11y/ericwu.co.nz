@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric Wu & Team Eric Wu – East Auckland Real Estate | Ray White Botany</title>
+    <meta name="description" content="Meet Eric Wu, East Auckland's leading real estate agent, and Team Eric Wu at Ray White Botany. Specialists in East Tāmaki, East Tāmaki Heights, Dannemora and Flat Bush. $300M+ in career sales.">
+    <meta name="keywords" content="Eric Wu, Team Eric Wu, East Tamaki real estate agent, East Tamaki Heights, Dannemora, Flat Bush, Ray White Botany, East Auckland real estate team">
+    <link rel="canonical" href="https://ericwu.co.nz/about.html" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Team Eric Wu",
+      "url": "https://ericwu.co.nz",
+      "image": "https://ericwu.co.nz/images/eric-profile.jpg",
+      "telephone": "021586868",
+      "email": "eric.wu@raywhite.com",
+      "description": "Team Eric Wu is East Auckland's premier real estate team at Ray White Botany, led by Eric Wu. Specialists in East Tāmaki, East Tāmaki Heights, Dannemora and Flat Bush with over $300M in career settled sales.",
+      "areaServed": [
+        {"@type": "Place", "name": "East Tāmaki"},
+        {"@type": "Place", "name": "East Tāmaki Heights"},
+        {"@type": "Place", "name": "Dannemora"},
+        {"@type": "Place", "name": "Flat Bush"},
+        {"@type": "Place", "name": "Northpark"},
+        {"@type": "Place", "name": "Botany Downs"},
+        {"@type": "Place", "name": "Pakuranga Heights"}
+      ],
+      "employee": [
+        {
+          "@type": "Person",
+          "name": "Eric Wu",
+          "jobTitle": "Team Leader – Elite Performer",
+          "telephone": "021586868",
+          "email": "eric.wu@raywhite.com",
+          "url": "https://ericwu.co.nz/eric-wu.html",
+          "image": "https://ericwu.co.nz/images/eric-profile.jpg",
+          "sameAs": "https://ericwu.co.nz/eric-wu.html"
+        },
+        {
+          "@type": "Person",
+          "name": "Joey Du",
+          "jobTitle": "Sales Specialist",
+          "telephone": "0210377747",
+          "email": "joey.du@raywhite.com"
+        },
+        {
+          "@type": "Person",
+          "name": "Jinny Lee",
+          "jobTitle": "Sales Specialist",
+          "telephone": "02108544830",
+          "email": "jinny.lee@raywhite.com"
+        },
+        {
+          "@type": "Person",
+          "name": "Puneet Garg",
+          "jobTitle": "Sales Specialist",
+          "telephone": "02041275151",
+          "email": "puneet.garg@raywhite.com"
+        }
+      ],
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Ray White Botany",
+        "url": "https://rwbotany.co.nz"
+      }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rw-yellow: #ffe500;
+            --deep-dark: #111111;
+            --footer-bg: #1a1a1a;
+            --text-gray: #b3b3b3;
+            --light-bg: #f8f9fa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; color: #333; line-height: 1.6; background: #fff; overflow-x: hidden; }
+
+        /* --- Header --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 2000; background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 13px; text-transform: uppercase; font-weight: 400; opacity: 0.8; transition: 0.3s; }
+        nav a:hover { opacity: 1; color: var(--rw-yellow); }
+        .btn-appraisal { background: var(--rw-yellow); color: #000; padding: 10px 22px; font-weight: 700; text-decoration: none; border-radius: 2px; font-size: 12px; transition: 0.3s; }
+        .btn-appraisal:hover { background: #fff; }
+        .nav-close { display: none; }
+
+        /* --- About Hero --- */
+        .about-hero {
+            padding: 180px 8% 80px 8%;
+            background-color: var(--light-bg);
+            background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--deep-dark);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .about-hero p {
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        /* --- Team Members --- */
+        .team-detail-section {
+            padding: 80px 5% 120px 5%;
+            background: #fff;
+        }
+        .member-row {
+            display: flex;
+            background: white;
+            margin: 0 auto 60px auto;
+            max-width: 1400px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid #eee;
+        }
+        .member-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-color: var(--rw-yellow);
+        }
+        .member-row.featured-leader {
+            background: var(--deep-dark);
+            color: #fff;
+            border: none;
+        }
+        .member-row.featured-leader .member-row-info h3 { color: #fff; }
+        .member-row.featured-leader .member-row-info p { color: #ccc; }
+        .member-row.featured-leader .contact-link { color: #fff; border-color: var(--rw-yellow); }
+
+        .member-row-img {
+            width: 400px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .member-row-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 3 / 4;
+            display: block;
+        }
+
+        .member-row-info {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .member-row-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        .tagline {
+            color: var(--rw-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            display: block;
+        }
+        .member-row-info p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .award-badge-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+        .award-badge-container img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .contact-box {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .contact-link {
+            font-weight: 700;
+            color: var(--deep-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-bottom: 2px solid var(--rw-yellow);
+            transition: 0.3s;
+        }
+        .contact-link:hover { color: var(--rw-yellow); border-color: transparent; }
+
+        /* Profile CTA link */
+        .profile-cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--rw-yellow);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,229,0,0.4);
+            padding-bottom: 2px;
+            transition: 0.3s;
+            align-self: flex-start;
+        }
+        .profile-cta-link:hover { border-color: var(--rw-yellow); opacity: 0.85; }
+
+        /* --- Footer --- */
+        footer { background: var(--footer-bg); color: white; padding: 80px 8% 40px 8%; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px; margin-bottom: 30px; }
+        .footer-col h4 { color: white; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { color: var(--text-gray); text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .footer-col a:hover { color: var(--rw-yellow); padding-left: 5px; }
+        .footer-col p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 10px; }
+        .footer-bottom { text-align: center; color: var(--text-gray); font-size: 0.8rem; }
+
+        @media (max-width: 992px) {
+            .member-row { flex-direction: column; }
+            .member-row-img { width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .about-hero h1 { font-size: 2.8rem; }
+        }
+
+        .hamburger { display: none; }
+
+        @media (max-width: 768px) {
+            header { padding: 14px 5%; }
+            header img { height: 48px !important; }
+            nav { display: none; }
+            .btn-appraisal { display: none; }
+
+            .hamburger {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 6px;
+                z-index: 3000;
+                line-height: 1;
+            }
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 1500;
+            }
+            .nav-overlay.open { display: block; }
+            nav {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: 72%;
+                max-width: 280px;
+                height: 100vh;
+                background: #0d0d0d;
+                border-left: 1px solid rgba(255,229,0,0.15);
+                z-index: 2500;
+                padding: 70px 35px 40px 35px;
+                transform: translateX(100%);
+                transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+                overflow-y: auto;
+                justify-content: flex-start;
+            }
+            nav.open { transform: translateX(0); }
+            nav a {
+                display: block;
+                margin: 0;
+                padding: 13px 0;
+                font-size: 0.78rem;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: rgba(255,255,255,0.65);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                transition: color 0.2s;
+            }
+            nav a:hover { color: white; }
+            nav a.active-page { color: var(--rw-yellow) !important; opacity: 1; }
+            nav a.nav-cta {
+                display: block;
+                margin-top: 28px;
+                padding: 13px 0;
+                background: var(--rw-yellow);
+                color: #000 !important;
+                text-align: center;
+                font-weight: 700;
+                border-radius: 2px;
+                border-bottom: none;
+                font-size: 0.78rem;
+                letter-spacing: 2px;
+            }
+            nav a.nav-cta:hover { background: white; }
+            .nav-close {
+                position: absolute;
+                top: 18px; right: 20px;
+                background: none;
+                border: none;
+                color: rgba(255,255,255,0.4);
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: color 0.2s;
+            }
+            .nav-close:hover { color: white; }
+            .nav-close::before { content: '✕'; font-size: 0.75rem; }
+
+            .about-hero { padding: 95px 6% 50px 6%; }
+            .about-hero h1 { font-size: 1.55rem; letter-spacing: 0; line-height: 1.3; }
+            .about-hero p { font-size: 0.88rem; }
+            .member-row-info { padding: 24px 16px 28px 16px; }
+            .member-row-info h3 { font-size: 1.65rem; }
+            .member-row-info p { text-align: left; font-size: 0.9rem; }
+            .award-badge-container img { height: 40px; }
+            .contact-box { flex-direction: column; gap: 11px; align-items: flex-start; }
+            footer { padding: 55px 6% 30px 6%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v25.0&appId=APP_ID"></script>
+
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+    <header id="main-header">
+        <a href="index.html" style="display:flex;align-items:center;text-decoration:none">
+            <img src="images/logo.png" alt="Team Eric Wu Logo" style="height:100px;width:auto;object-fit:contain">
+        </a>
+        <nav id="main-nav">
+            <button class="nav-close" onclick="closeMenu()">Close</button>
+            <a href="index.html" onclick="closeMenu()">Home</a>
+            <a href="about.html" onclick="closeMenu()" class="active-page" style="color:var(--rw-yellow)">About Us</a>
+            <a href="listings.html" onclick="closeMenu()">Listings</a>
+            <a href="sold.html" onclick="closeMenu()">Recent Sold</a>
+            <a href="review.html" onclick="closeMenu()">Reviews</a>
+            <a href="faq.html" onclick="closeMenu()">FAQ's</a>
+            <a href="blog.html" onclick="closeMenu()">Blog</a>
+            <a href="contact.html" onclick="closeMenu()" class="nav-cta">Free Appraisal</a>
+        </nav>
+        <a href="contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+        <button class="hamburger" id="hamburger" onclick="openMenu()" aria-label="Open menu">&#9783;</button>
+    </header>
+
+    <section class="about-hero">
+        <h1>East Auckland's Premier Real Estate Team</h1>
+        <!-- CHANGE: Added "Northpark" to the suburb list -->
+        <p>Led by <strong>Eric Wu</strong> — East Auckland's recognised real estate authority — Team Eric Wu at Ray White Botany has built an unrivalled reputation for elite results across <strong>East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Northpark</strong> and surrounding suburbs. Over $300M in settled sales. 18+ years of consistent excellence.</p>
+    </section>
+
+    <section class="team-detail-section">
+
+        <!-- ── ERIC WU ── -->
+        <div class="member-row featured-leader">
+            <div class="member-row-img">
+                <img src="images/eric-profile.jpg" alt="Eric Wu – East Auckland Real Estate Agent, Team Leader at Ray White Botany">
+            </div>
+            <div class="member-row-info">
+                <h3>Eric Wu</h3>
+                <span class="tagline">Team Leader · Elite Sales Professional · East Auckland Specialist</span>
+
+                <p>With over <strong>18 years of consistent high-level performance</strong> and a <strong>$300M+ career sales milestone</strong>, Eric Wu is the recognised authority in the East Auckland property market. As the founder and leader of Team Eric Wu at Ray White Botany, Eric has successfully managed <strong>500+ property transactions</strong> across <strong>East Tāmaki, East Tāmaki Heights, Dannemora</strong> and <strong>Flat Bush</strong> — delivering elite-level results for vendors and buyers alike.</p>
+
+                <p>Eric's defining strength is his <strong>hyper-local mastery</strong> of East Auckland's most sought-after suburbs. From the tightly held brick-and-tile enclaves of <strong>East Tāmaki</strong> to the premium school-zone streets of <strong>Dannemora</strong>, and the master-planned communities of <strong>Flat Bush</strong> and <strong>East Tāmaki Heights</strong> — his depth of local intelligence is unmatched. This expertise, combined with elite marketing standards and relentless negotiation, consistently delivers premium outcomes in any market condition.</p>
+
+                <p>Whether handling a landmark <strong>$10.8M prestige sale on St Heliers Bay Road</strong> or a high-demand $1.5M family residence in <strong>East Tāmaki Heights</strong>, Eric applies the same rigorous campaign strategy and personalised service to every client.</p>
+
+                <div class="award-badge-container">
+                    <img src="images/award-eric.png" alt="Ray White Elite Performer Award – Eric Wu">
+                    <img src="images/award-everyone.jpg" alt="Ray White Team Award Badge">
+                </div>
+
+                <div class="contact-box">
+                    <a href="tel:021586868" class="contact-link">021 586 868</a>
+                    <a href="mailto:eric.wu@raywhite.com" style="color:white;text-decoration:none;font-weight:700;font-size:0.85rem">eric.wu@raywhite.com</a>
+                </div>
+                <a href="eric-wu.html" class="profile-cta-link">
+                    View Eric Wu's Full Profile &amp; East Auckland Specialist Page →
+                </a>
+            </div>
+        </div>
+
+        <!-- ── JOEY DU ── -->
+        <div class="member-row">
+            <div class="member-row-img">
+                <img src="images/joey-profile.jpg" alt="Joey Du – Sales Specialist, Team Eric Wu Ray White Botany">
+            </div>
+            <div class="member-row-info">
+                <h3>Joey Du</h3>
+                <span class="tagline">Sales Specialist · Multi-Lingual Expert · 15+ Years Experience</span>
+                <p>Fluent in <strong>Mandarin, Cantonese and English</strong>, Joey Du has been a trusted member of the New Zealand community since 2002. Before joining real estate, Joey built and ran her own successful business in Dubai's heavy machinery sector — an experience that sharpened her negotiation instincts and gave her a formidable results-driven mindset that she now brings to every property campaign.</p>
+                <p>Joey is committed to providing <strong>honest, reliable advice</strong> throughout every step of the buying or selling journey. Her multilingual capability makes her especially valuable for local and overseas clients navigating East Auckland's diverse property market. When she's not helping clients achieve their property goals, Joey enjoys travelling, the outdoors, and renovating her own home.</p>
+
+                <div class="award-badge-container">
+                    <img src="images/award-everyone.jpg" alt="Team Eric Wu Ray White Award Badge">
+                </div>
+                <div class="contact-box">
+                    <a href="tel:0210377747" class="contact-link">021 037 7747</a>
+                    <a href="mailto:joey.du@raywhite.com" class="contact-link">joey.du@raywhite.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── JINNY LEE ── -->
+        <div class="member-row">
+            <div class="member-row-img">
+                <img src="images/jinny-profile.jpg" alt="Jinny Lee – Sales Specialist, Team Eric Wu Ray White Botany">
+            </div>
+            <div class="member-row-info">
+                <h3>Jinny Lee</h3>
+                <span class="tagline">Sales Specialist · IT &amp; Strategy Background · Trilingual</span>
+                <p>Born and raised in Singapore, Jinny Lee brings a sophisticated, <strong>detail-oriented approach</strong> rooted in her extensive experience across Sales and Information Technology. Fluent in <strong>English, Mandarin and Cantonese</strong>, Jinny's technical precision and strategic problem-solving skills translate directly into effective property campaigns — from data analysis to resolving complex client concerns swiftly and ethically.</p>
+                <p>Jinny's optimistic personality and genuine commitment to <strong>understanding each client's unique needs</strong> give vendors and buyers the confidence that their best interests are always the priority. She stays constantly current on East Auckland market trends and continually hones her negotiation skills to deliver the best possible outcomes.</p>
+
+                <div class="award-badge-container">
+                    <img src="images/award-everyone.jpg" alt="Team Eric Wu Ray White Award Badge">
+                </div>
+                <div class="contact-box">
+                    <a href="tel:02108544830" class="contact-link">021 085 44830</a>
+                    <a href="mailto:jinny.lee@raywhite.com" class="contact-link">jinny.lee@raywhite.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PUNEET GARG ── -->
+        <div class="member-row">
+            <div class="member-row-img">
+                <img src="images/puneet-profile.jpg" alt="Puneet Garg – Sales Specialist, Team Eric Wu Ray White Botany">
+            </div>
+            <div class="member-row-info">
+                <h3>Puneet Garg</h3>
+                <span class="tagline">Sales Specialist · MBA International Business · Flat Bush Expert</span>
+                <p>Armed with an <strong>MBA in International Business</strong> and a background in global marketing, Puneet Garg brings genuine analytical depth to every property campaign. Since relocating to New Zealand, Puneet has developed an intimate understanding of <strong>Flat Bush</strong> and the surrounding East Auckland market — including the suburb's top-rated school zones, parks, shopping precincts and diverse buyer profile.</p>
+                <p>Puneet's approach is centred on <strong>listening carefully, crafting tailored strategies</strong> and providing unwavering support throughout every stage of the buying or selling process. Whether you are a first-home buyer, a seasoned investor, or a vendor ready to make your next move, Puneet is dedicated to delivering a personalised experience that meets your goals and exceeds your expectations.</p>
+
+                <div class="award-badge-container">
+                    <img src="images/award-everyone.jpg" alt="Team Eric Wu Ray White Award Badge">
+                </div>
+                <div class="contact-box">
+                    <a href="tel:02041275151" class="contact-link">020 4127 5151</a>
+                    <a href="mailto:puneet.garg@raywhite.com" class="contact-link">puneet.garg@raywhite.com</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MENU</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="eric-wu.html">Eric Wu</a></li>
+                    <li><a href="listings.html">Current Listings</a></li>
+                    <li><a href="sold.html">Recent Sold</a></li>
+                    <li><a href="review.html">Reviews</a></li>
+                    <li><a href="faq.html">FAQ's</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACT US</h4>
+                <p><strong>Phone:</strong><br>021 586 868</p>
+                <p style="margin-top:15px"><strong>Email:</strong><br><a href="mailto:eric.wu@raywhite.com" style="color:white;text-decoration:none">eric.wu@raywhite.com</a></p>
+                <p style="margin-top:15px"><strong>Active Service Locations:</strong><br>
+                East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.</p>
+            </div>
+            <div class="footer-col">
+                <h4>FOLLOW US</h4>
+                <div style="background:white;border-radius:8px;overflow:hidden;height:300px;box-shadow:0 5px 15px rgba(0,0,0,0.2)">
+                    <div class="fb-page"
+                         data-href="https://www.facebook.com/TeamEricRaywhite/"
+                         data-tabs="timeline"
+                         data-width="500"
+                         data-height="300"
+                         data-small-header="true"
+                         data-adapt-container-width="true"
+                         data-hide-cover="false"
+                         data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-ignore">
+                            <a href="https://www.facebook.com/TeamEricRaywhite/">TeamEric</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Team Eric Wu | Ray White Elite. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        function openMenu() {
+            document.getElementById('main-nav').classList.add('open');
+            document.getElementById('nav-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            document.getElementById('main-nav').classList.remove('open');
+            document.getElementById('nav-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

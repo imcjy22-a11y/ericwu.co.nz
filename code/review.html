@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Reviews | Team Eric Wu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 基础变量与重置 --- */
+        :root {
+            --rw-yellow: #ffe500;
+            --deep-dark: #111111;
+            --footer-bg: #1a1a1a;
+            --text-gray: #b3b3b3;
+            --light-bg: #f8f9fa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; color: #333; line-height: 1.6; background: #fff; overflow-x: hidden; }
+
+        /* --- 导航栏 --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 2000; background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 13px; text-transform: uppercase; font-weight: 400; opacity: 0.8; transition: 0.3s; }
+        nav a:hover, nav a.active { opacity: 1; color: var(--rw-yellow); }
+        .btn-appraisal { background: var(--rw-yellow); color: #000; padding: 10px 22px; font-weight: 700; text-decoration: none; border-radius: 2px; font-size: 12px; transition: 0.3s;}
+        .btn-appraisal:hover { background: #fff; }
+
+/* 👇 把这三行加在这里 👇 */
+.nav-close {
+    display: none;
+}
+
+
+        /* --- 页面顶部 Banner (优化点2：深色背景区分层次) --- */
+        .reviews-hero { padding: 180px 8% 80px 8%; text-align: center; background: var(--deep-dark); color: white; }
+        .reviews-hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; margin-bottom: 15px; }
+        .reviews-hero p { color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* --- 1. 客户故事纯粹瀑布流 (优化点1：加入底部渐隐) --- */
+        .photo-gallery-section { padding: 60px 5% 40px 5%; background: white; max-width: 1600px; margin: 0 auto;}
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; color: var(--deep-dark); text-align: center; }
+        .section-subtitle { text-align: center; color: #666; margin-bottom: 50px; font-size: 1.1rem; }
+        
+        .masonry-wrapper {
+            position: relative;
+            max-height: 750px; /* 限制视窗高度，制造不规则底部的假象 */
+            overflow: hidden;
+        }
+        /* 魔法遮罩：底部白色渐变融入 */
+        .masonry-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 95%);
+            pointer-events: none; /* 让鼠标可以穿透遮罩点击图片 */
+        }
+
+        .masonry-gallery {
+            column-count: 4;
+            column-gap: 20px;
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #eee;
+        }
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .masonry-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 1200px) { .masonry-gallery { column-count: 3; } }
+        @media (max-width: 768px) { .masonry-gallery { column-count: 2; } }
+        @media (max-width: 480px) { .masonry-gallery { column-count: 1; } }
+
+        /* --- 2. RateMyAgent 信任背书模块 (优化点3：黑金宽幅重构) --- */
+        .trust-badge-section { text-align: center; padding: 40px 5% 40px 5%; background: var(--light-bg); border-top: 1px solid #eee; }
+        .trust-badge-wrapper { 
+            background: var(--deep-dark); 
+            padding: 40px 60px; 
+            border-radius: 8px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px; /* 拉宽与下方卡片对齐 */
+            width: 100%; 
+            margin: 0 auto;
+            border-top: 5px solid var(--rw-yellow); 
+            transform: translateY(-20px);
+            text-align: left;
+        }
+        .trust-left { flex: 0 0 auto; margin-right: 50px; text-align: center; }
+        .trust-right { flex: 1; }
+        
+        .trust-score { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 700; color: white; line-height: 1; margin-bottom: 5px; }
+        .trust-stars { color: #fbbc04; font-size: 1.8rem; letter-spacing: 5px; }
+        .trust-logo { font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #ccc; margin-bottom: 20px; }
+        .trust-logo strong { color: white; font-weight: 700; }
+        .trust-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .trust-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* --- 3. 评价卡片网格墙 --- */
+        .reviews-grid-section { padding: 0 5% 120px 5%; background: var(--light-bg); }
+        .reviews-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+            gap: 30px; 
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* 优化点4：固定高度 + 内部优雅滚动 */
+        .review-card { 
+            background: white; padding: 40px; border-radius: 8px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.4s;
+            position: relative; border-top: 4px solid var(--deep-dark); 
+            display: flex;
+            flex-direction: column;
+            height: 420px; /* 强制所有卡片绝对一样高 */
+        }
+        .review-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-top-color: var(--rw-yellow); }
+
+        .user-info { display: flex; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; font-weight: bold; background: var(--deep-dark); color: var(--rw-yellow); display:flex; align-items:center; justify-content:center; font-size: 1.2rem; font-family: 'Playfair Display', serif;}
+        
+        .stars { color: #fbbc04; margin-bottom: 15px; letter-spacing: 2px; flex-shrink: 0;}
+        .review-title { margin-bottom: 10px; font-weight: 600; color: var(--deep-dark); font-size: 1.1rem; flex-shrink: 0; }
+        
+        /* 评论滚动区 */
+        .review-text-container {
+            flex-grow: 1;
+            overflow-y: auto; /* 超出则显示滚动条 */
+            padding-right: 15px; /* 给滚动条留出呼吸空间 */
+            margin-right: -5px;
+        }
+        .review-text { font-size: 0.95rem; font-style: italic; color: #444; line-height: 1.8;}
+
+        /* 定制 Webkit 滚动条样式，保持高级感 */
+        .review-text-container::-webkit-scrollbar { width: 5px; }
+        .review-text-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .review-text-container::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+        .review-text-container::-webkit-scrollbar-thumb:hover { background: var(--rw-yellow); }
+
+
+        /* --- Footer --- */
+        footer { background: var(--footer-bg); color: white; padding: 80px 8% 40px 8%; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px; margin-bottom: 30px;}
+        .footer-col h4 { color: white; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem;}
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { color: var(--text-gray); text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .footer-col a:hover { color: var(--rw-yellow); padding-left: 5px; }
+        .footer-col p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 10px; }
+        .footer-bottom { text-align: center; color: var(--text-gray); font-size: 0.8rem; }
+
+        .hamburger { display: none; }
+
+        @media (max-width: 992px) {
+            .trust-badge-wrapper { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .trust-left { margin-right: 0; margin-bottom: 20px; }
+            .trust-tags { justify-content: center; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 14px 5%; }
+            header img { height: 48px !important; }
+            nav { display: none; }
+            .btn-appraisal { display: none; }
+
+            .hamburger {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 6px;
+                z-index: 3000;
+                line-height: 1;
+            }
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 1500;
+            }
+            .nav-overlay.open { display: block; }
+            nav {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: 72%;
+                max-width: 280px;
+                height: 100vh;
+                background: #0d0d0d;
+                border-left: 1px solid rgba(255,229,0,0.15);
+                z-index: 2500;
+                padding: 70px 35px 40px 35px;
+                transform: translateX(100%);
+                transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+                overflow-y: auto;
+                justify-content: flex-start;
+            }
+            nav.open { transform: translateX(0); }
+            nav a {
+                display: block;
+                margin: 0;
+                padding: 13px 0;
+                font-size: 0.78rem;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: rgba(255,255,255,0.65);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                transition: color 0.2s;
+            }
+            nav a:hover { color: white; }
+            nav a.active-page { color: var(--rw-yellow) !important; opacity: 1; }
+            nav a.nav-cta {
+                display: block;
+                margin-top: 28px;
+                padding: 13px 0;
+                background: var(--rw-yellow);
+                color: #000 !important;
+                text-align: center;
+                font-weight: 700;
+                border-radius: 2px;
+                border-bottom: none;
+                font-size: 0.78rem;
+                letter-spacing: 2px;
+            }
+            nav a.nav-cta:hover { background: white; }
+            .nav-close {
+                position: absolute;
+                top: 18px; right: 20px;
+                background: none;
+                border: none;
+                color: rgba(255,255,255,0.4);
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: color 0.2s;
+            }
+            .nav-close:hover { color: white; }
+            .nav-close::before { content: '✕'; font-size: 0.75rem; }
+
+            /* Hero */
+            .reviews-hero { padding: 95px 5% 50px 5%; }
+            .reviews-hero h1 { font-size: 2rem; }
+            .reviews-hero p { font-size: 0.9rem; }
+
+            /* Gallery: horizontal scroll strip on mobile */
+            .masonry-wrapper {
+                max-height: none;
+                overflow: visible;
+            }
+            .masonry-wrapper::after { display: none; }
+            .masonry-gallery {
+                column-count: unset;
+                display: flex;
+                overflow-x: auto;
+                gap: 10px;
+                padding-bottom: 10px;
+                scrollbar-width: none;
+            }
+            .masonry-gallery::-webkit-scrollbar { display: none; }
+            .masonry-item {
+                flex: 0 0 140px;
+                height: 140px;
+                margin-bottom: 0;
+                border-radius: 8px;
+            }
+            .masonry-item img {
+                width: 140px;
+                height: 140px;
+                object-fit: cover;
+            }
+
+            /* Trust badge */
+            .trust-badge-wrapper { flex-direction: column; padding: 25px 18px; text-align: center; }
+            .trust-left { margin-right: 0; margin-bottom: 20px; }
+            .trust-score { font-size: 3.5rem; }
+            .trust-stars { font-size: 1.3rem; }
+            .trust-logo { font-size: 0.85rem; }
+            .trust-tags { justify-content: center; }
+            .trust-tag { font-size: 0.7rem; padding: 6px 12px; }
+
+            /* Review cards */
+            .reviews-grid { grid-template-columns: 1fr; }
+            .review-card { height: auto; padding: 25px; }
+            .review-text { font-size: 0.88rem; }
+            .review-title { font-size: 0.95rem; }
+
+            /* Footer */
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            footer { padding: 55px 6% 30px 6%; }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v25.0&appId=APP_ID"></script>
+
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+    <header id="main-header">
+        <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="images/logo.png" alt="Team Eric Wu Logo" style="height: 100px; width: auto; object-fit: contain;">
+        </a>
+        <nav id="main-nav">
+            <button class="nav-close" onclick="closeMenu()">Close</button>
+            <a href="index.html"  onclick="closeMenu()">Home</a>
+            <a href="about.html"  onclick="closeMenu()">About Us</a>
+            <a href="listings.html"  onclick="closeMenu()">Listings</a>
+            <a href="sold.html"   onclick="closeMenu()">Recent Sold</a>
+            <a href="review.html" onclick="closeMenu()" class="active-page" style="color: var(--rw-yellow);">Reviews</a>
+            <a href="faq.html"    onclick="closeMenu()">FAQ's</a>
+            <a href="blog.html"   onclick="closeMenu()">Blog</a>
+            <a href="contact.html" onclick="closeMenu()" class="nav-cta">Free Appraisal</a>
+        </nav>
+        <a href="contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+        <button class="hamburger" id="hamburger" onclick="openMenu()" aria-label="Open menu">&#9783;</button>
+    </header>
+
+    <section class="reviews-hero">
+        <h1>What Our Clients Say</h1>
+        <p>Real results and genuine experiences from our valued clients across East Auckland. Your success is our ultimate measure of excellence.</p>
+    </section>
+
+    <section class="photo-gallery-section">
+        <h2 class="section-title">Celebrating Success</h2>
+        <p class="section-subtitle">A collection of happy moments and successful campaigns.</p>
+        
+        <div class="masonry-wrapper">
+            <div class="masonry-gallery">
+                <div class="masonry-item"><img src="images/happy-customer-1.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-2.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-3.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-4.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-5.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-6.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-7.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-8.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-9.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-10.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-11.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-12.jpg" alt="Happy Client"></div>
+                <div class="masonry-item"><img src="images/happy-customer-13.jpg" alt="Happy Client"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-badge-section">
+        <div class="trust-badge-wrapper">
+            <div class="trust-left">
+                <div class="trust-score">5.0</div>
+                <div class="trust-stars">★★★★★</div>
+            </div>
+            <div class="trust-right">
+                <div class="trust-logo">Client-verified qualities, independently rated on <strong><a href="https://www.ratemyagent.co.nz/real-estate-agent/eric-wu" target="_blank" rel="noopener" style="color:inherit;">RateMyAgent</a></strong></div>
+                <div class="trust-tags">
+                    <span class="trust-tag">Honest</span>
+                    <span class="trust-tag">Reliable</span>
+                    <span class="trust-tag">Hard-working</span>
+                    <span class="trust-tag">Local Expert</span>
+                    <span class="trust-tag">Supportive</span>
+                    <span class="trust-tag">Clear Communication</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-grid-section">
+        <div class="reviews-grid">
+            
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">B</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Ben</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Kilkenny Dr, Dannemora</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Exceptional Service and Outstanding Results</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Ben described working with Team Eric Wu from Ray White Botany as an excellent experience from start to finish. He highlighted the team's deep local market knowledge and transparent communication style, noting that their calm, strategic approach to marketing and negotiation delivered a result he was genuinely proud of.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">J</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Jason</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Srah Pl, East Tamaki</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Best in the Business</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Jason said he always felt Team Eric Wu had his best interests at heart when selling his East Tamaki property. He praised their calm, reassuring manner and ability to resolve any issues efficiently — an experience that left him so impressed with the Ray White brand that he is now seeking his next purchase through them.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">S</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Seller</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Matarangi Rd, East Tamaki</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Well done Eric</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">This East Tamaki vendor chose Eric and Joey to sell their home and described it as the best decision they made. The property sold at auction within three weeks of listing, achieving a result that fully satisfied both owners — a success they credited to an outstanding strategic pricing and marketing plan.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">C</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Ching-peng</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Beechdale Cres, Pakuranga</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Best service of the best</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Ching-peng gave Team Eric Wu her strongest possible endorsement after selling her Pakuranga Heights property, awarding a perfect five stars and describing the team as the best sales team she could have chosen.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">J</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Johannes</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Armoy Dr, East Tamaki</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Experienced and trustworthy</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Johannes praised the team's practical pre-market support, including expert advice on interior painting, presentation and landscaping. He noted that Team Eric Wu kept him fully informed at every stage and described the overall East Tamaki selling experience as simple, stress-free and professionally managed.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">S</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Seller</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Platina St, Remuera</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Eric Wu is the best</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">This Remuera seller praised Eric for his exceptional professionalism, efficiency and genuine passion for his work — describing him as one of the most dedicated and personable real estate professionals they had encountered.</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="user-info">
+                    <div class="avatar">R</div>
+                    <div>
+                        <h4 style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Rajiv & Jocelyn</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Buyer | Ainwick Rd, Flat Bush</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Fantastic Eric!</h5>
+                <div class="review-text-container">                    <p class="review-text" itemprop="reviewBody">As first-home buyers in Flat Bush, Rajiv and Jocelyn found Eric's patient and supportive guidance invaluable. His calm, genuine approach — answering every question thoroughly and guiding them through each step without pressure — turned what could have been an overwhelming process into a smooth and memorable milestone.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">P</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Phil</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Ainwick Rd, Flat Bush</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Outstanding</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Phil and Christine chose the team after their presentation addressed every concern upfront. Throughout the campaign they received consistent open home feedback, proactive communication and expert handling of a post-inspection obstacle. Their Flat Bush property sold at auction, with Phil crediting the team's auction strategy as critical to securing a price they were comfortable with.</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="user-info">
+                    <div class="avatar">W</div>
+                    <div>
+                        <h4 style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Weixiong</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Farmdale Ct, Flat Bush</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Professional and reliable</h5>
+                <div class="review-text-container">                    <p class="review-text" itemprop="reviewBody">Weixiong described Team Eric as professional and genuinely helpful throughout the sale of his Flat Bush property. He particularly valued the team's proactive, consistent communication, noting he was kept fully informed at every stage from listing through to settlement.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">J</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Jennifer</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Currell Way, Somerville</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Dedication and Professional</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Jennifer noted that Eric's genuine understanding of market positioning — combined with his hands-on, client-first approach — resulted in a fantastic Somerville sale outcome. She described communication as outstanding from the very first meeting through to a successful settlement.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">D</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Dean & Jo</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Dunoon Close, Flat Bush</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">Pleasant, professional, diligent</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Dean and Jo particularly valued the team's practical hands-on support: Eric co-ordinated all tradespeople required to prepare their Flat Bush property for sale, removing considerable stress before listing. Combined with thorough market knowledge and a warm communication style, they felt fully confident in the marketing plan and timeline throughout.</p>
+                </div>
+            </div>
+
+            <div class="review-card" itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="Team Eric Wu – Ray White Botany">
+                <meta itemprop="reviewRating" content="5">
+                <div class="user-info">
+                    <div class="avatar">A</div>
+                    <div>
+                        <h4 itemprop="author" style="font-family: 'Playfair Display', serif; color: var(--deep-dark); margin-bottom: 2px;">Adam</h4>
+                        <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Seller | Magic Way, Randwick Park</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <h5 class="review-title">A Dream Team for Selling Your Home</h5>
+                <div class="review-text-container">
+                    <p class="review-text" itemprop="reviewBody">Adam described selling with Eric Wu and Jinny Lee as an outstanding experience that exceeded all his expectations. Their market expertise, personalised approach and results-driven communication delivered a sale at the desired asking price — a result Adam attributed entirely to the team's dedication and professionalism.</p>
+                </div>
+            </div>
+
+        </div>
+        <p style="text-align:center; margin-top: 40px; font-size: 0.8rem; color: #999;">
+                Client feedback independently verified via <a href="https://www.ratemyagent.co.nz/real-estate-agent/eric-wu" target="_blank" rel="noopener" style="color:#666; text-decoration:underline;">RateMyAgent</a>. Summaries reflect reviewer sentiments; original reviews available on RateMyAgent.
+            </p>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MENU</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="eric-wu.html">Eric Wu</a></li>
+                    <li><a href="listings.html">Current Listings</a></li>
+                    <li><a href="index.html#home">Sold</a></li>
+                    <li><a href="review.html">Reviews</a></li>
+                    <li><a href="faq.html">Faq's</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACT US</h4>
+                <p><strong>Phone:</strong><br> 021 586 868 </p>
+                <p style="margin-top: 15px;"><strong>Email:</strong><br> <a href="mailto:eric.wu@raywhite.com" style="color: white; text-decoration: none;">eric.wu@raywhite.com</a></p>
+                <p style="margin-top: 15px;"><strong>Active Service Locations:</strong><br>
+                    East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.</p>
+            </div>
+            <div class="footer-col">
+                <h4>FOLLOW US</h4>
+                <div style="background: white; border-radius: 8px; overflow: hidden; height: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <div class="fb-page" 
+                         data-href="https://www.facebook.com/TeamEricRaywhite/" 
+                         data-tabs="timeline" 
+                         data-width="500" 
+                         data-height="300" 
+                         data-small-header="true" 
+                         data-adapt-container-width="true" 
+        "https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-ignore">
+                            <a href="https://www.facebook.com/TeamEricRaywhite/">TeamEric</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-
+        <div class="footer-bottom">
+            &copy; 2026 Team Eric Wu | Ray White Elite. All Rights Reserved.
+        </div>
+    </footer>
+
+    
+    <script>
+        function openMenu() {
+            document.getElementById('main-nav').classList.add('open');
+            document.getElementById('nav-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            document.getElementById('main-nav').classList.remove('open');
+            document.getElementById('nav-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

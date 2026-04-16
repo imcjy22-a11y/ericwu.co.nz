@@ -1,0 +1,27 @@
+# robots.txt for ericwu.co.nz
+# Allow all search engines and AI crawlers full access
+
+User-agent: *
+Allow: /
+
+# AI crawlers – explicitly permitted for GEO optimisation
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://ericwu.co.nz/sitemap.xml

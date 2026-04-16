@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Insights & Blog | Team Eric Wu - Ray White Elite</title>
+    <meta name="description" content="Deep dive into East Auckland's real estate market. Expert guides on selling, buying, property titles, and investment strategies.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","headline":"East Auckland Real Estate Insights","description":"Expert property market analysis and guides by the Eric Wu Elite Team.","publisher":{"@type":"Organization","name":"Eric Wu Elite Team - Ray White"}}</script>
+    <style>
+        :root{--rw-yellow:#ffe500;--deep-dark:#111111;--footer-bg:#1a1a1a;--text-gray:#b3b3b3;--light-bg:#f8f9fa;--border-color:#eaeaea}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{overflow-x:hidden;width:100%;position:relative}
+        html{scroll-behavior:smooth}
+        body{font-family:'Montserrat',sans-serif;color:#333;line-height:1.6;background:var(--light-bg)}
+        header{position:fixed;top:0;width:100%;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;z-index:2000;background:transparent;transition:background .4s ease;border-bottom:1px solid rgba(255,255,255,.1)}
+        header.scrolled{background:rgba(17,17,17,.95);backdrop-filter:blur(10px)}
+        nav a{color:white;text-decoration:none;margin:0 15px;font-size:13px;text-transform:uppercase;font-weight:400;opacity:.8;transition:.3s}
+        nav a:hover,nav a.active{opacity:1;color:var(--rw-yellow)}
+        .btn-appraisal{background:var(--rw-yellow);color:#000;padding:10px 22px;font-weight:700;text-decoration:none;border-radius:2px;font-size:12px;transition:.3s}
+        .btn-appraisal:hover{background:#fff}
+        .nav-close{display:none}
+        .blog-hero{padding:180px 8% 80px;background-color:var(--deep-dark);text-align:center;color:white}
+        .blog-hero h1{font-family:'Playfair Display',serif;font-size:3.8rem;margin-bottom:20px;letter-spacing:-1px;color:white}
+        .blog-hero p{max-width:800px;margin:0 auto;font-size:1.1rem;color:#ccc;line-height:1.8;font-weight:300}
+        .blog-container{max-width:1400px;margin:60px auto 120px;padding:0 5%;display:flex;align-items:flex-start;gap:50px;position:relative;z-index:10}
+        .blog-main{flex:1;min-width:0}
+        .blog-filters{display:flex;gap:15px;margin-bottom:40px;flex-wrap:wrap}
+        .filter-btn{background:white;border:1px solid var(--border-color);padding:10px 22px;border-radius:50px;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:600;color:#666;transition:.3s;text-transform:uppercase}
+        .filter-btn:hover{border-color:var(--deep-dark);color:var(--deep-dark)}
+        .filter-btn.active{background:var(--deep-dark);color:white;border-color:var(--deep-dark);box-shadow:0 5px 15px rgba(0,0,0,.1)}
+        .featured-article.blog-card{display:flex;flex-direction:row;width:100%;background:white;border-radius:8px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.06);margin-bottom:60px;transition:.4s;border:1px solid var(--border-color)}
+        .featured-article:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.1);border-color:var(--rw-yellow)}
+        .featured-img-wrap{width:50%;position:relative;overflow:hidden}
+        .featured-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+        .featured-img-wrap .img-ph{width:100%;height:100%;min-height:300px;background:#222;display:flex;align-items:center;justify-content:center;font-size:3rem}
+        .featured-article:hover .featured-img-wrap img{transform:scale(1.05)}
+        .category-badge-absolute{position:absolute;top:20px;left:20px;background:var(--rw-yellow);color:var(--deep-dark);padding:6px 14px;font-size:.75rem;font-weight:700;text-transform:uppercase;border-radius:4px;letter-spacing:1px;z-index:2}
+        .featured-content{width:50%;padding:50px;display:flex;flex-direction:column;justify-content:center}
+        .post-meta{font-size:.85rem;color:#888;margin-bottom:15px;text-transform:uppercase;letter-spacing:1px;font-weight:500}
+        .featured-content h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--deep-dark);margin-bottom:20px;line-height:1.3}
+        .featured-content p{color:#555;line-height:1.8;margin-bottom:30px;font-size:1.05rem}
+        .read-more-link{display:inline-block;font-weight:700;color:var(--deep-dark);text-decoration:none;font-size:.9rem;border-bottom:2px solid var(--rw-yellow);transition:.3s;align-self:flex-start;padding-bottom:2px}
+        .read-more-link:hover{color:var(--rw-yellow);border-color:transparent}
+        .blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
+        .blog-card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.04);transition:.4s;border:1px solid var(--border-color);display:flex;flex-direction:column}
+        .blog-card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.08);border-color:var(--rw-yellow)}
+        .blog-card-img{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden}
+        .blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block}
+        .blog-card-img .img-ph{width:100%;height:100%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#ccc}
+        .blog-card:hover .blog-card-img img{transform:scale(1.05)}
+        .blog-card-content{padding:30px;display:flex;flex-direction:column;flex-grow:1}
+        .blog-card-content h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--deep-dark);margin-bottom:15px;line-height:1.4}
+        .blog-card-content p{color:#666;font-size:.95rem;line-height:1.7;margin-bottom:25px;flex-grow:1}
+        .blog-loading{text-align:center;padding:20px;color:#aaa;font-size:.9rem;margin-bottom:20px}
+        .loader-sm{width:24px;height:24px;border:2px solid #eee;border-top-color:var(--rw-yellow);border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .blog-sidebar{flex:0 0 320px}
+        .sidebar-widget{background:white;padding:35px;border-radius:8px;box-shadow:0 5px 20px rgba(0,0,0,.04);margin-bottom:40px;border:1px solid var(--border-color)}
+        .sidebar-widget h4{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--deep-dark);margin-bottom:20px;border-bottom:2px solid var(--rw-yellow);display:inline-block;padding-bottom:5px}
+        .popular-posts-list{list-style:none}
+        .popular-posts-list li{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border-color)}
+        .popular-posts-list li:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+        .popular-posts-list a{text-decoration:none;display:flex;align-items:flex-start;gap:15px}
+        .popular-posts-list img{width:70px;height:70px;object-fit:cover;border-radius:4px}
+        .popular-posts-list h5{font-family:'Montserrat',sans-serif;font-size:.95rem;color:var(--deep-dark);font-weight:600;line-height:1.4;transition:.3s;margin-bottom:5px}
+        .popular-posts-list a:hover h5{color:var(--rw-yellow)}
+        .popular-posts-list span{font-size:.75rem;color:#999;text-transform:uppercase}
+        .sidebar-cta{background:var(--deep-dark);color:white;text-align:center;border:none;background-image:radial-gradient(#333 1px,transparent 1px);background-size:15px 15px}
+        .sidebar-cta h4{border-color:transparent;color:white;margin-bottom:15px}
+        .sidebar-cta p{color:#ccc;font-size:.95rem;margin-bottom:25px;line-height:1.6}
+        .sidebar-cta .btn-appraisal{font-size:.9rem;padding:12px 25px;display:inline-block;width:100%}
+        footer{background:var(--footer-bg);color:white;padding:80px 8% 40px}
+        .footer-grid{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:50px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:40px;margin-bottom:30px}
+        .footer-col h4{color:white;margin-bottom:25px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:1px;font-size:1.1rem}
+        .footer-col ul{list-style:none}
+        .footer-col ul li{margin-bottom:12px}
+        .footer-col a{color:var(--text-gray);text-decoration:none;transition:.3s;font-size:.95rem}
+        .footer-col a:hover{color:var(--rw-yellow);padding-left:5px}
+        .footer-col p{color:var(--text-gray);font-size:.95rem;margin-bottom:10px}
+        .footer-bottom{text-align:center;color:var(--text-gray);font-size:.8rem}
+        .hamburger{display:none}
+        @media(max-width:1024px){.blog-container{flex-direction:column}.blog-sidebar{width:100%}.featured-article.blog-card{flex-direction:column}.featured-img-wrap,.featured-content{width:100%}.featured-img-wrap{aspect-ratio:16/9}}
+        @media(max-width:768px){
+            header{padding:14px 5%}header img{height:48px!important}nav{display:none}.btn-appraisal{display:none}
+            .hamburger{display:block;background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;padding:6px;z-index:3000;line-height:1}
+            .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1500}
+            .nav-overlay.open{display:block}
+            nav{display:flex!important;flex-direction:column;position:fixed;top:0;right:0;width:72%;max-width:280px;height:100vh;background:#0d0d0d;border-left:1px solid rgba(255,229,0,.15);z-index:2500;padding:70px 35px 40px;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow-y:auto;justify-content:flex-start}
+            nav.open{transform:translateX(0)}
+            nav a{display:block;margin:0;padding:13px 0;font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.65);border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s}
+            nav a:hover{color:white}nav a.active-page{color:var(--rw-yellow)!important;opacity:1}
+            nav .nav-cta{display:block;margin-top:28px;padding:13px 0;background:var(--rw-yellow);color:#000!important;text-align:center;font-weight:700;border-radius:2px;border-bottom:none;font-size:.78rem;letter-spacing:2px}
+            nav .nav-cta:hover{background:white}
+            .nav-close{position:absolute;top:18px;right:20px;background:none;border:none;color:rgba(255,255,255,.4);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;display:flex;align-items:center;gap:6px;transition:color .2s}
+            .nav-close:hover{color:white}.nav-close::before{content:'✕';font-size:.75rem}
+            .blog-hero{padding:95px 5% 50px}.blog-hero h1{font-size:2rem}
+            .blog-filters{justify-content:center}
+            .featured-article.blog-card{flex-direction:column!important;width:100%!important;margin-bottom:30px}
+            .featured-img-wrap{width:100%!important;height:auto!important;aspect-ratio:16/9}
+            .featured-content{width:100%!important;padding:20px 15px!important;box-sizing:border-box!important}
+            .featured-content h2{font-size:1.35rem;word-wrap:break-word}
+            .blog-main{width:100%;max-width:100vw;overflow:hidden}
+            .blog-grid{grid-template-columns:1fr}
+            .footer-grid{grid-template-columns:1fr;gap:30px}footer{padding:55px 6% 30px}
+            .blog-container{flex-direction:column;margin:30px auto 60px}.blog-sidebar{width:100%}
+        }
+    </style>
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v25.0&appId=APP_ID"></script>
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+    <header id="main-header">
+        <a href="index.html" style="display:flex;align-items:center;text-decoration:none">
+            <img src="images/logo.png" alt="Team Eric Wu Logo" style="height:100px;width:auto;object-fit:contain">
+        </a>
+        <nav id="main-nav">
+            <button class="nav-close" onclick="closeMenu()">Close</button>
+            <a href="index.html"    onclick="closeMenu()">Home</a>
+            <a href="about.html"   onclick="closeMenu()">About Us</a>
+            <a href="listings.html" onclick="closeMenu()">Listings</a>
+            <a href="sold.html"    onclick="closeMenu()">Recent Sold</a>
+            <a href="review.html"  onclick="closeMenu()">Reviews</a>
+            <a href="faq.html"     onclick="closeMenu()">FAQ's</a>
+            <a href="blog.html"    onclick="closeMenu()" class="active-page" style="color:var(--rw-yellow)">Blog</a>
+            <a href="contact.html" onclick="closeMenu()" class="nav-cta">Free Appraisal</a>
+        </nav>
+        <a href="contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+        <button class="hamburger" id="hamburger" onclick="openMenu()" aria-label="Open menu">&#9783;</button>
+    </header>
+
+    <section class="blog-hero">
+        <h1>Market Insights</h1>
+        <p>Your ultimate resource for Auckland real estate. Master the market with expert analysis, selling strategies, and comprehensive property guides.</p>
+    </section>
+
+    <div class="blog-container">
+        <main class="blog-main">
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all">All Posts</button>
+                <button class="filter-btn" data-filter="selling">Selling Strategies</button>
+                <button class="filter-btn" data-filter="buying">Buying Guide</button>
+                <button class="filter-btn" data-filter="market">Market Trends</button>
+                <button class="filter-btn" data-filter="investment">Investment</button>
+                <button class="filter-btn" data-filter="advice">Property Advice</button>
+            </div>
+            <div class="blog-loading" id="blog-loading"><span class="loader-sm"></span>Loading latest articles...</div>
+            <div id="featured-slot"></div>
+            <div class="blog-grid" id="blog-grid"></div>
+        </main>
+
+        <aside class="blog-sidebar">
+            <div class="sidebar-widget">
+                <h4>Popular Reads</h4>
+                <ul class="popular-posts-list">
+                    <li><a href="articles/auction-vs-tender-sales-strategy.html"><img src="images/blog-auction-vs-tender.jpg" alt="Auction vs. Tender"><div><h5>Auction vs. Tender: Choosing the Ultimate Sales Strategy</h5><span>Selling Tips</span></div></a></li>
+                    <li><a href="articles/2026-property-market-playbook.html"><img src="images/blog-interest-rate-cut.jpg" alt="2026 Property Market Playbook"><div><h5>The 2026 Property Market Playbook</h5><span>Market Trends</span></div></a></li>
+                    <li><a href="articles/body-corporate-fees-auckland-guide.html"><img src="images/blog-body-corporate-fees.jpg" alt="Body Corporate Fees"><div><h5>Decoding the Fine Print: Body Corporate Fees</h5><span>Buying Advice</span></div></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-widget sidebar-cta">
+                <h4>Ready to make a move?</h4>
+                <p>Stop guessing your home's worth. Get a data-driven appraisal from East Auckland's premier real estate team.</p>
+                <a href="contact.html" class="btn-appraisal">Request Free Appraisal</a>
+            </div>
+        </aside>
+    </div>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MENU</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="eric-wu.html">Eric Wu</a></li>
+                    <li><a href="listings.html">Current Listings</a></li>
+                    <li><a href="sold.html">Recent Sold</a></li>
+                    <li><a href="review.html">Reviews</a></li>
+                    <li><a href="faq.html">FAQ's</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACT US</h4>
+                <p><strong>Phone:</strong><br>021 586 868</p>
+                <p style="margin-top:15px"><strong>Email:</strong><br><a href="mailto:eric.wu@raywhite.com" style="color:white;text-decoration:none">eric.wu@raywhite.com</a></p>
+                <p style="margin-top:15px"><strong>Active Service Locations:</strong><br>East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.</p>
+            </div>
+            <div class="footer-col">
+                <h4>FOLLOW US</h4>
+                <div style="background:white;border-radius:8px;overflow:hidden;height:300px;box-shadow:0 5px 15px rgba(0,0,0,.2)">
+                    <div class="fb-page" data-href="https://www.facebook.com/TeamEricRaywhite/" data-tabs="timeline" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/TeamEricRaywhite/">TeamEric</a></blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Team Eric Wu | Ray White Elite. All Rights Reserved.</div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+    var SB_URL='https://lvdmqgyrgkzywoqvmjlh.supabase.co';
+    var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzI4NjYsImV4cCI6MjA5MTI0ODg2Nn0.tvm_agT2XEwXPUyNQPoUxQSkn188b2ZryYC-p54n8Rc';
+    var CACHE_KEY='team_blog_sb_v1';
+    var CACHE_TTL=5*60*1000;
+
+    var LEGACY=[
+      {title:"Unlocking Value: Navigating Cross-Lease Title Risks in NZ and the Power of Section Conversion",date:"2026-03-25",cat:"advice",badge:"Property Advice",dark:false,img:"images/blog-cross-lease-risks.jpg",summary:"Is your East Auckland property sitting on a cross-lease? Discover the hidden pitfalls that could be turning buyers away and learn why converting to Fee Simple might be your most profitable move before selling.",url:"articles/cross-lease-title-risks.html",meta:"Mar 25, 2026 &bull; Property Advice"},
+      {title:"Unlocking Equity: The True Cost of Converting Cross-Lease to Fee Simple",date:"2026-03-18",cat:"selling",badge:"Selling Tips",dark:true,img:"images/blog-cross-lease-to-fee-simple.jpg",summary:"Is a cross-lease title capping your property's value? We break down the true costs, council processes, and strategic advantages of converting to Fee Simple in Auckland.",url:"articles/converting-cross-lease-to-fee-simple-cost.html",meta:"Mar 18, 2026 &bull; 6 Min Read"},
+      {title:"The Art of Negotiation: Conditional vs. Unconditional Property Offers",date:"2026-03-11",cat:"buying",badge:"Buying Advice",dark:true,img:"images/blog-conditional-vs-unconditional-offers.jpg",summary:"In real estate, cash is king, but conditions offer protection. Learn how to strategically leverage your Sale and Purchase Agreement to protect your interests while keeping your offer highly competitive.",url:"articles/conditional-vs-unconditional-property-offers.html",meta:"Mar 11, 2026 &bull; 5 Min Read"},
+      {title:"Beyond the Signboard: How to Choose the Best Real Estate Agent in East Auckland",date:"2026-03-04",cat:"selling",badge:"Agent Selection",dark:true,img:"images/best-real-estate-agent-east-auckland.jpg",summary:"Are you paying for a marketer or a master negotiator? We dissect the reality of agent commissions and reveal the critical metrics you must evaluate to hire the top-performing real estate team in East Auckland.",url:"articles/choose-best-real-estate-agent-east-auckland.html",meta:"Mar 04, 2026 &bull; 4 Min Read"},
+      {title:"Proceed with Caution: The Three Critical Risks of Buying Off-the-Plan",date:"2026-02-25",cat:"buying",badge:"Buying Advice",dark:true,img:"images/blog-off-the-plan-risks.jpg",summary:"The allure of a brand-new home at today's prices is strong, but the off-the-plan market is fraught with complexity. Uncover the hidden risks of sunset clauses, developer delays, and shifting market valuations before you pay your deposit.",url:"articles/buying-off-the-plan-risks-auckland.html",meta:"Feb 25, 2026 &bull; 6 Min Read"},
+      {title:"Breaking Ground: Demystifying Building Consent vs. Resource Consent",date:"2026-02-18",cat:"advice",badge:"Development Advice",dark:true,img:"images/building-resource-consent-guide.jpg",summary:"Planning to subdivide or heavily renovate? Don't let council bureaucracy stall your project. We clearly define the critical differences between Resource Consents and Building Consents under the Auckland Unitary Plan.",url:"articles/building-vs-resource-consent-auckland.html",meta:"Feb 18, 2026 &bull; 5 Min Read"},
+      {title:"The Peninsula Premium: Why Bucklands Beach Commands Auckland's Attention",date:"2026-02-11",cat:"market",badge:"Suburb Profiles",dark:true,img:"images/blog-bucklands-beach-premium.jpg",summary:"Framed by dual coastlines and anchored by elite education, the Bucklands Beach peninsula is a blue-chip enclave. Explore the market dynamics driving luxury waterfront demand.",url:"articles/bucklands-beach-peninsula-premium-real-estate.html",meta:"Feb 11, 2026 &bull; 5 Min Read"},
+      {title:"Navigating the Bright-Line Test: What Property Investors Need to Know",date:"2026-02-04",cat:"market",badge:"Market Insights",dark:true,img:"images/bright-line-test-property-investors.jpg",summary:"Property tax legislation is constantly evolving. Before you list your investment property, understand the current landscape of the Bright-line test to avoid unexpected tax liabilities on your capital gains.",url:"articles/bright-line-test-property-investors.html",meta:"Feb 04, 2026 &bull; 6 Min Read"},
+      {title:"The Heritage Handcuffs: Navigating the Auckland Unitary Plan's Historic Overlays",date:"2026-01-28",cat:"advice",badge:"Regulatory Advice",dark:true,img:"images/auckland-heritage-property-guide.jpg",summary:"Owning a piece of history is a privilege, but it comes with strict regulations. If your property falls under a Historic Heritage or Special Character overlay, here is what you need to know before you renovate or sell.",url:"articles/auckland-historic-heritage-property-guide.html",meta:"Jan 28, 2026 &bull; 7 Min Read"},
+      {title:"The Cashflow Catalyst: Maximizing Yield with a Minor Dwelling (Granny Flat)",date:"2026-01-21",cat:"investment",badge:"Investment Strategy",dark:true,img:"images/granny-flat-investment-guide.jpg",summary:"Sitting on a large East Auckland section? Adding a minor dwelling could dramatically increase your property's value and generate a massive secondary income stream. We explore the council rules and the ROI.",url:"articles/auckland-granny-flat-investment-guide.html",meta:"Jan 21, 2026 &bull; 5 Min Read"},
+      {title:"The 1970s Renovation Reality: Navigating Asbestos Testing in Auckland",date:"2026-01-14",cat:"advice",badge:"Property Advice",dark:true,img:"images/blog-asbestos-testing-auckland.jpg",summary:"Don't let the fear of asbestos derail your renovation or property sale. We break down exactly what you need to know about testing, safe removal, and how clearing this hurdle can dramatically increase your home's value.",url:"articles/asbestos-testing-removal-auckland.html",meta:"Jan 14, 2026 &bull; 6 Min Read"},
+      {title:"Beyond the Traffic: How the AMETI Eastern Busway Completion is Reshaping Pakuranga Property Values",date:"2026-01-07",cat:"market",badge:"Infrastructure",dark:true,img:"images/blog-eastern-busway-infrastructure.jpg",summary:"Infrastructure drives property value. As the highly anticipated AMETI Eastern Busway nears completion, we analyze the projected real estate boom in Pakuranga and surrounding East Auckland suburbs.",url:"articles/ameti-eastern-busway-property-values.html",meta:"Jan 07, 2026 &bull; 4 Min Read"},
+      {title:"The 2026 Property Market Playbook: Navigating the Interest Rate Cut Cycle",date:"2026-01-01",cat:"market",badge:"Market Trends",dark:true,img:"images/blog-interest-rate-cut.jpg",summary:"As the Reserve Bank shifts its stance, a new window of opportunity is opening in East Auckland. Discover how to leverage the 2026 interest rate cut cycle to maximize your sale price or secure your dream home before the next boom.",url:"articles/2026-property-market-playbook.html",meta:"Jan 01, 2026 &bull; 5 Min Read"},
+      {title:"Spotting the Shift: How to Capitalize on Gentrification in Auckland Suburbs",date:"2025-12-25",cat:"investment",badge:"Investment Strategy",dark:true,img:"images/auckland-suburb-gentrification-guide.jpg",summary:"True wealth in real estate is made by anticipating the market, not chasing it. Discover the early indicators of gentrification and learn how to identify lucrative up-and-coming areas today.",url:"articles/auckland-suburb-gentrification-guide.html",meta:"Dec 25, 2025 &bull; 5 Min Read"},
+      {title:"Auction vs. Tender: Choosing the Ultimate Sales Strategy for Your Market",date:"2025-12-18",cat:"selling",badge:"Selling Tips",dark:true,img:"images/blog-auction-vs-tender.jpg",summary:"Maximizing your sale price requires selecting the right battlefield. We compare the transparent pressure of an Auction against the strategic confidentiality of a Tender, helping you choose the best method for your specific property.",url:"articles/auction-vs-tender-sales-strategy.html",meta:"Dec 18, 2025 &bull; 4 Min Read"},
+      {title:"Decoding the Fine Print: A Buyer's Guide to Body Corporate Fees in Auckland",date:"2025-12-11",cat:"buying",badge:"Buying Advice",dark:true,img:"images/blog-body-corporate-fees.jpg",summary:"Buying a high-density townhouse or apartment offers incredible convenience, but the ongoing costs can be confusing. We break down exactly what your Body Corporate fees cover and how to spot a well-managed complex.",url:"articles/body-corporate-fees-auckland-guide.html",meta:"Dec 11, 2025 &bull; 5 Min Read"},
+      {title:"The Family Blueprint: Why Botany Downs Remains the Premier Choice for Up-sizers",date:"2025-12-04",cat:"market",badge:"Suburb Profiles",dark:true,img:"images/blog-botany-downs-family-homes.jpg",summary:"Balancing space, convenience, and education is the ultimate real estate challenge. Discover why Botany Downs consistently ranks as the gold standard for established families looking to upgrade in East Auckland.",url:"articles/botany-downs-family-homes-east-auckland.html",meta:"Dec 04, 2025 &bull; 4 Min Read"}
+    ];
+
+    function mapCat(c){if(!c)return'advice';c=c.toLowerCase();if(c.includes('sell')||c.includes('agent'))return'selling';if(c.includes('buy'))return'buying';if(c.includes('market')||c.includes('suburb')||c.includes('infra')||c.includes('trend'))return'market';if(c.includes('invest'))return'investment';return'advice';}
+    function fmtDate(iso){return new Date(iso).toLocaleDateString('en-NZ',{day:'2-digit',month:'short',year:'numeric'});}
+    function readTime(t){return Math.max(1,Math.ceil(((t||'').replace(/<[^>]*>/g,' ').split(/\s+/).filter(Boolean).length)/200));}
+
+    var allArticles=[];
+
+    async function loadAndRender(){
+      var sb=[];
+      try{
+        var raw=localStorage.getItem(CACHE_KEY);
+        var ts=localStorage.getItem(CACHE_KEY+'_t');
+        if(raw&&ts&&(Date.now()-parseInt(ts))<CACHE_TTL){
+          sb=JSON.parse(raw);
+        }else{
+          var r=await fetch(SB_URL+'/rest/v1/blogs?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+          var data=await r.json();
+          if(Array.isArray(data)){
+            sb=data.map(function(a){return{title:a.title,date:a.created_at,cat:mapCat(a.category),badge:a.category||'Market Insights',dark:true,img:a.cover_image||'',summary:a.summary||'',url:'articles/article.html?id='+a.id,meta:fmtDate(a.created_at)+' &bull; '+readTime(a.content)+' Min Read'};});
+            localStorage.setItem(CACHE_KEY,JSON.stringify(sb));
+            localStorage.setItem(CACHE_KEY+'_t',Date.now().toString());
+          }
+        }
+      }catch(e){}
+      allArticles=sb.concat(LEGACY).sort(function(a,b){return new Date(b.date)-new Date(a.date);});
+      document.getElementById('blog-loading').style.display='none';
+      renderFeatured(allArticles[0]);
+      renderGrid(allArticles.slice(1));
+      initFilters();
+    }
+
+    function card(a,featured){
+      var img=a.img?('<img src="'+a.img+'" alt="'+a.title.replace(/"/g,'')+'" loading="eager" onerror="this.parentElement.innerHTML=\'<div class=img-ph>📰</div>\'" />'):'<div class="img-ph">📰</div>';
+      var badge='<span class="category-badge-absolute"'+(a.dark?' style="background:var(--deep-dark);color:white"':'')+'>'+a.badge+'</span>';
+      if(featured){
+        return '<article class="featured-article blog-card" data-category="'+a.cat+'"><div class="featured-img-wrap">'+badge+img+'</div><div class="featured-content"><div class="post-meta">'+a.meta+'</div><h2>'+a.title+'</h2><p>'+a.summary+'</p><a href="'+a.url+'" class="read-more-link">Read Full Article</a></div></article>';
+      }
+      return '<article class="blog-card" data-category="'+a.cat+'"><div class="blog-card-img">'+badge+img+'</div><div class="blog-card-content"><div class="post-meta">'+a.meta+'</div><h3>'+a.title+'</h3><p>'+a.summary+'</p><a href="'+a.url+'" class="read-more-link">Read More</a></div></article>';
+    }
+
+    function renderFeatured(a){if(!a)return;document.getElementById('featured-slot').innerHTML=card(a,true);}
+    function renderGrid(list){document.getElementById('blog-grid').innerHTML=list.map(function(a){return card(a,false);}).join('');}
+
+    function initFilters(){
+      document.querySelectorAll('.filter-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+          btn.classList.add('active');
+          var f=btn.getAttribute('data-filter');
+          var filtered=f==='all'?allArticles:allArticles.filter(function(a){return a.cat===f;});
+          if(!filtered.length){document.getElementById('featured-slot').innerHTML='';document.getElementById('blog-grid').innerHTML='<p style="color:#aaa;padding:40px 0;grid-column:1/-1;text-align:center">No articles in this category yet.</p>';return;}
+          renderFeatured(filtered[0]);renderGrid(filtered.slice(1));
+        });
+      });
+    }
+
+    window.addEventListener('scroll',function(){document.getElementById('main-header').classList.toggle('scrolled',scrollY>50);});
+    function openMenu(){document.getElementById('main-nav').classList.add('open');document.getElementById('nav-overlay').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMenu(){document.getElementById('main-nav').classList.remove('open');document.getElementById('nav-overlay').classList.remove('open');document.body.style.overflow='';}
+
+    loadAndRender();
+    </script>
+</body>
+</html>

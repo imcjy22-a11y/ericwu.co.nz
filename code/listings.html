@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Listings | Team Eric Wu – Ray White Elite East Auckland</title>
+<meta name="description" content="Browse current properties for sale by Team Eric Wu, Ray White Elite. Houses and apartments for sale in East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.">
+<meta name="keywords" content="houses for sale East Auckland, properties for sale Flat Bush, East Tamaki real estate, Dannemora homes for sale, Half Moon Bay properties, Ray White listings East Auckland">
+<meta property="og:title" content="Current Listings | Team Eric Wu – Ray White Elite" />
+<meta property="og:description" content="Browse current properties for sale across East Auckland's most sought-after suburbs." />
+<meta property="og:type" content="website" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Current Property Listings – Team Eric Wu","itemListElement":[]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root{--rw-yellow:#ffe500;--deep-dark:#111111;--footer-bg:#1a1a1a;--text-gray:#b3b3b3;--light-bg:#f8f9fa;--border-color:#eaeaea}
+*{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:hidden}html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;color:#333;line-height:1.6;background:var(--light-bg)}
+header{position:fixed;top:0;width:100%;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;z-index:2000;background:transparent;transition:background .4s ease;border-bottom:1px solid rgba(255,255,255,.1)}
+header.scrolled{background:rgba(17,17,17,.95);backdrop-filter:blur(10px)}
+nav a{color:white;text-decoration:none;margin:0 15px;font-size:13px;text-transform:uppercase;font-weight:400;opacity:.8;transition:.3s}
+nav a:hover,nav a.active{opacity:1;color:var(--rw-yellow)}
+.btn-appraisal{background:var(--rw-yellow);color:#000;padding:10px 22px;font-weight:700;text-decoration:none;border-radius:2px;font-size:12px;transition:.3s}
+.btn-appraisal:hover{background:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+.hamburger span{width:25px;height:2px;background:white;transition:.3s}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1500}
+.nav-overlay.open{display:block}
+nav{display:flex}
+.listings-hero{padding:180px 8% 80px;background:var(--deep-dark);text-align:center;color:white}
+.listings-hero h1{font-family:'Playfair Display',serif;font-size:3.8rem;margin-bottom:20px;letter-spacing:-1px}
+.listings-hero p{max-width:700px;margin:0 auto;font-size:1.05rem;color:#ccc;line-height:1.8;font-weight:300}
+.filter-bar{max-width:1400px;margin:50px auto 0;padding:0 5%;display:flex;gap:12px;flex-wrap:wrap}
+.filter-btn{background:white;border:1px solid var(--border-color);padding:10px 22px;border-radius:50px;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:600;color:#666;transition:.3s;text-transform:uppercase;letter-spacing:.5px}
+.filter-btn:hover{border-color:var(--deep-dark);color:var(--deep-dark)}
+.filter-btn.active{background:var(--deep-dark);color:white;border-color:var(--deep-dark)}
+.listings-container{max-width:1400px;margin:40px auto 120px;padding:0 5%;display:flex;gap:50px;align-items:flex-start}
+.listings-main{flex:1;min-width:0}
+.results-count{font-size:.85rem;color:#888;margin-bottom:28px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.results-count strong{color:var(--deep-dark)}
+.listings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:35px}
+.listing-card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.04);transition:.4s;border:1px solid var(--border-color);display:flex;flex-direction:column}
+.listing-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.1);border-color:var(--rw-yellow)}
+.listing-img-wrap{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden}
+.listing-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.listing-card:hover .listing-img-wrap img{transform:scale(1.05)}
+.listing-img-placeholder{width:100%;aspect-ratio:16/10;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:2.5rem}
+.suburb-badge{position:absolute;top:16px;left:16px;background:var(--rw-yellow);color:var(--deep-dark);padding:5px 13px;font-size:.75rem;font-weight:700;text-transform:uppercase;border-radius:4px;letter-spacing:1px;z-index:2}
+.price-badge{position:absolute;bottom:16px;right:16px;background:rgba(17,17,17,.85);color:white;padding:6px 14px;font-size:.85rem;font-weight:600;border-radius:4px}
+.listing-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.listing-address{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--deep-dark);margin-bottom:6px;line-height:1.3}
+.listing-suburb-text{font-size:.82rem;color:#999;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+.listing-stats{display:flex;gap:18px;margin-bottom:14px;padding:12px 0;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0}
+.stat{display:flex;align-items:center;gap:5px;font-size:.88rem;color:#555;font-weight:500}
+.listing-areas{font-size:.82rem;color:#aaa;margin-bottom:14px}
+.listing-areas span{margin-right:14px}
+.listing-desc{font-size:.88rem;color:#777;line-height:1.7;margin-bottom:18px;flex:1}
+.listing-cta{display:inline-block;background:var(--deep-dark);color:white;padding:12px 24px;font-size:.82rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:.3s;border-radius:2px;align-self:flex-start}
+.listing-cta:hover{background:var(--rw-yellow);color:var(--deep-dark)}
+.listings-loading{text-align:center;padding:60px;color:#aaa;font-size:.95rem;grid-column:1/-1}
+.loader{width:40px;height:40px;border:3px solid #eee;border-top-color:var(--rw-yellow);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.listings-empty{text-align:center;padding:80px 20px;grid-column:1/-1}
+.listings-empty h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:#ccc;margin-bottom:10px}
+.listings-empty p{color:#aaa;font-size:.95rem}
+.listings-sidebar{width:320px;flex-shrink:0;position:sticky;top:100px}
+.sidebar-widget{background:white;border:1px solid var(--border-color);border-radius:8px;padding:30px;margin-bottom:25px;box-shadow:0 5px 20px rgba(0,0,0,.04)}
+.sidebar-widget h4{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--deep-dark);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #f0f0f0}
+.agent-mini{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.agent-mini img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--border-color)}
+.agent-mini h5{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;color:var(--deep-dark)}
+.agent-mini span{font-size:.78rem;color:#888}
+.sidebar-widget p.desc{font-size:.87rem;color:#666;line-height:1.7;margin-bottom:16px}
+.sidebar-widget a.phone-btn{display:block;text-align:center;padding:12px;border:2px solid var(--deep-dark);color:var(--deep-dark);text-decoration:none;font-weight:700;font-size:.88rem;transition:.3s;border-radius:2px}
+.sidebar-widget a.phone-btn:hover{background:var(--deep-dark);color:white}
+.sidebar-cta{background:var(--deep-dark)!important;border-color:var(--deep-dark)!important}
+.sidebar-cta h4{color:white!important;border-bottom-color:rgba(255,255,255,.15)!important}
+.sidebar-cta p{color:#bbb;font-size:.88rem;line-height:1.7;margin-bottom:20px}
+.sidebar-cta .btn-appraisal{display:block;text-align:center;padding:14px;font-size:.88rem}
+footer{background:var(--footer-bg);color:white;padding:80px 8% 40px}
+.footer-grid{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:50px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:40px;margin-bottom:30px}
+.footer-col h4{font-family:'Playfair Display',serif;color:white;margin-bottom:25px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:1px;font-size:1.1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:12px}
+.footer-col a{color:var(--text-gray);text-decoration:none;transition:.3s;font-size:.95rem}
+.footer-col a:hover{color:var(--rw-yellow);padding-left:5px}
+.footer-col p{color:var(--text-gray);font-size:.95rem;margin-bottom:10px}
+.footer-bottom{text-align:center;color:var(--text-gray);font-size:.8rem}
+@media(max-width:1100px){.listings-container{flex-direction:column}.listings-sidebar{width:100%;position:static;display:grid;grid-template-columns:1fr 1fr;gap:20px}}
+@media(max-width:768px){
+  .listings-grid{grid-template-columns:1fr}
+  .listings-hero h1{font-size:2.4rem}
+  .listings-hero{padding:140px 5% 60px}
+  nav{display:none!important}
+  .hamburger{display:flex}
+  .listings-sidebar{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:30px}
+  header{padding:14px 5%}
+  header img{height:48px!important}
+  .btn-appraisal{display:none}
+  .hamburger{display:flex!important;flex-direction:column}
+  nav.open{display:flex!important;flex-direction:column;position:fixed;top:0;right:0;width:72%;max-width:280px;height:100vh;background:#0d0d0d;border-left:1px solid rgba(255,229,0,.15);z-index:2500;padding:70px 35px 40px;overflow-y:auto;justify-content:flex-start;transform:translateX(0)!important}
+  nav a{display:block;margin:0;padding:13px 0;font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.65);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav a:hover{color:white}
+}
+</style>
+</head>
+<body>
+<div id="fb-root"></div>
+<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+<header id="main-header">
+  <a href="index.html"><img src="images/logo.png" alt="Team Eric Wu Logo" style="height:100px;width:auto;object-fit:contain"></a>
+  <nav id="main-nav">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="about.html" onclick="closeMenu()">About Us</a>
+    <a href="listings.html" onclick="closeMenu()" class="active" style="color:var(--rw-yellow);opacity:1">Listings</a>
+    <a href="sold.html" onclick="closeMenu()">Recent Sold</a>
+    <a href="review.html" onclick="closeMenu()">Reviews</a>
+    <a href="faq.html" onclick="closeMenu()">FAQ's</a>
+    <a href="blog.html" onclick="closeMenu()">Blog</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:15px">
+    <a href="contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+    <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="listings-hero">
+  <h1>Current Listings</h1>
+  <p>Handpicked properties across East Auckland's most sought-after suburbs. Every listing is backed by our team's deep local expertise and commitment to exceptional results.</p>
+</section>
+
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-btn active" onclick="filterListings('all',this)">All Properties</button>
+</div>
+
+<div class="listings-container">
+  <main class="listings-main">
+    <div class="results-count" id="results-count"></div>
+    <div class="listings-grid" id="listings-grid">
+      <div class="listings-loading"><div class="loader"></div>Loading current listings...</div>
+    </div>
+  </main>
+  <aside class="listings-sidebar">
+    <div class="sidebar-widget">
+      <h4>Talk to Our Team</h4>
+      <div class="agent-mini">
+        <img src="images/eric-wu-profile.jpg" alt="Eric Wu" onerror="this.style.display='none'">
+        <div><h5>Eric Wu</h5><span>Ray White Elite Performer</span></div>
+      </div>
+      <p class="desc">With over 18 years and $300M+ in career sales, our team knows East Auckland better than anyone. Let's talk about your next move.</p>
+      <a href="tel:021586868" class="phone-btn">📞 021 586 868</a>
+    </div>
+    <div class="sidebar-widget sidebar-cta">
+      <h4>What's Your Home Worth?</h4>
+      <p>Get a data-driven, no-obligation appraisal from East Auckland's premier real estate team.</p>
+      <a href="contact.html" class="btn-appraisal">Request Free Appraisal</a>
+    </div>
+  </aside>
+</div>
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>MENU</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="eric-wu.html">Eric Wu</a></li>
+        <li><a href="listings.html">Current Listings</a></li>
+        <li><a href="sold.html">Recent Sold</a></li>
+        <li><a href="review.html">Reviews</a></li>
+        <li><a href="faq.html">FAQ's</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>CONTACT US</h4>
+      <p><strong>Phone:</strong><br>021 586 868</p>
+      <p style="margin-top:15px"><strong>Email:</strong><br><a href="mailto:eric.wu@raywhite.com" style="color:white;text-decoration:none">eric.wu@raywhite.com</a>
+      <p style="margin-top:15px"><strong>Active Service Locations:</strong><br>East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, Botany Downs, Pakuranga Heights, Somerville, Bucklands Beach, Howick, Northpark and surrounding suburbs.</p>
+    </div>
+    <div class="footer-col">
+      <h4>FOLLOW US</h4>
+      <div style="background:white;border-radius:8px;overflow:hidden;height:300px;box-shadow:0 5px 15px rgba(0,0,0,.2)">
+        <div class="fb-page" data-href="https://www.facebook.com/TeamEricRaywhite/" data-tabs="timeline" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+          <blockquote cite="https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/TeamEricRaywhite/">TeamEric</a></blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Team Eric Wu | Ray White Elite. All Rights Reserved.</div>
+</footer>
+
+
+<script>
+const SB_URL='https://lvdmqgyrgkzywoqvmjlh.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzI4NjYsImV4cCI6MjA5MTI0ODg2Nn0.tvm_agT2XEwXPUyNQPoUxQSkn188b2ZryYC-p54n8Rc';
+const CACHE_KEY='team_listings_sb_v1';
+const CACHE_TTL=5*60*1000;
+let allListings=[];
+
+window.addEventListener('scroll',()=>document.getElementById('main-header').classList.toggle('scrolled',scrollY>50));
+function openMenu(){document.getElementById('main-nav').classList.add('open');document.getElementById('nav-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeMenu(){document.getElementById('main-nav').classList.remove('open');document.getElementById('nav-overlay').classList.remove('open');document.body.style.overflow=''}
+
+async function loadListings(){
+  try{
+    const raw=localStorage.getItem(CACHE_KEY);
+    const ts=localStorage.getItem(CACHE_KEY+'_t');
+    if(raw&&ts&&(Date.now()-parseInt(ts))<CACHE_TTL){
+      allListings=JSON.parse(raw);
+    }else{
+      const r=await fetch(SB_URL+'/rest/v1/listings?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+      allListings=await r.json();
+      if(!Array.isArray(allListings))allListings=[];
+      localStorage.setItem(CACHE_KEY,JSON.stringify(allListings));
+      localStorage.setItem(CACHE_KEY+'_t',Date.now().toString());
+    }
+    buildFilters();renderListings(allListings);updateSchema();
+  }catch(e){
+    document.getElementById('listings-grid').innerHTML='<div class="listings-empty"><h3>Unable to load listings</h3><p>Please refresh the page.</p></div>';
+  }
+}
+
+function buildFilters(){
+  const suburbs=[...new Set(allListings.map(l=>l.suburb).filter(Boolean))].sort();
+  const bar=document.getElementById('filter-bar');
+  suburbs.forEach(s=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.textContent=s;
+    b.onclick=()=>filterListings(s,b);bar.appendChild(b);
+  });
+}
+
+function filterListings(suburb,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderListings(suburb==='all'?allListings:allListings.filter(l=>l.suburb===suburb));
+}
+
+function renderListings(list){
+  const grid=document.getElementById('listings-grid');
+  const count=document.getElementById('results-count');
+  if(!list.length){
+    grid.innerHTML='<div class="listings-empty"><h3>No listings at this time</h3><p>Check back soon or contact us about off-market opportunities.</p></div>';
+    count.innerHTML='';return;
+  }
+  count.innerHTML='Showing <strong>'+list.length+'</strong> propert'+(list.length===1?'y':'ies');
+  grid.innerHTML=list.map(function(l,i){
+    return '<article class="listing-card">'+
+      '<div class="listing-img-wrap">'+
+      (l.image_url?'<img src="'+l.image_url+'" alt="'+((l.address||'Property').replace(/"/g,''))+'" loading="'+(i<4?'eager':'lazy')+'" onerror="this.parentElement.innerHTML=\'<div class=listing-img-placeholder>🏠</div>\'" />'
+        :'<div class="listing-img-placeholder">🏠</div>')+
+      (l.suburb?'<span class="suburb-badge">'+l.suburb+'</span>':'')+
+      (l.price?'<span class="price-badge">'+l.price+'</span>':'')+
+      '</div>'+
+      '<div class="listing-body">'+
+      '<h2 class="listing-address">'+(l.address||'Address on request')+'</h2>'+
+      '<div class="listing-suburb-text">'+(l.suburb||'')+', Auckland</div>'+
+      '<div class="listing-stats">'+
+      (l.bedrooms?'<div class="stat">🛏 '+l.bedrooms+' Bed'+(l.bedrooms>1?'s':'')+'</div>':'')+
+      (l.bathrooms?'<div class="stat">🚿 '+l.bathrooms+' Bath'+(l.bathrooms>1?'s':'')+'</div>':'')+
+      (l.garages?'<div class="stat">🚗 '+l.garages+' Car'+(l.garages>1?'s':'')+'</div>':'')+
+      '</div>'+
+      (l.land_area||l.building_area?'<div class="listing-areas">'+(l.land_area?'<span>Land: '+l.land_area+'</span>':'')+' '+(l.building_area?'<span>Floor: '+l.building_area+'</span>':'')+'</div>':'')+
+      (l.description?'<p class="listing-desc">'+l.description.substring(0,160)+(l.description.length>160?'...':'')+'</p>':'')+
+      (l.raywhite_url?'<a href="'+l.raywhite_url+'" target="_blank" rel="noopener noreferrer" onclick="window.open(\''+l.raywhite_url+'\',\'_blank\');return false;" class="listing-cta">View Full Listing →</a>':'')+
+      '</div></article>';
+  }).join('');
+}
+
+function updateSchema(){
+  const s=document.querySelector('script[type="application/ld+json"]');
+  if(!s)return;
+  s.textContent=JSON.stringify({
+    '@context':'https://schema.org','@type':'ItemList',
+    'name':'Current Property Listings – Team Eric Wu',
+    'numberOfItems':allListings.length,
+    'itemListElement':allListings.map(function(l,i){return{
+      '@type':'ListItem','position':i+1,
+      'item':{'@type':'SingleFamilyResidence','name':l.address,
+        'address':{'@type':'PostalAddress','streetAddress':l.address,'addressLocality':l.suburb,'addressRegion':'Auckland','addressCountry':'NZ'},
+        'numberOfBedrooms':l.bedrooms,'url':l.raywhite_url}
+    };}),
+  });
+}
+
+loadListings();
+</script>
+</body>
+</html>

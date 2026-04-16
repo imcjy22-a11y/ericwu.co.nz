@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="meta-title">Loading... | Team Eric Wu</title>
+<meta name="description" id="meta-desc" content="">
+<meta name="keywords" id="meta-keywords" content="">
+<meta property="og:title" id="og-title" content="" />
+<meta property="og:description" id="og-desc" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:image" id="og-image" content="" />
+<link rel="canonical" id="canonical" href="" />
+
+<script type="application/ld+json" id="schema-tag">{}</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+:root{--rw-yellow:#ffe500;--deep-dark:#111111;--footer-bg:#1a1a1a;--text-gray:#b3b3b3;--pure-white:#ffffff;--light-grey:#f8f9fa;--border-color:#e5e5e5;--text-body:#444}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;color:var(--text-body);background:var(--light-grey);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;color:var(--deep-dark)}
+
+/* Header */
+header{position:fixed;top:0;width:100%;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;z-index:2000;transition:.5s cubic-bezier(.4,0,.2,1)}
+header.scrolled{background:rgba(0,0,0,.95);padding:12px 5%;backdrop-filter:blur(10px);border-bottom:2px solid var(--rw-yellow)}
+nav a{color:white;text-decoration:none;margin:0 15px;font-size:13px;text-transform:uppercase;font-weight:400;opacity:.8;transition:.3s}
+nav a:hover{opacity:1;color:var(--rw-yellow)}
+.btn-appraisal{background:var(--rw-yellow);color:#000;padding:10px 22px;font-weight:700;text-decoration:none;border-radius:2px;font-size:12px;transition:.3s}
+.btn-appraisal:hover{background:#fff}
+
+/* Mobile */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+.hamburger span{width:25px;height:2px;background:white;transition:.3s}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2500}
+.nav-overlay.open{display:block}
+.mobile-nav{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:#111;z-index:3000;padding:80px 40px 40px;transition:right .3s ease;display:flex;flex-direction:column;gap:20px}
+.mobile-nav.open{right:0}
+.mobile-nav a{color:white;text-decoration:none;font-size:14px;text-transform:uppercase;font-weight:500;border-bottom:1px solid #333;padding-bottom:14px}
+.mobile-nav a:hover{color:var(--rw-yellow)}
+.close-btn{position:absolute;top:25px;right:25px;color:white;font-size:26px;cursor:pointer;background:none;border:none}
+
+/* Article top */
+.article-top{background:var(--pure-white);padding:140px 5% 50px;text-align:center}
+.breadcrumb{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:25px}
+.breadcrumb a{color:var(--deep-dark);text-decoration:none;transition:color .3s}
+.breadcrumb a:hover{color:var(--rw-yellow)}
+.breadcrumb span{margin:0 10px;color:#ccc}
+.article-title{font-size:3.2rem;max-width:1000px;margin:0 auto 30px;line-height:1.2}
+.article-meta{font-size:.95rem;color:#666;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap}
+.article-meta .category-tag{background:var(--light-grey);padding:5px 15px;border-radius:20px;font-weight:600;color:var(--deep-dark);font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
+.article-keywords{max-width:800px;margin:20px auto 0;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.kw-tag{background:#f0f0f0;color:#666;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:500}
+
+/* Article hero image */
+.article-hero{width:100%;max-width:1200px;margin:-20px auto 40px;position:relative;z-index:10}
+.article-hero img{width:100%;height:60vh;min-height:400px;object-fit:cover;box-shadow:0 20px 40px rgba(0,0,0,.1);display:block}
+.article-hero-placeholder{width:100%;height:50vh;min-height:300px;background:linear-gradient(135deg,#1a1a1a,#333);display:flex;align-items:center;justify-content:center;font-size:4rem}
+
+/* Article layout */
+.article-layout{max-width:1200px;margin:0 auto 100px;padding:0;display:flex;gap:60px;align-items:flex-start}
+.article-content{flex:1;background:var(--pure-white);padding:50px 60px;border-top:4px solid var(--rw-yellow);box-shadow:0 10px 30px rgba(0,0,0,.03);font-size:1.15rem;line-height:1.8;color:#333}
+.article-content p{margin-bottom:25px}
+.article-content h2{font-size:2rem;margin:50px 0 20px;border-bottom:1px solid #eee;padding-bottom:15px}
+.article-content h3{font-size:1.5rem;margin:40px 0 15px}
+.article-content ul,
+.article-content ol{margin:0 0 30px 40px}
+.article-content li{margin-bottom:10px}
+.article-content blockquote{margin:40px 0;padding:20px 30px;background:var(--light-grey);border-left:4px solid var(--rw-yellow);font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;color:var(--deep-dark);line-height:1.6}
+.article-content strong{color:var(--deep-dark)}
+.article-content a{color:var(--deep-dark);text-decoration:underline;text-decoration-color:var(--rw-yellow)}
+
+/* Loading state */
+.article-loading{text-align:center;padding:80px;color:#aaa}
+.loader{width:40px;height:40px;border:3px solid #eee;border-top-color:var(--rw-yellow);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Sidebar */
+.article-sidebar{width:340px;flex-shrink:0;position:sticky;top:100px}
+.author-card{background:var(--pure-white);padding:40px 30px 30px;border-top:4px solid var(--deep-dark);box-shadow:0 10px 30px rgba(0,0,0,.05);text-align:center;margin-bottom:30px}
+.author-card img{width:90px;height:90px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:2px solid var(--light-grey)}
+.author-card h4{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:5px}
+.author-card p.title{font-size:.82rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.author-card p.desc{font-size:.9rem;color:#555;line-height:1.5;margin-bottom:20px}
+.author-card .btn-contact{display:block;padding:12px;background:var(--deep-dark);color:white;text-decoration:none;font-weight:600;font-size:.88rem;text-transform:uppercase;transition:.3s}
+.author-card .btn-contact:hover{background:var(--rw-yellow);color:var(--deep-dark)}
+.cta-card{background:var(--deep-dark);color:white;padding:40px 30px;text-align:center}
+.cta-card h3{color:white;font-size:1.6rem;margin-bottom:15px}
+.cta-card p{font-size:.95rem;color:#bbb;margin-bottom:25px;line-height:1.5}
+.cta-input{width:100%;padding:12px 15px;margin-bottom:15px;border:none;font-family:'Montserrat',sans-serif}
+.cta-submit{width:100%;padding:15px;background:var(--rw-yellow);color:var(--deep-dark);border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;text-transform:uppercase;transition:.3s}
+.cta-submit:hover{background:white}
+
+/* Footer */
+footer{background:var(--footer-bg);color:white;padding:80px 8% 40px;width:100%}
+.footer-grid{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:50px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:40px;margin-bottom:30px}
+.footer-col h4{font-family:'Playfair Display',serif;color:white;margin-bottom:25px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:1px;font-size:1.1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:12px}
+.footer-col a{color:var(--text-gray);text-decoration:none;transition:.3s;font-size:.95rem}
+.footer-col a:hover{color:var(--rw-yellow);padding-left:5px}
+.footer-col p{color:var(--text-gray);font-size:.95rem;margin-bottom:10px}
+.footer-bottom{text-align:center;color:var(--text-gray);font-size:.8rem}
+
+@media(max-width:1024px){.article-layout{flex-direction:column;padding:0 5%}.article-content{padding:40px 5%;width:100%}.article-sidebar{width:100%;position:static;display:flex;flex-direction:column;gap:30px}.article-title{font-size:2.4rem}.article-hero img{height:40vh}}
+@media(max-width:768px){.article-title{font-size:1.9rem}header{padding:15px 5%}nav{display:none}.hamburger{display:flex}.footer-grid{grid-template-columns:1fr;gap:30px}.article-meta{gap:12px}.article-content{padding:30px 5%}}
+</style>
+</head>
+<body>
+<div id="fb-root"></div>
+<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="close-btn" onclick="closeMenu()">✕</button>
+  <a href="../index.html">Home</a>
+  <a href="../about.html">About Us</a>
+  <a href="../listings.html">Listings</a>
+  <a href="../sold.html">Recent Sold</a>
+  <a href="../review.html">Reviews</a>
+  <a href="../faq.html">FAQ's</a>
+  <a href="../blog.html" style="color:var(--rw-yellow)">Blog</a>
+  <a href="../contact.html" style="background:var(--rw-yellow);color:#000;padding:12px;text-align:center;font-weight:700;border-bottom:none">Free Appraisal</a>
+</div>
+
+<header id="main-header">
+  <a href="../index.html"><img src="../images/logo.png" alt="Team Eric Wu Logo" style="height:100px"></a>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About Us</a>
+    <a href="../listings.html">Listings</a>
+    <a href="../sold.html">Recent Sold</a>
+    <a href="../review.html">Reviews</a>
+    <a href="../faq.html">FAQ's</a>
+    <a href="../blog.html" style="color:var(--rw-yellow);opacity:1;font-weight:600">Blog</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:15px">
+    <a href="../contact.html" class="btn-appraisal">FREE APPRAISAL</a>
+    <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- Article top: populated by JS -->
+<section class="article-top" id="article-top">
+  <div class="article-loading"><div class="loader"></div>Loading article...</div>
+</section>
+
+<!-- Hero image -->
+<div class="article-hero" id="article-hero" style="display:none"></div>
+
+<!-- Article layout -->
+<main class="article-layout" id="article-layout" style="display:none">
+  <article class="article-content" id="article-content"></article>
+  <aside class="article-sidebar">
+    <div class="author-card">
+      <img src="../images/eric-profile.jpg" alt="Eric Wu" onerror="this.style.display='none'">
+      <h4>Eric Wu</h4>
+      <p class="title">Ray White Elite Performer</p>
+      <p class="desc">Deeply rooted in East Auckland. Over 500 successful premium property transactions spanning from Flat Bush to Macleans.</p>
+      <a href="../about.html" class="btn-contact">Read Full Profile</a>
+    </div>
+    <div class="cta-card">
+      <h3>Thinking of Selling?</h3>
+      <p>Find out exactly what your property is worth in today's market. Free, no-obligation appraisal.</p>
+      <form action="../contact.html" method="GET">
+        <input type="text" class="cta-input" placeholder="Your Name" required>
+        <input type="tel" class="cta-input" placeholder="Phone Number" required>
+        <input type="text" class="cta-input" placeholder="Property Address" required>
+        <button type="submit" class="cta-submit">Get Free Appraisal</button>
+      </form>
+    </div>
+  </aside>
+</main>
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>MENU</h4>
+      <ul>
+        <li><a href="../about.html">About Us</a></li>
+        <li><a href="../listings.html">Current Listings</a></li>
+        <li><a href="../sold.html">Recent Sold</a></li>
+        <li><a href="../review.html">Reviews</a></li>
+        <li><a href="../faq.html">FAQ's</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>CONTACT US</h4>
+      <p><strong>Phone:</strong><br>021 586 868</p>
+      <p style="margin-top:15px"><strong>Email:</strong><br><a href="mailto:eric.wu@raywhite.com" style="color:white;text-decoration:none">eric.wu@raywhite.com</a></p>
+      <p style="margin-top:15px"><strong>Active Service Locations:</strong><br>East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush, and surrounding premium suburbs.</p>
+    </div>
+    <div class="footer-col">
+      <h4>FOLLOW US</h4>
+      <div style="background:white;border-radius:8px;overflow:hidden;height:300px;box-shadow:0 5px 15px rgba(0,0,0,.2)">
+        <div class="fb-page" data-href="https://www.facebook.com/TeamEricRaywhite/" data-tabs="timeline" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+          <blockquote cite="https://www.facebook.com/TeamEricRaywhite/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/TeamEricRaywhite/">TeamEric</a></blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Team Eric Wu | Ray White Elite. All Rights Reserved.</div>
+</footer>
+
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v25.0&appId=APP_ID"></script>
+<script>
+const SB_URL='https://lvdmqgyrgkzywoqvmjlh.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzI4NjYsImV4cCI6MjA5MTI0ODg2Nn0.tvm_agT2XEwXPUyNQPoUxQSkn188b2ZryYC-p54n8Rc';
+
+window.addEventListener('scroll',()=>document.getElementById('main-header').classList.toggle('scrolled',scrollY>50));
+function openMenu(){document.getElementById('mobile-nav').classList.add('open');document.getElementById('nav-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeMenu(){document.getElementById('mobile-nav').classList.remove('open');document.getElementById('nav-overlay').classList.remove('open');document.body.style.overflow=''}
+
+function formatDate(iso){return new Date(iso).toLocaleDateString('en-NZ',{year:'numeric',month:'long',day:'numeric'})}
+function readTime(content){const words=(content||'').replace(/<[^>]*>/g,' ').split(/\s+/).filter(Boolean).length;return Math.max(1,Math.ceil(words/200))}
+
+async function loadArticle(){
+  const id=new URLSearchParams(location.search).get('id');
+  if(!id){showError('No article ID provided.');return}
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/blogs?id=eq.${id}&select=*`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const data=await r.json();
+    if(!data||!data.length){showError('Article not found.');return}
+    renderArticle(data[0]);
+  }catch(e){showError('Failed to load article.');}
+}
+
+function renderArticle(a){
+  const rt=readTime(a.content);
+  const date=formatDate(a.created_at);
+  const kwList=(a.keywords||'').split(',').map(k=>k.trim()).filter(Boolean);
+
+  document.getElementById('meta-title').textContent=`${a.title} | Team Eric Wu`;
+  document.getElementById('meta-desc').setAttribute('content',a.summary||a.title);
+  document.getElementById('meta-keywords').setAttribute('content',a.keywords||'');
+  document.getElementById('og-title').setAttribute('content',a.title);
+  document.getElementById('og-desc').setAttribute('content',a.summary||'');
+  document.getElementById('og-image').setAttribute('content',a.cover_image||'');
+  document.getElementById('canonical').setAttribute('href',location.href);
+
+  document.getElementById('schema-tag').textContent=JSON.stringify({
+    '@context':'https://schema.org','@type':'BlogPosting',
+    'mainEntityOfPage':{'@type':'WebPage','@id':location.href},
+    'headline':a.title,'image':a.cover_image||'',
+    'description':a.summary||'',
+    'keywords':a.keywords||'',
+    'author':{'@type':'Person','name':'Eric Wu'},
+    'publisher':{'@type':'Organization','name':'Team Eric Wu – Ray White Elite','logo':{'@type':'ImageObject','url':location.origin+'/images/logo.png'}},
+    'datePublished':a.created_at,'dateModified':a.created_at
+  });
+
+  document.getElementById('article-top').innerHTML=`
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span>/</span>
+      <a href="../blog.html">Market Insights</a><span>/</span>
+      ${a.category||'Article'}
+    </div>
+    <h1 class="article-title">${a.title}</h1>
+    <div class="article-meta">
+      ${a.category?`<span class="category-tag">${a.category}</span>`:''}
+      <span>By <strong>Eric Wu</strong></span>
+      <span>${date}</span>
+      <span>${rt} min read</span>
+    </div>
+    ${kwList.length?`<div class="article-keywords">${kwList.map(k=>`<span class="kw-tag">${k}</span>`).join('')}</div>`:''}`;
+
+  if(a.cover_image){
+    document.getElementById('article-hero').innerHTML=`<img src="${a.cover_image}" alt="${a.title}" />`;
+    document.getElementById('article-hero').style.display='';
+  }
+
+  const isHTML=/<[a-z][\s\S]*>/i.test(a.content||'');
+  const bodyHTML=isHTML?a.content:(a.content||'').split('\n\n').filter(Boolean).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+  try{
+    document.getElementById('article-content').innerHTML=bodyHTML;
+  }catch(e){
+    document.getElementById('article-content').innerText=a.content||'';
+  }
+  document.getElementById('article-layout').style.display='';
+}
+
+function showError(msg){
+  document.getElementById('article-layout').style.display='none';
+  document.getElementById('article-hero').style.display='none';
+  document.getElementById('article-top').innerHTML=`<h1 class="article-title" style="color:#ccc">Oops</h1><p style="color:#aaa;margin-top:20px">${msg} <a href="../blog.html" style="color:var(--rw-yellow)">Back to Blog</a></p>`;
+}
+
+loadArticle();
+</script>
+</body>
+</html>
