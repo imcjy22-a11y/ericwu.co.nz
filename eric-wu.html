@@ -331,7 +331,6 @@
         }
         .core-areas {
             display: grid;
-            /* CHANGE 1: 4 → 5 columns to accommodate Northpark card */
             grid-template-columns: repeat(5, 1fr);
             gap: 25px;
             margin-bottom: 50px;
@@ -514,7 +513,6 @@
         .hamburger { display: none; }
 
         @media (max-width: 1024px) {
-            /* CHANGE 1 continued: at tablet, drop to 2 or 3 columns */
             .core-areas { grid-template-columns: repeat(3, 1fr); }
             .why-grid { grid-template-columns: repeat(2, 1fr); }
             .profile-about { flex-direction: column; }
@@ -700,7 +698,7 @@
 <section class="profile-about">
     <div class="profile-about-main">
         <h2>East Auckland's Most Trusted Real Estate Agent</h2>
-        <p>Eric Wu is the founder and team leader of <strong>Team Eric Wu at Ray White Botany</strong> — East Auckland's premier real estate team. With over 18 years of consistent, award-winning performance, Eric has built an unrivalled reputation across <strong>East Tāmaki, East Tāmaki Heights, Dannemora,</strong> and <strong>Flat Bush</strong> as the agent vendors trust when results matter most.</p>
+        <p>Eric Wu is the founder and team leader of <strong>Team Eric Wu at Ray White Botany</strong> — East Auckland's premier real estate team. With over 18 years of consistent, award-winning performance, Eric has built an unrivalled reputation across Auckland inc. <strong>East Tāmaki, East Tāmaki Heights, Dannemora,</strong> and <strong>Flat Bush</strong> as the agent vendors trust when results matter most.</p>
         <p>Having successfully managed <strong>500+ property transactions</strong> and achieved a <strong>$300M+ career sales milestone</strong>, Eric combines elite prestige expertise with a deep commitment to the $1M–$2M family residential sector that defines East Auckland's most sought-after streets. His campaigns regularly outperform street records and market expectations alike.</p>
         <p>Eric's strategic advantage is his <strong>hyper-local mastery</strong> of East Auckland's micro-markets. From the premium school-zoned streets of <strong>Dannemora</strong> to the tightly held brick-and-tile enclaves of <strong>East Tāmaki</strong>, and the master-planned communities of <strong>Flat Bush</strong> and <strong>East Tāmaki Heights</strong> — Eric's depth of knowledge is unmatched. This local intelligence, combined with elite marketing and relentless negotiation, consistently delivers premium outcomes for his vendors.</p>
         <p>Whether you are selling a family home in <strong>East Tāmaki Heights</strong>, a multi-generational property in <strong>Dannemora</strong>, or seeking investment-grade opportunities across <strong>Flat Bush</strong>, Eric's data-driven approach ensures you achieve the best possible result in any market condition.</p>
@@ -785,7 +783,6 @@
             <h3>Flat Bush</h3>
             <p>Comprehensive coverage of Flat Bush's master-planned communities, Ormiston school zones and new housing stock.</p>
         </div>
-        <!-- CHANGE 1: New Northpark card -->
         <div class="area-card">
             <span class="area-label">Core Specialisation</span>
             <h3>Northpark</h3>
@@ -815,13 +812,11 @@
         <div class="why-card">
             <div class="why-number">01</div>
             <h3>Hyper-Local Mastery</h3>
-            <!-- CHANGE 2: Added Northpark to the list -->
             <p>Eric's specialisation in <strong>East Tāmaki, East Tāmaki Heights, Dannemora, Flat Bush</strong> and <strong>Northpark</strong> gives vendors a geographic advantage that generalist agents simply cannot replicate. He knows every street, school zone, and buyer pool intimately.</p>
         </div>
         <div class="why-card">
             <div class="why-number">02</div>
             <h3>Elite Standards at Every Price Point</h3>
-            <!-- CHANGE 3: "photography" replaced with "professional presentation" -->
             <p>From landmark prestige sales to high-demand $1M–$2M family residences across East Auckland, Eric applies the same <strong>elite-level marketing, professional presentation, and negotiation rigour</strong> to every listing — the same premium standard of service, regardless of price.</p>
         </div>
         <div class="why-card">
@@ -833,7 +828,6 @@
 </section>
 
 <!-- ═══ FAQ – hidden from UI, stays in DOM for search engine crawling ═══ -->
-<!-- CHANGE 4: .faq-section CSS is set to visually-hidden (position:absolute, 1px×1px, overflow:hidden) -->
 <section class="faq-section" aria-hidden="true">
     <h2>Frequently Asked Questions</h2>
     <p class="section-sub">Common questions about Eric Wu, Team Eric Wu, and real estate in East Auckland.</p>
