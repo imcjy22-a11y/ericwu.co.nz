@@ -355,85 +355,98 @@ async function callGemini(prompt){
   return d.candidates[0].content.parts.map(p=>p.text||'').join('');
 }
 
-// ── Fetch Ray White page via CORS proxy ───────
-async function fetchPageText(url){
-  const proxies=[
-    'https://api.allorigins.win/get?url='+encodeURIComponent(url),
-    'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(url)
-  ];
-  for(const proxy of proxies){
-    try{
-      const r=await fetch(proxy,{signal:AbortSignal.timeout(12000)});
-      if(!r.ok)continue;
-      const j=await r.json();
-      const html=j.contents||j.body||'';
-      if(!html)continue;
-      // Strip HTML tags, keep text
-      const tmp=document.createElement('div');
-      tmp.innerHTML=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
-      const text=(tmp.innerText||tmp.textContent||'').replace(/\s+/g,' ').trim();
-      if(text.length>200)return text.substring(0,5000);
-    }catch(e){continue;}
-  }
-  throw new Error('页面内容无法获取（CORS代理失败）');
-}
-
 // ── Gemini with Search (for Ray White fetch) ──
 async function callGeminiSearch(rwUrl){
   const key=getGemini();
-  setStatus('正在抓取页面内容...');
-  let pageText='';
+
+  // Strategy 1: Gemini URL context tool
+  setStatus('⏳ 步骤 1/3：尝试直接读取链接...');
   try{
-    pageText=await fetchPageText(rwUrl);
-  }catch(e){
-    // Fallback: use Gemini search if direct fetch fails
-    setStatus('直接抓取失败，改用 Gemini 搜索...');
+    const r=await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+      {method:'POST',headers:{'Content-Type':'application/json'},
+       body:JSON.stringify({
+         contents:[{parts:[{text:
+           'Visit this URL and extract the property listing details. Output ONLY raw JSON, no markdown:\n'+
+           '{"address":"full street address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
+           '"land_area":"m²","building_area":"m²","price":"price string","description":"first 150 chars","image_url":"","raywhite_url":"'+rwUrl+'"}\n\nURL: '+rwUrl
+         }]}],
+         tools:[{url_context:{}}],
+         generationConfig:{temperature:0,maxOutputTokens:600}
+       })}
+    );
+    const d=await r.json();
+    if(d.candidates){
+      const txt=d.candidates[0].content.parts.map(p=>p.text||'').join('');
+      const data=extractJSON(txt);
+      if(data&&data.address)return txt;
+    }
+  }catch(e){}
+
+  // Strategy 2: Google Search grounding
+  setStatus('⏳ 步骤 2/3：改用 Google 搜索...');
+  try{
     const r=await fetch(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
       {method:'POST',headers:{'Content-Type':'application/json'},
        body:JSON.stringify({
          tools:[{google_search:{}}],
-         contents:[{parts:[{text:'Find details for this Ray White NZ property listing: '+rwUrl}]}],
-         generationConfig:{temperature:0.1,maxOutputTokens:2000}
+         contents:[{parts:[{text:
+           'Search for this Ray White NZ listing and find address, suburb, bedrooms, bathrooms, garages, land area, price.\n'+
+           'URL: '+rwUrl+'\n'+
+           'Then output ONLY raw JSON:\n'+
+           '{"address":"full address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
+           '"land_area":"m²","building_area":"m²","price":"price","description":"","image_url":"","raywhite_url":"'+rwUrl+'"}'
+         }]}],
+         generationConfig:{temperature:0,maxOutputTokens:800}
        })}
     );
     const d=await r.json();
-    if(!d.candidates)throw new Error('Gemini API错误: '+(d.error?.message||''));
-    pageText=d.candidates[0].content.parts.map(p=>p.text||'').join('');
+    if(d.candidates){
+      const txt=d.candidates[0].content.parts.map(p=>p.text||'').join('');
+      const data=extractJSON(txt);
+      if(data&&data.address)return txt;
+    }
+  }catch(e){}
+
+  // Strategy 3: CORS proxy → Gemini parse
+  setStatus('⏳ 步骤 3/3：尝试代理抓取...');
+  const proxies=[
+    {url:'https://api.allorigins.win/get?url='+encodeURIComponent(rwUrl),json:true},
+    {url:'https://corsproxy.io/?'+encodeURIComponent(rwUrl),json:false},
+    {url:'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(rwUrl),json:false}
+  ];
+  for(const proxy of proxies){
+    try{
+      const r=await fetch(proxy.url,{signal:AbortSignal.timeout(10000)});
+      if(!r.ok)continue;
+      let html=proxy.json?(await r.json()).contents||'':(await r.text());
+      if(!html||html.length<200)continue;
+      const tmp=document.createElement('div');
+      tmp.innerHTML=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
+      const pageText=(tmp.innerText||tmp.textContent||'').replace(/\s+/g,' ').trim().substring(0,5000);
+      if(pageText.length<100)continue;
+      setStatus('⏳ 步骤 3/3：代理成功，AI解析中...');
+      const r2=await fetch(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+        {method:'POST',headers:{'Content-Type':'application/json'},
+         body:JSON.stringify({
+           contents:[{parts:[{text:
+             'Extract property info from this text. Output ONLY raw JSON:\n'+
+             '{"address":"full address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
+             '"land_area":"m²","building_area":"m²","price":"price","description":"first 150 chars","image_url":"","raywhite_url":"'+rwUrl+'"}\n\n'+pageText
+           }]}],
+           generationConfig:{temperature:0,maxOutputTokens:600,responseMimeType:'application/json'}
+         })}
+      );
+      const d2=await r2.json();
+      if(d2.candidates)return d2.candidates[0].content.parts.map(p=>p.text||'').join('');
+    }catch(e){continue;}
   }
 
-  // Extract JSON from page content
-  setStatus('AI 正在解析房源信息...');
-  const extractPrompt=
-    'Extract property details from the following Ray White listing page content.\n'+
-    'Output ONLY a raw JSON object, no markdown, no explanation:\n'+
-    '{"address":"full street address","suburb":"suburb name","bedrooms":0,"bathrooms":0,"garages":0,'+
-    '"land_area":"000 m²","building_area":"000 m²","price":"price or auction/deadline string",'+
-    '"description":"first 200 chars of description","image_url":"","raywhite_url":"'+rwUrl+'"}\n'+
-    'Use 0 for unknown numbers, empty string for unknown text.\n\nPage content:\n'+pageText;
+  throw new Error('三种方式均失败，请用下方手动输入');
+}
 
-  const r2=await fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
-    {method:'POST',headers:{'Content-Type':'application/json'},
-     body:JSON.stringify({
-       contents:[{parts:[{text:extractPrompt}]}],
-       generationConfig:{temperature:0,maxOutputTokens:600,responseMimeType:'application/json'}
-     })}
-  );
-  const d2=await r2.json();
-  if(!d2.candidates)throw new Error('JSON提取失败: '+(d2.error?.message||''));
-  return d2.candidates[0].content.parts.map(p=>p.text||'').join('');
-}
-    {method:'POST',headers:{'Content-Type':'application/json'},
-     body:JSON.stringify({
-       contents:[{parts:[{text:extractPrompt}]}],
-       generationConfig:{temperature:0,maxOutputTokens:600,responseMimeType:'application/json'}
-     })}
-  );
-  const d2=await r2.json();
-  if(!d2.candidates)throw new Error('JSON提取失败: '+(d2.error?.message||''));
-  return d2.candidates[0].content.parts.map(p=>p.text||'').join('');
-}
 
 // ── Anthropic API ─────────────────────────────
 async function callAnt(prompt,useSearch=false){
