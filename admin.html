@@ -132,6 +132,31 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
       </div>
       <div class="status-line" id="fetch-status"></div>
       <div id="dup-warn" style="display:none" class="dup-warn">⚠ 该地址已存在于数据库，请检查是否重复！</div>
+
+      <!-- Manual entry fallback -->
+      <div id="manual-form" style="display:none;margin-top:16px;border-top:1px solid #f0f0f0;padding-top:16px">
+        <div class="card-title" style="margin-bottom:12px">✍️ 手动输入房源信息</div>
+        <div class="input-row" style="flex-wrap:wrap;gap:8px">
+          <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="m-address" placeholder="例：12 Example St, Remuera" /></div>
+          <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb</label><input type="text" id="m-suburb" placeholder="Remuera" /></div>
+        </div>
+        <div class="input-row" style="gap:8px">
+          <div class="field" style="flex:1"><label class="lbl">🛏 卧室</label><input type="text" id="m-bed" placeholder="3" /></div>
+          <div class="field" style="flex:1"><label class="lbl">🚿 卫浴</label><input type="text" id="m-bath" placeholder="2" /></div>
+          <div class="field" style="flex:1"><label class="lbl">🚗 车位</label><input type="text" id="m-garage" placeholder="1" /></div>
+        </div>
+        <div class="input-row" style="gap:8px">
+          <div class="field" style="flex:1"><label class="lbl">地面积</label><input type="text" id="m-land" placeholder="600 m²" /></div>
+          <div class="field" style="flex:1"><label class="lbl">建筑面积</label><input type="text" id="m-build" placeholder="180 m²" /></div>
+          <div class="field" style="flex:1"><label class="lbl">价格</label><input type="text" id="m-price" placeholder="Deadline Sale" /></div>
+        </div>
+        <div class="field"><label class="lbl">图片 URL <span>（可选，来自 Ray White 页面）</span></label><input type="text" id="m-img" placeholder="https://..." /></div>
+        <div class="field"><label class="lbl">Ray White 链接</label><input type="text" id="m-raywhite-url" /></div>
+        <div class="field"><label class="lbl">简介 <span>（可选）</span></label><textarea id="m-desc" style="min-height:70px" placeholder="物业简介..."></textarea></div>
+        <button class="btn btn-green" onclick="saveManual()">✓ 手动发布</button>
+        <button class="btn btn-ghost" style="margin-left:8px" onclick="document.getElementById('manual-form').style.display='none'">取消</button>
+      </div>
+
       <div id="preview-area"></div>
     </div>
     <div class="card">
@@ -326,31 +351,51 @@ async function callGemini(prompt){
        generationConfig:{temperature:0.3,maxOutputTokens:4000}})}
   );
   const d=await r.json();
-  if(!d.candidates)throw new Error(JSON.stringify(d));
-  return d.candidates[0].content.parts[0].text;
+  if(!d.candidates)throw new Error('Gemini API错误: '+(d.error?.message||JSON.stringify(d).substring(0,120)));
+  return d.candidates[0].content.parts.map(p=>p.text||'').join('');
 }
 
 // ── Gemini with Search (for Ray White fetch) ──
-async function callGeminiSearch(prompt){
+async function callGeminiSearch(rwUrl){
   const key=getGemini();
+  // Step 1: search with grounding to retrieve listing info
+  const searchPrompt='Search for this Ray White NZ property listing and retrieve its details: '+rwUrl+
+    '\nFind the address, suburb, bedrooms, bathrooms, garages, land area, building area, price, and description.';
   const r=await fetch(
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
     {method:'POST',headers:{'Content-Type':'application/json'},
      body:JSON.stringify({
        tools:[{google_search:{}}],
-       contents:[{parts:[{text:prompt}]}],
-       generationConfig:{temperature:0.1,maxOutputTokens:1000}
+       contents:[{parts:[{text:searchPrompt}]}],
+       generationConfig:{temperature:0.1,maxOutputTokens:2000}
      })}
   );
   const d=await r.json();
-  if(!d.candidates)throw new Error(JSON.stringify(d));
-  return d.candidates[0].content.parts.map(p=>p.text||'').join('');
+  if(!d.candidates)throw new Error('Gemini API错误: '+(d.error?.message||JSON.stringify(d).substring(0,120)));
+  const searchText=d.candidates[0].content.parts.map(p=>p.text||'').join('');
+
+  // Step 2: extract structured JSON from the search result (no search tool, just parse)
+  const extractPrompt='Based on the following property information, output ONLY a raw JSON object. No markdown. No explanation. No text before or after. Just the JSON.\n\n'+
+    '{"address":"full street address","suburb":"suburb name","bedrooms":0,"bathrooms":0,"garages":0,'+
+    '"land_area":"000 m²","building_area":"000 m²","price":"price string","description":"first 200 chars","image_url":"","raywhite_url":"'+rwUrl+'"}\n\n'+
+    'Use 0 for unknown numbers, empty string for unknown text. Property info:\n'+searchText;
+  const r2=await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+    {method:'POST',headers:{'Content-Type':'application/json'},
+     body:JSON.stringify({
+       contents:[{parts:[{text:extractPrompt}]}],
+       generationConfig:{temperature:0,maxOutputTokens:600,responseMimeType:'application/json'}
+     })}
+  );
+  const d2=await r2.json();
+  if(!d2.candidates)throw new Error('JSON提取失败: '+(d2.error?.message||''));
+  return d2.candidates[0].content.parts.map(p=>p.text||'').join('');
 }
 
 // ── Anthropic API ─────────────────────────────
 async function callAnt(prompt,useSearch=false){
   const key=getAnt();
-  const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]};
+  const body={model:'claude-sonnet-4-20250514',max_tokens:1024,messages:[{role:'user',content:prompt}]};
   if(useSearch)body.tools=[{type:'web_search_20250305',name:'web_search'}];
   const r=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
@@ -358,21 +403,28 @@ async function callAnt(prompt,useSearch=false){
     body:JSON.stringify(body)
   });
   const d=await r.json();
-  if(!d.content)throw new Error(d.error?.message||'API error');
-  // handle tool loop
-  if(d.stop_reason==='tool_use'){
-    const msgs=[{role:'user',content:prompt},{role:'assistant',content:d.content}];
-    const res=d.content.filter(b=>b.type==='tool_use').map(b=>({type:'tool_result',tool_use_id:b.id,content:'done'}));
-    msgs.push({role:'user',content:res});
+  if(d.error)throw new Error(d.error.message||'Anthropic API错误');
+  if(!d.content)throw new Error('Anthropic API无响应');
+
+  // Multi-turn loop for web_search tool (server executes search internally)
+  let current=d;
+  let msgs=[{role:'user',content:prompt}];
+  let maxLoops=5;
+  while(current.stop_reason==='tool_use'&&maxLoops-->0){
+    msgs.push({role:'assistant',content:current.content});
+    const toolResults=current.content
+      .filter(b=>b.type==='tool_use')
+      .map(b=>({type:'tool_result',tool_use_id:b.id,content:'Search executed.'}));
+    msgs.push({role:'user',content:toolResults});
     const r2=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({...body,messages:msgs})
     });
-    const d2=await r2.json();
-    return d2.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    current=await r2.json();
+    if(current.error)throw new Error(current.error.message||'工具调用失败');
   }
-  return d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+  return (current.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
 }
 
 function extractJSON(txt){
@@ -485,6 +537,7 @@ async function fetchListing(){
   btn.innerHTML='<span class="spin"></span>读取中...';btn.disabled=true;
   document.getElementById('preview-area').innerHTML='';
   document.getElementById('dup-warn').style.display='none';
+  document.getElementById('manual-form').style.display='none';
   setStatus('正在读取页面...');
 
   const prompt='Go to this Ray White NZ listing URL and extract the property data: '+url+'\n\nReturn ONLY a raw JSON object with no markdown:\n{"address":"full street address","suburb":"suburb only","bedrooms":0,"bathrooms":0,"garages":0,"land_area":"000 m²","building_area":"000 m²","price":"price string","description":"first 250 chars of description","image_url":"first photo URL from cdn6.ep.dynamics.net","raywhite_url":"'+url+'"}\nUse 0 for unknown numbers, empty string for unknown text.';
@@ -492,14 +545,19 @@ async function fetchListing(){
   try{
     let txt='';
     if(hasAnt){txt=await callAnt(prompt,true)}
-    else{txt=await callGeminiSearch(prompt)}
+    else{txt=await callGeminiSearch(url)}
 
     const data=extractJSON(txt);
-    if(!data||!data.address)throw new Error('无法解析房源信息，请重试');
+    if(!data||!data.address)throw new Error('无法解析房源信息');
     previewData=Object.assign({},data,{raywhite_url:url});
     if(isDup(previewData.address))document.getElementById('dup-warn').style.display='block';
     showPreview(previewData);setStatus('');
-  }catch(e){setStatus('读取失败：'+e.message.substring(0,80),true);}
+  }catch(e){
+    setStatus('读取失败：'+e.message.substring(0,80)+' → 可使用下方手动输入',true);
+    // Pre-fill raywhite_url in manual form and show it
+    document.getElementById('m-raywhite-url').value=url;
+    document.getElementById('manual-form').style.display='block';
+  }
   btn.innerHTML='读取信息';btn.disabled=false;
 }
 
@@ -530,10 +588,31 @@ async function saveListing(){
   document.getElementById('dup-warn').style.display='none';
   previewData=null;setStatus('');loadListings();
 }
+function saveManual(){
+  const addr=document.getElementById('m-address').value.trim();
+  if(!addr){toast('请填写地址','err');return}
+  previewData={
+    address:addr,
+    suburb:document.getElementById('m-suburb').value.trim(),
+    bedrooms:parseInt(document.getElementById('m-bed').value)||0,
+    bathrooms:parseInt(document.getElementById('m-bath').value)||0,
+    garages:parseInt(document.getElementById('m-garage').value)||0,
+    land_area:document.getElementById('m-land').value.trim(),
+    building_area:document.getElementById('m-build').value.trim(),
+    price:document.getElementById('m-price').value.trim(),
+    image_url:document.getElementById('m-img').value.trim(),
+    raywhite_url:document.getElementById('m-raywhite-url').value.trim(),
+    description:document.getElementById('m-desc').value.trim()
+  };
+  if(isDup(previewData.address))document.getElementById('dup-warn').style.display='block';
+  document.getElementById('manual-form').style.display='none';
+  showPreview(previewData);setStatus('');
+}
 function cancelPreview(){
   document.getElementById('preview-area').innerHTML='';
   document.getElementById('rw-url').value='';
   document.getElementById('dup-warn').style.display='none';
+  document.getElementById('manual-form').style.display='none';
   previewData=null;setStatus('');
 }
 
