@@ -126,38 +126,25 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
   <div id="tab-listings">
     <div class="card">
       <div class="card-title">新增 Listing</div>
-      <div class="input-row">
-        <input type="text" id="rw-url" placeholder="粘贴 Ray White 链接..." />
-        <button class="btn btn-red" id="fetch-btn" onclick="fetchListing()">读取信息</button>
+      <div id="dup-warn" style="display:none;margin-bottom:10px" class="dup-warn">⚠ 该地址已存在于数据库，请检查是否重复！</div>
+      <div class="input-row" style="flex-wrap:wrap;gap:8px">
+        <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="m-address" placeholder="例：12 Example St, Remuera" /></div>
+        <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb</label><input type="text" id="m-suburb" placeholder="Remuera" /></div>
       </div>
-      <div class="status-line" id="fetch-status"></div>
-      <div id="dup-warn" style="display:none" class="dup-warn">⚠ 该地址已存在于数据库，请检查是否重复！</div>
-
-      <!-- Manual entry fallback -->
-      <div id="manual-form" style="display:none;margin-top:16px;border-top:1px solid #f0f0f0;padding-top:16px">
-        <div class="card-title" style="margin-bottom:12px">✍️ 手动输入房源信息</div>
-        <div class="input-row" style="flex-wrap:wrap;gap:8px">
-          <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="m-address" placeholder="例：12 Example St, Remuera" /></div>
-          <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb</label><input type="text" id="m-suburb" placeholder="Remuera" /></div>
-        </div>
-        <div class="input-row" style="gap:8px">
-          <div class="field" style="flex:1"><label class="lbl">🛏 卧室</label><input type="text" id="m-bed" placeholder="3" /></div>
-          <div class="field" style="flex:1"><label class="lbl">🚿 卫浴</label><input type="text" id="m-bath" placeholder="2" /></div>
-          <div class="field" style="flex:1"><label class="lbl">🚗 车位</label><input type="text" id="m-garage" placeholder="1" /></div>
-        </div>
-        <div class="input-row" style="gap:8px">
-          <div class="field" style="flex:1"><label class="lbl">地面积</label><input type="text" id="m-land" placeholder="600 m²" /></div>
-          <div class="field" style="flex:1"><label class="lbl">建筑面积</label><input type="text" id="m-build" placeholder="180 m²" /></div>
-          <div class="field" style="flex:1"><label class="lbl">价格</label><input type="text" id="m-price" placeholder="Deadline Sale" /></div>
-        </div>
-        <div class="field"><label class="lbl">图片 URL <span>（可选，来自 Ray White 页面）</span></label><input type="text" id="m-img" placeholder="https://..." /></div>
-        <div class="field"><label class="lbl">Ray White 链接</label><input type="text" id="m-raywhite-url" /></div>
-        <div class="field"><label class="lbl">简介 <span>（可选）</span></label><textarea id="m-desc" style="min-height:70px" placeholder="物业简介..."></textarea></div>
-        <button class="btn btn-green" onclick="saveManual()">✓ 手动发布</button>
-        <button class="btn btn-ghost" style="margin-left:8px" onclick="document.getElementById('manual-form').style.display='none'">取消</button>
+      <div class="input-row" style="gap:8px">
+        <div class="field" style="flex:1"><label class="lbl">🛏 卧室</label><input type="text" id="m-bed" placeholder="3" /></div>
+        <div class="field" style="flex:1"><label class="lbl">🚿 卫浴</label><input type="text" id="m-bath" placeholder="2" /></div>
+        <div class="field" style="flex:1"><label class="lbl">🚗 车位</label><input type="text" id="m-garage" placeholder="1" /></div>
       </div>
-
-      <div id="preview-area"></div>
+      <div class="input-row" style="gap:8px">
+        <div class="field" style="flex:1"><label class="lbl">地面积</label><input type="text" id="m-land" placeholder="600 m²" /></div>
+        <div class="field" style="flex:1"><label class="lbl">建筑面积</label><input type="text" id="m-build" placeholder="180 m²" /></div>
+        <div class="field" style="flex:1"><label class="lbl">价格</label><input type="text" id="m-price" placeholder="Deadline Sale" /></div>
+      </div>
+      <div class="field"><label class="lbl">图片 URL <span>（可选）</span></label><input type="text" id="m-img" placeholder="https://..." /></div>
+      <div class="field"><label class="lbl">Ray White 链接 <span>（可选）</span></label><input type="text" id="m-rw-url" placeholder="https://www.raywhite.co.nz/..." /></div>
+      <div class="field"><label class="lbl">简介 <span>（可选）</span></label><textarea id="m-desc" style="min-height:70px" placeholder="物业简介..."></textarea></div>
+      <button class="btn btn-green" onclick="saveManual()">✓ 发布 Listing</button>
     </div>
     <div class="card">
       <div class="card-title">当前 Listings <span class="badge" id="lc">0</span></div>
@@ -238,6 +225,37 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
     </div>
   </div>
 </div>
+
+<!-- Edit Drawer -->
+<div class="overlay" id="edit-overlay" style="display:none;align-items:flex-end" onclick="if(event.target===this)closeEdit()">
+  <div style="background:#fff;border-radius:16px 16px 0 0;width:100%;max-width:860px;margin:0 auto;max-height:90vh;overflow-y:auto;padding:24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <span style="font-size:15px;font-weight:600">编辑 Listing</span>
+      <button class="btn btn-ghost" style="padding:5px 12px" onclick="closeEdit()">✕ 关闭</button>
+    </div>
+    <div class="input-row" style="flex-wrap:wrap;gap:8px">
+      <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="e-address" /></div>
+      <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb</label><input type="text" id="e-suburb" /></div>
+    </div>
+    <div class="input-row" style="gap:8px">
+      <div class="field" style="flex:1"><label class="lbl">🛏 卧室</label><input type="text" id="e-bed" /></div>
+      <div class="field" style="flex:1"><label class="lbl">🚿 卫浴</label><input type="text" id="e-bath" /></div>
+      <div class="field" style="flex:1"><label class="lbl">🚗 车位</label><input type="text" id="e-garage" /></div>
+    </div>
+    <div class="input-row" style="gap:8px">
+      <div class="field" style="flex:1"><label class="lbl">地面积</label><input type="text" id="e-land" /></div>
+      <div class="field" style="flex:1"><label class="lbl">建筑面积</label><input type="text" id="e-build" /></div>
+      <div class="field" style="flex:1"><label class="lbl">价格</label><input type="text" id="e-price" /></div>
+    </div>
+    <div class="field"><label class="lbl">图片 URL</label><input type="text" id="e-img" /></div>
+    <div class="field"><label class="lbl">Ray White 链接</label><input type="text" id="e-rw-url" /></div>
+    <div class="field"><label class="lbl">简介</label><textarea id="e-desc" style="min-height:80px"></textarea></div>
+    <div style="display:flex;gap:8px;padding-top:4px">
+      <button class="btn btn-green" style="flex:1;justify-content:center" onclick="saveEdit()">✓ 保存修改</button>
+      <button class="btn btn-ghost" onclick="closeEdit()">取消</button>
+    </div>
+  </div>
+</div>
 <div class="toast ok" id="toast" style="display:none"></div>
 
 <script>
@@ -303,6 +321,7 @@ function setStatus(msg,err=false){
 // ── Supabase ──────────────────────────────────
 async function sbGet(t){const r=await fetch(SB+'/rest/v1/'+t+'?select=*&order=created_at.desc',{headers:SBH});return r.json()}
 async function sbPost(t,d){const r=await fetch(SB+'/rest/v1/'+t,{method:'POST',headers:SBH,body:JSON.stringify(d)});return r.json()}
+async function sbPatch(t,id,d){const r=await fetch(SB+'/rest/v1/'+t+'?id=eq.'+id,{method:'PATCH',headers:SBH,body:JSON.stringify(d)});return r.json()}
 async function sbDel(t,id){await fetch(SB+'/rest/v1/'+t+'?id=eq.'+id,{method:'DELETE',headers:SBH})}
 
 // ── Image Upload ──────────────────────────────
@@ -351,30 +370,25 @@ async function callGemini(prompt){
        generationConfig:{temperature:0.3,maxOutputTokens:4000}})}
   );
   const d=await r.json();
-  if(!d.candidates)throw new Error('Gemini API错误: '+(d.error?.message||JSON.stringify(d).substring(0,120)));
-  return d.candidates[0].content.parts.map(p=>p.text||'').join('');
+  if(!d.candidates)throw new Error(JSON.stringify(d));
+  return d.candidates[0].content.parts[0].text;
 }
 
 // ── Gemini with Search (for Ray White fetch) ──
 async function callGeminiSearch(rwUrl){
   const key=getGemini();
+  const jsonTemplate='{"address":"full street address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,"land_area":"m²","building_area":"m²","price":"price string","description":"first 150 chars","image_url":"","raywhite_url":"'+rwUrl+'"}';
 
-  // Strategy 1: Gemini URL context tool
-  setStatus('⏳ 步骤 1/3：尝试直接读取链接...');
+  // Strategy 1: Gemini URL Context tool
+  setStatus('⏳ 步骤 1/3：读取链接内容...');
   try{
-    const r=await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
       {method:'POST',headers:{'Content-Type':'application/json'},
        body:JSON.stringify({
-         contents:[{parts:[{text:
-           'Visit this URL and extract the property listing details. Output ONLY raw JSON, no markdown:\n'+
-           '{"address":"full street address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
-           '"land_area":"m²","building_area":"m²","price":"price string","description":"first 150 chars","image_url":"","raywhite_url":"'+rwUrl+'"}\n\nURL: '+rwUrl
-         }]}],
+         contents:[{parts:[{text:'Visit this URL and extract the Ray White property details. Output ONLY raw JSON, no markdown:\n'+jsonTemplate+'\nURL: '+rwUrl}]}],
          tools:[{url_context:{}}],
          generationConfig:{temperature:0,maxOutputTokens:600}
-       })}
-    );
+       })});
     const d=await r.json();
     if(d.candidates){
       const txt=d.candidates[0].content.parts.map(p=>p.text||'').join('');
@@ -384,23 +398,15 @@ async function callGeminiSearch(rwUrl){
   }catch(e){}
 
   // Strategy 2: Google Search grounding
-  setStatus('⏳ 步骤 2/3：改用 Google 搜索...');
+  setStatus('⏳ 步骤 2/3：Google 搜索中...');
   try{
-    const r=await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
       {method:'POST',headers:{'Content-Type':'application/json'},
        body:JSON.stringify({
          tools:[{google_search:{}}],
-         contents:[{parts:[{text:
-           'Search for this Ray White NZ listing and find address, suburb, bedrooms, bathrooms, garages, land area, price.\n'+
-           'URL: '+rwUrl+'\n'+
-           'Then output ONLY raw JSON:\n'+
-           '{"address":"full address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
-           '"land_area":"m²","building_area":"m²","price":"price","description":"","image_url":"","raywhite_url":"'+rwUrl+'"}'
-         }]}],
+         contents:[{parts:[{text:'Search for this Ray White NZ listing and find address, suburb, bedrooms, bathrooms, garages, land area, price. URL: '+rwUrl+'\nThen output ONLY raw JSON:\n'+jsonTemplate}]}],
          generationConfig:{temperature:0,maxOutputTokens:800}
-       })}
-    );
+       })});
     const d=await r.json();
     if(d.candidates){
       const txt=d.candidates[0].content.parts.map(p=>p.text||'').join('');
@@ -409,49 +415,41 @@ async function callGeminiSearch(rwUrl){
     }
   }catch(e){}
 
-  // Strategy 3: CORS proxy → Gemini parse
-  setStatus('⏳ 步骤 3/3：尝试代理抓取...');
+  // Strategy 3: CORS proxy
+  setStatus('⏳ 步骤 3/3：代理抓取中...');
   const proxies=[
-    {url:'https://api.allorigins.win/get?url='+encodeURIComponent(rwUrl),json:true},
-    {url:'https://corsproxy.io/?'+encodeURIComponent(rwUrl),json:false},
-    {url:'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(rwUrl),json:false}
+    {u:'https://api.allorigins.win/get?url='+encodeURIComponent(rwUrl),json:true},
+    {u:'https://corsproxy.io/?'+encodeURIComponent(rwUrl),json:false},
+    {u:'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(rwUrl),json:false}
   ];
-  for(const proxy of proxies){
+  for(const p of proxies){
     try{
-      const r=await fetch(proxy.url,{signal:AbortSignal.timeout(10000)});
+      const r=await fetch(p.u,{signal:AbortSignal.timeout(10000)});
       if(!r.ok)continue;
-      let html=proxy.json?(await r.json()).contents||'':(await r.text());
+      const html=p.json?(await r.json()).contents||'':(await r.text());
       if(!html||html.length<200)continue;
       const tmp=document.createElement('div');
       tmp.innerHTML=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
       const pageText=(tmp.innerText||tmp.textContent||'').replace(/\s+/g,' ').trim().substring(0,5000);
       if(pageText.length<100)continue;
-      setStatus('⏳ 步骤 3/3：代理成功，AI解析中...');
-      const r2=await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
+      setStatus('⏳ 步骤 3/3：AI 解析中...');
+      const r2=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key,
         {method:'POST',headers:{'Content-Type':'application/json'},
          body:JSON.stringify({
-           contents:[{parts:[{text:
-             'Extract property info from this text. Output ONLY raw JSON:\n'+
-             '{"address":"full address","suburb":"suburb","bedrooms":0,"bathrooms":0,"garages":0,'+
-             '"land_area":"m²","building_area":"m²","price":"price","description":"first 150 chars","image_url":"","raywhite_url":"'+rwUrl+'"}\n\n'+pageText
-           }]}],
+           contents:[{parts:[{text:'Extract property info. Output ONLY raw JSON:\n'+jsonTemplate+'\n\nPage text:\n'+pageText}]}],
            generationConfig:{temperature:0,maxOutputTokens:600,responseMimeType:'application/json'}
-         })}
-      );
+         })});
       const d2=await r2.json();
       if(d2.candidates)return d2.candidates[0].content.parts.map(p=>p.text||'').join('');
     }catch(e){continue;}
   }
-
-  throw new Error('三种方式均失败，请用下方手动输入');
+  throw new Error('三种方式均失败，请用手动输入');
 }
-
 
 // ── Anthropic API ─────────────────────────────
 async function callAnt(prompt,useSearch=false){
   const key=getAnt();
-  const body={model:'claude-sonnet-4-20250514',max_tokens:1024,messages:[{role:'user',content:prompt}]};
+  const body={model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]};
   if(useSearch)body.tools=[{type:'web_search_20250305',name:'web_search'}];
   const r=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
@@ -459,28 +457,21 @@ async function callAnt(prompt,useSearch=false){
     body:JSON.stringify(body)
   });
   const d=await r.json();
-  if(d.error)throw new Error(d.error.message||'Anthropic API错误');
-  if(!d.content)throw new Error('Anthropic API无响应');
-
-  // Multi-turn loop for web_search tool (server executes search internally)
-  let current=d;
-  let msgs=[{role:'user',content:prompt}];
-  let maxLoops=5;
-  while(current.stop_reason==='tool_use'&&maxLoops-->0){
-    msgs.push({role:'assistant',content:current.content});
-    const toolResults=current.content
-      .filter(b=>b.type==='tool_use')
-      .map(b=>({type:'tool_result',tool_use_id:b.id,content:'Search executed.'}));
-    msgs.push({role:'user',content:toolResults});
+  if(!d.content)throw new Error(d.error?.message||'API error');
+  // handle tool loop
+  if(d.stop_reason==='tool_use'){
+    const msgs=[{role:'user',content:prompt},{role:'assistant',content:d.content}];
+    const res=d.content.filter(b=>b.type==='tool_use').map(b=>({type:'tool_result',tool_use_id:b.id,content:'done'}));
+    msgs.push({role:'user',content:res});
     const r2=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({...body,messages:msgs})
     });
-    current=await r2.json();
-    if(current.error)throw new Error(current.error.message||'工具调用失败');
+    const d2=await r2.json();
+    return d2.content.filter(b=>b.type==='text').map(b=>b.text).join('');
   }
-  return (current.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+  return d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
 }
 
 function extractJSON(txt){
@@ -583,71 +574,12 @@ async function loadBlogs(){
 function normAddr(a){return(a||'').toLowerCase().replace(/\s+/g,' ').trim()}
 function isDup(addr){return currentListings.some(function(l){return normAddr(l.address)===normAddr(addr)})}
 
-async function fetchListing(){
-  const url=document.getElementById('rw-url').value.trim();
-  if(!url)return;
-  const hasGemini=!!getGemini(), hasAnt=!!getAnt();
-  if(!hasGemini&&!hasAnt){toast('请先设置 API Key（点右上角 ⚙）','err');return}
-
-  const btn=document.getElementById('fetch-btn');
-  btn.innerHTML='<span class="spin"></span>读取中...';btn.disabled=true;
-  document.getElementById('preview-area').innerHTML='';
-  document.getElementById('dup-warn').style.display='none';
-  document.getElementById('manual-form').style.display='none';
-  setStatus('正在读取页面...');
-
-  const prompt='Go to this Ray White NZ listing URL and extract the property data: '+url+'\n\nReturn ONLY a raw JSON object with no markdown:\n{"address":"full street address","suburb":"suburb only","bedrooms":0,"bathrooms":0,"garages":0,"land_area":"000 m²","building_area":"000 m²","price":"price string","description":"first 250 chars of description","image_url":"first photo URL from cdn6.ep.dynamics.net","raywhite_url":"'+url+'"}\nUse 0 for unknown numbers, empty string for unknown text.';
-
-  try{
-    let txt='';
-    if(hasAnt){txt=await callAnt(prompt,true)}
-    else{txt=await callGeminiSearch(url)}
-
-    const data=extractJSON(txt);
-    if(!data||!data.address)throw new Error('无法解析房源信息');
-    previewData=Object.assign({},data,{raywhite_url:url});
-    if(isDup(previewData.address))document.getElementById('dup-warn').style.display='block';
-    showPreview(previewData);setStatus('');
-  }catch(e){
-    setStatus('读取失败：'+e.message.substring(0,80)+' → 可使用下方手动输入',true);
-    // Pre-fill raywhite_url in manual form and show it
-    document.getElementById('m-raywhite-url').value=url;
-    document.getElementById('manual-form').style.display='block';
-  }
-  btn.innerHTML='读取信息';btn.disabled=false;
-}
-
-function showPreview(d){
-  document.getElementById('preview-area').innerHTML=
-    '<div class="preview">'+
-    (d.image_url?'<img class="preview-img" src="'+d.image_url+'" onerror="this.style.display=\'none\'" />':'')+
-    '<div class="preview-body">'+
-    '<div class="preview-addr">'+(d.address||'地址未识别')+'</div>'+
-    '<div class="preview-sub">'+(d.suburb||'')+
-      (d.land_area?' · 地 '+d.land_area:'')+
-      (d.building_area?' · 建 '+d.building_area:'')+'</div>'+
-    '<div class="preview-stats"><span>🛏 '+(d.bedrooms||0)+' 房</span><span>🚿 '+(d.bathrooms||0)+' 卫</span><span>🚗 '+(d.garages||0)+' 车位</span></div>'+
-    '<div class="preview-price">'+(d.price||'')+'</div>'+
-    '</div>'+
-    '<div class="preview-foot">'+
-    '<button class="btn btn-green" onclick="saveListing()">✓ 确认发布</button>'+
-    '<button class="btn btn-ghost" onclick="cancelPreview()">取消</button>'+
-    '</div></div>';
-}
-
-async function saveListing(){
-  if(!previewData)return;
-  await sbPost('listings',previewData);
-  toast('Listing 已发布！');
-  document.getElementById('rw-url').value='';
-  document.getElementById('preview-area').innerHTML='';
-  document.getElementById('dup-warn').style.display='none';
-  previewData=null;setStatus('');loadListings();
-}
 function saveManual(){
   const addr=document.getElementById('m-address').value.trim();
   if(!addr){toast('请填写地址','err');return}
-  previewData={
+  const isDupAddr=isDup(addr);
+  if(isDupAddr){document.getElementById('dup-warn').style.display='block';if(!confirm('该地址已存在，确定继续发布？'))return}
+  const data={
     address:addr,
     suburb:document.getElementById('m-suburb').value.trim(),
     bedrooms:parseInt(document.getElementById('m-bed').value)||0,
@@ -657,19 +589,61 @@ function saveManual(){
     building_area:document.getElementById('m-build').value.trim(),
     price:document.getElementById('m-price').value.trim(),
     image_url:document.getElementById('m-img').value.trim(),
-    raywhite_url:document.getElementById('m-raywhite-url').value.trim(),
+    raywhite_url:document.getElementById('m-rw-url').value.trim(),
     description:document.getElementById('m-desc').value.trim()
   };
-  if(isDup(previewData.address))document.getElementById('dup-warn').style.display='block';
-  document.getElementById('manual-form').style.display='none';
-  showPreview(previewData);setStatus('');
+  sbPost('listings',data).then(()=>{
+    toast('Listing 已发布！');
+    ['m-address','m-suburb','m-bed','m-bath','m-garage','m-land','m-build','m-price','m-img','m-rw-url','m-desc']
+      .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    document.getElementById('dup-warn').style.display='none';
+    loadListings();
+  }).catch(()=>toast('发布失败，请重试','err'));
 }
-function cancelPreview(){
-  document.getElementById('preview-area').innerHTML='';
-  document.getElementById('rw-url').value='';
-  document.getElementById('dup-warn').style.display='none';
-  document.getElementById('manual-form').style.display='none';
-  previewData=null;setStatus('');
+
+// ── Edit Listing ──────────────────────────────
+let editId=null;
+function openEdit(id){
+  const l=currentListings.find(x=>x.id===id);
+  if(!l)return;
+  editId=id;
+  document.getElementById('e-address').value=l.address||'';
+  document.getElementById('e-suburb').value=l.suburb||'';
+  document.getElementById('e-bed').value=l.bedrooms||'';
+  document.getElementById('e-bath').value=l.bathrooms||'';
+  document.getElementById('e-garage').value=l.garages||'';
+  document.getElementById('e-land').value=l.land_area||'';
+  document.getElementById('e-build').value=l.building_area||'';
+  document.getElementById('e-price').value=l.price||'';
+  document.getElementById('e-img').value=l.image_url||'';
+  document.getElementById('e-rw-url').value=l.raywhite_url||'';
+  document.getElementById('e-desc').value=l.description||'';
+  document.getElementById('edit-overlay').style.display='flex';
+}
+function closeEdit(){editId=null;document.getElementById('edit-overlay').style.display='none';}
+async function saveEdit(){
+  if(!editId)return;
+  const addr=document.getElementById('e-address').value.trim();
+  if(!addr){toast('地址不能为空','err');return}
+  const btn=document.querySelector('#edit-overlay .btn-green');
+  btn.innerHTML='<span class="spin"></span>保存中...';btn.disabled=true;
+  try{
+    await sbPatch('listings',editId,{
+      address:addr,
+      suburb:document.getElementById('e-suburb').value.trim(),
+      bedrooms:parseInt(document.getElementById('e-bed').value)||0,
+      bathrooms:parseInt(document.getElementById('e-bath').value)||0,
+      garages:parseInt(document.getElementById('e-garage').value)||0,
+      land_area:document.getElementById('e-land').value.trim(),
+      building_area:document.getElementById('e-build').value.trim(),
+      price:document.getElementById('e-price').value.trim(),
+      image_url:document.getElementById('e-img').value.trim(),
+      raywhite_url:document.getElementById('e-rw-url').value.trim(),
+      description:document.getElementById('e-desc').value.trim()
+    });
+    toast('已保存！');closeEdit();loadListings();
+  }catch(e){toast('保存失败，请重试','err');}
+  btn.innerHTML='✓ 保存修改';btn.disabled=false;
 }
 
 async function loadListings(){
@@ -689,6 +663,7 @@ async function loadListings(){
         '</div>'+
         '<div class="list-actions">'+
         (l.raywhite_url?'<a class="list-link" href="'+l.raywhite_url+'" target="_blank" rel="noopener noreferrer" onclick="window.open(\''+l.raywhite_url+'\',\'_blank\');return false;">查看</a>':'')+
+        '<button class="btn btn-ghost" style="font-size:12px;padding:5px 11px" onclick="openEdit(\''+l.id+'\')">编辑</button>'+
         '<button class="btn btn-danger" onclick="askDel(\'listings\',\''+l.id+'\',\''+
           (l.address||'').replace(/'/g,"\\'")+'\')">删除</button>'+
         '</div></div>';
