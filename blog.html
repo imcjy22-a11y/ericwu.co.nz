@@ -287,6 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function renderFeatured(a){if(!a)return;document.getElementById('featured-slot').innerHTML=card(a,true);}
     function renderGrid(list){document.getElementById('blog-grid').innerHTML=list.map(function(a){return card(a,false);}).join('');}
 
+    
     function initFilters(){
       document.querySelectorAll('.filter-btn').forEach(function(btn){
         btn.addEventListener('click',function(){
