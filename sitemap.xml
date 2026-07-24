@@ -1,218 +1,627 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- ── Core Pages ── -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ericwu.co.nz/about.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/blog-static.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/blog.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/chinese.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/contact.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/eric-wu.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/faq.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://ericwu.co.nz/</loc>
-    <lastmod>2026-04-15</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/about.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ── Eric Wu Profile – Bilingual (English / 简体中文) ── -->
-  <url>
-    <loc>https://ericwu.co.nz/eric-wu.html</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/eric-wu.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ericwu.co.nz/chinese.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/eric-wu.html"/>
-  </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/chinese.html</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/eric-wu.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ericwu.co.nz/chinese.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/eric-wu.html"/>
-  </url>
-
   <url>
     <loc>https://ericwu.co.nz/listings.html</loc>
-    <lastmod>2026-04-15</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/sold.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/review.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/faq.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/blog.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://ericwu.co.nz/contact.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <url>
     <loc>https://ericwu.co.nz/privacy.html</loc>
-    <lastmod>2026-04-15</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!-- ── Blog Article Template (Supabase-powered dynamic articles) ── -->
   <url>
-    <loc>https://ericwu.co.nz/articles/article.html</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://ericwu.co.nz/review.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-
-  <!-- ── Static Blog Articles ── -->
+  <url>
+    <loc>https://ericwu.co.nz/sold.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://ericwu.co.nz/articles/2026-property-market-playbook.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/ameti-eastern-busway-property-values.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
-    <loc>https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html</loc>
-    <lastmod>2026-04-15</lastmod>
+    <loc>https://ericwu.co.nz/articles/appraisal-vs-registered-valuation.html</loc>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/appraisal-vs-registered-valuation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/appraisal-vs-registered-valuation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/appraisal-vs-registered-valuation.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/asbestos-testing-removal-auckland.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
+  <url>
+    <loc>https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/auckland-granny-flat-investment-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html"/>
+  </url>
   <url>
     <loc>https://ericwu.co.nz/articles/auckland-historic-heritage-property-guide.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/auckland-suburb-gentrification-guide.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/auction-vs-tender-sales-strategy.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/auction-vs-tender-sales-strategy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/auction-vs-tender-sales-strategy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/auction-vs-tender-sales-strategy.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/body-corporate-fees-auckland-guide.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/body-corporate-fees-auckland-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/body-corporate-fees-auckland-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/body-corporate-fees-auckland-guide.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/botany-downs-family-homes-east-auckland.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/botany-downs-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/botany-downs-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/botany-downs-family-homes-east-auckland.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/bright-line-test-property-investors.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/bucklands-beach-peninsula-premium-real-estate.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/bucklands-beach-peninsula-premium-real-estate.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/bucklands-beach-peninsula-premium-real-estate.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/bucklands-beach-peninsula-premium-real-estate.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/building-vs-resource-consent-auckland.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
+  <url>
+    <loc>https://ericwu.co.nz/articles/buying-at-auction-strategy-nz.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/buying-at-auction-strategy-nz.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/buying-at-auction-strategy-nz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/buying-at-auction-strategy-nz.html"/>
+  </url>
   <url>
     <loc>https://ericwu.co.nz/articles/buying-off-the-plan-risks-auckland.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/buying-off-the-plan-risks-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/buying-off-the-plan-risks-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/buying-off-the-plan-risks-auckland.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/choose-best-real-estate-agent-east-auckland.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/choose-best-real-estate-agent-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/choose-best-real-estate-agent-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/choose-best-real-estate-agent-east-auckland.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/conditional-vs-unconditional-property-offers.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/conditional-vs-unconditional-property-offers.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/conditional-vs-unconditional-property-offers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/conditional-vs-unconditional-property-offers.html"/>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/converting-cross-lease-to-fee-simple-cost.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://ericwu.co.nz/articles/cross-lease-title-risks.html</loc>
     <lastmod>2026-04-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
+  <url>
+    <loc>https://ericwu.co.nz/articles/cv-vs-market-value-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/dannemora-luxury-family-homes-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/dannemora-luxury-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/dannemora-luxury-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/dannemora-luxury-family-homes-east-auckland.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/downsizing-guide-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/east-auckland-property-forecast-eric-wu.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-auckland-property-forecast-eric-wu.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-auckland-property-forecast-eric-wu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-auckland-property-forecast-eric-wu.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/east-auckland-subdivision-potential-guide.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-auckland-subdivision-potential-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-auckland-subdivision-potential-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-auckland-subdivision-potential-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/east-tamaki-commercial-growth-property-values.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-tamaki-commercial-growth-property-values.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-tamaki-commercial-growth-property-values.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-tamaki-commercial-growth-property-values.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/first-home-buyer-guide-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/flat-bush-new-builds-buyers-guide.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/flat-bush-new-builds-buyers-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/flat-bush-new-builds-buyers-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/flat-bush-new-builds-buyers-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/half-moon-bay-luxury-property-market.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/half-moon-bay-luxury-property-market.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/half-moon-bay-luxury-property-market.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/half-moon-bay-luxury-property-market.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/healthy-homes-standards-selling-rental.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/home-staging-roi-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/howick-village-character-homes-capital-growth.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/howick-village-character-homes-capital-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/howick-village-character-homes-capital-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/howick-village-character-homes-capital-growth.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/lim-and-building-reports-before-selling.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/macleans-college-zone-property-premium.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/macleans-college-zone-property-premium.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/macleans-college-zone-property-premium.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/macleans-college-zone-property-premium.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/mortgage-broker-vs-bank-nz.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/moving-to-east-auckland-from-overseas.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/open-home-preparation-checklist.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/overseas-buyer-rules-new-zealand.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/overseas-buyer-rules-new-zealand.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/overseas-buyer-rules-new-zealand.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/overseas-buyer-rules-new-zealand.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/pakuranga-renaissance-eastern-busway-growth.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/pakuranga-renaissance-eastern-busway-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/pakuranga-renaissance-eastern-busway-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/pakuranga-renaissance-eastern-busway-growth.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/pre-auction-offer-explained.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/pre-sale-renovation-roi-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/property-due-diligence-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/selling-1990s-plaster-monolithic-cladding-home.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/selling-a-leaky-home-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/selling-a-tenanted-investment-property.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/selling-in-winter-new-zealand.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/sole-agency-vs-general-agency-nz.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/vendor-bid-auction-explained.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/vendor-bid-auction-explained.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/vendor-bid-auction-explained.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/vendor-bid-auction-explained.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/vendor-finance-property-sale-nz.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/virtual-vs-physical-home-staging.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/weatherboard-home-maintenance-value.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/appraisal-vs-registered-valuation.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/appraisal-vs-registered-valuation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/appraisal-vs-registered-valuation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/appraisal-vs-registered-valuation.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/auckland-granny-flat-investment-guide.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/auckland-granny-flat-investment-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/auckland-granny-flat-investment-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/auction-vs-tender-sales-strategy.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/auction-vs-tender-sales-strategy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/auction-vs-tender-sales-strategy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/auction-vs-tender-sales-strategy.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/body-corporate-fees-auckland-guide.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/body-corporate-fees-auckland-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/body-corporate-fees-auckland-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/body-corporate-fees-auckland-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/botany-downs-family-homes-east-auckland.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/botany-downs-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/botany-downs-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/botany-downs-family-homes-east-auckland.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/bucklands-beach-peninsula-premium-real-estate.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/bucklands-beach-peninsula-premium-real-estate.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/bucklands-beach-peninsula-premium-real-estate.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/bucklands-beach-peninsula-premium-real-estate.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/buying-at-auction-strategy-nz.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/buying-at-auction-strategy-nz.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/buying-at-auction-strategy-nz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/buying-at-auction-strategy-nz.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/buying-off-the-plan-risks-auckland.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/buying-off-the-plan-risks-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/buying-off-the-plan-risks-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/buying-off-the-plan-risks-auckland.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/choose-best-real-estate-agent-east-auckland.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/choose-best-real-estate-agent-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/choose-best-real-estate-agent-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/choose-best-real-estate-agent-east-auckland.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/conditional-vs-unconditional-property-offers.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/conditional-vs-unconditional-property-offers.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/conditional-vs-unconditional-property-offers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/conditional-vs-unconditional-property-offers.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/dannemora-luxury-family-homes-east-auckland.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/dannemora-luxury-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/dannemora-luxury-family-homes-east-auckland.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/dannemora-luxury-family-homes-east-auckland.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/east-auckland-property-forecast-eric-wu.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-auckland-property-forecast-eric-wu.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-auckland-property-forecast-eric-wu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-auckland-property-forecast-eric-wu.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/east-auckland-subdivision-potential-guide.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-auckland-subdivision-potential-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-auckland-subdivision-potential-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-auckland-subdivision-potential-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/east-tamaki-commercial-growth-property-values.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/east-tamaki-commercial-growth-property-values.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/east-tamaki-commercial-growth-property-values.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/east-tamaki-commercial-growth-property-values.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/flat-bush-new-builds-buyers-guide.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/flat-bush-new-builds-buyers-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/flat-bush-new-builds-buyers-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/flat-bush-new-builds-buyers-guide.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/half-moon-bay-luxury-property-market.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/half-moon-bay-luxury-property-market.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/half-moon-bay-luxury-property-market.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/half-moon-bay-luxury-property-market.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/howick-village-character-homes-capital-growth.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/howick-village-character-homes-capital-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/howick-village-character-homes-capital-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/howick-village-character-homes-capital-growth.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/macleans-college-zone-property-premium.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/macleans-college-zone-property-premium.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/macleans-college-zone-property-premium.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/macleans-college-zone-property-premium.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/overseas-buyer-rules-new-zealand.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/overseas-buyer-rules-new-zealand.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/overseas-buyer-rules-new-zealand.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/overseas-buyer-rules-new-zealand.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/pakuranga-renaissance-eastern-busway-growth.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/pakuranga-renaissance-eastern-busway-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/pakuranga-renaissance-eastern-busway-growth.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/pakuranga-renaissance-eastern-busway-growth.html"/>
+  </url>
+  <url>
+    <loc>https://ericwu.co.nz/articles/zh/vendor-bid-auction-explained.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://ericwu.co.nz/articles/vendor-bid-auction-explained.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://ericwu.co.nz/articles/zh/vendor-bid-auction-explained.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ericwu.co.nz/articles/vendor-bid-auction-explained.html"/>
+  </url>
 </urlset>
