@@ -255,7 +255,7 @@ footer{background:var(--footer-bg);color:white;padding:80px 8% 40px}
 
 <script>
 const SB_URL='https://lvdmqgyrgkzywoqvmjlh.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2ZG1xZ3lyZ2t6eXdvcXZtamxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzI4NjYsImV4cCI6MjA5MTI0ODg2Nn0.tvm_agT2XEwXPUyNQPoUxQSkn188b2ZryYC-p54n8Rc';
+const SB_KEY='sb_publishable_DpiOMXxxnYckRosCz1lAgw_DUBO7EBF';
 const CACHE_KEY='team_listings_sb_v1';
 const CACHE_TTL=5*60*1000;
 let allListings=[];
@@ -271,7 +271,7 @@ async function loadListings(){
     if(raw&&ts&&(Date.now()-parseInt(ts))<CACHE_TTL){
       allListings=JSON.parse(raw);
     }else{
-      const r=await fetch(SB_URL+'/rest/v1/listings?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+      const r=await fetch(SB_URL+'/rest/v1/listings?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY}});
       allListings=await r.json();
       if(!Array.isArray(allListings))allListings=[];
       localStorage.setItem(CACHE_KEY,JSON.stringify(allListings));
