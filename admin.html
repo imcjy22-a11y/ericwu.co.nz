@@ -91,6 +91,12 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
 .status-line{font-size:12px;color:#999;margin-top:8px;min-height:16px}
 .status-line.err{color:#E24B4A}
 .hint{font-size:12px;color:#aaa;margin-top:10px;padding:10px;background:#f9f9f9;border-radius:6px;line-height:1.6}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.note{font-size:12.5px;color:#7a6a2a;background:#fffbea;border:1px solid #f3e3a0;border-radius:8px;padding:10px 14px;line-height:1.65;margin-bottom:16px}
+.check{display:flex;align-items:center;gap:8px;font-size:13px;color:#444;margin:4px 0 13px;cursor:pointer}
+.check input{width:16px;height:16px;accent-color:#E24B4A}
+.check span{color:#999;font-size:12px}
+.tag-off{display:inline-block;background:#fdecea;color:#c0392b;border-radius:10px;font-size:11px;padding:1px 8px;margin-left:6px}
 </style>
 </head>
 <body>
@@ -99,11 +105,15 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
   <div class="header-dot"></div>
   <span class="header-title">团队官网 管理后台</span>
 </div>
+<div class="tabs">
+  <button class="tab active" data-tab="listings" onclick="showTab('listings')">在售房源 Listings</button>
+  <button class="tab" data-tab="sold" onclick="showTab('sold')">近期成交 Recent Sold</button>
+</div>
 
 <div class="content">
 
   <!-- LISTINGS TAB -->
-  <div id="tab-listings">
+  <div id="tab-listings" class="tab-pane active">
     <div class="card">
       <div class="card-title">新增 Listing</div>
       <div id="dup-warn" style="display:none;margin-bottom:10px" class="dup-warn">⚠ 该地址已存在于数据库，请检查是否重复！</div>
@@ -129,6 +139,44 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
     <div class="card">
       <div class="card-title">当前 Listings <span class="badge" id="lc">0</span></div>
       <div id="listings-list"><div class="empty">加载中...</div></div>
+    </div>
+  </div>
+
+
+  <!-- RECENT SOLD TAB -->
+  <div id="tab-sold" class="tab-pane">
+    <div class="note">
+      存好后，网站访客<strong>马上</strong>就能看到；Google 和 AI 搜索看到的版本<strong>每天凌晨 3 点左右</strong>更新一次。<br>
+      只放<strong>已 unconditional</strong> 的房子；<strong>settlement 之前不要勾「显示成交价」</strong>。最新存的排在最前面，首页滚动显示最新 15 套。
+    </div>
+    <div class="card">
+      <div class="card-title">新增成交</div>
+      <div id="s-dup-warn" style="display:none;margin-bottom:10px" class="dup-warn">⚠ 该地址已在成交列表里，请检查是否重复！</div>
+      <div class="input-row" style="flex-wrap:wrap;gap:8px">
+        <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="s-address" placeholder="例：75 Armoy Drive" /></div>
+        <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb *</label><input type="text" id="s-suburb" placeholder="Dannemora" /></div>
+      </div>
+      <div class="input-row" style="flex-wrap:wrap;gap:8px">
+        <div class="field" style="flex:1;min-width:160px"><label class="lbl">标签 <span>（图片左上角的黄字；不要写价格）</span></label><input type="text" id="s-badge" placeholder="Auction Success" /></div>
+        <div class="field" style="flex:1;min-width:160px"><label class="lbl">成交价</label><input type="text" id="s-price" placeholder="$1,731,000" /></div>
+      </div>
+      <label class="check"><input type="checkbox" id="s-showprice"> 显示成交价 <span>（已 settle 才勾）</span></label>
+      <div class="input-row" style="flex-wrap:wrap;gap:8px">
+        <div class="field" style="flex:1;min-width:110px"><label class="lbl">地面积</label><input type="text" id="s-land" placeholder="580 sqm" /></div>
+        <div class="field" style="flex:1;min-width:110px"><label class="lbl">建筑面积</label><input type="text" id="s-floor" placeholder="180 sqm" /></div>
+        <div class="field" style="flex:1;min-width:110px"><label class="lbl">高于 CV</label><input type="text" id="s-cv" placeholder="$281,000" /></div>
+        <div class="field" style="flex:1;min-width:110px"><label class="lbl">在售时长</label><input type="text" id="s-dom" placeholder="3 Weeks" /></div>
+      </div>
+      <div class="field"><label class="lbl">图片 URL <span>（在 Ray White 网站房源图片上右键 →「复制图片地址」）</span></label><input type="text" id="s-img" placeholder="https://..." /></div>
+      <div class="field"><label class="lbl">Ray White 链接 <span>（可选）</span></label><input type="text" id="s-rw-url" placeholder="https://www.raywhite.co.nz/..." /></div>
+      <div class="field"><label class="lbl">一句话介绍 <span>（可选，英文）</span></label><textarea id="s-summary" style="min-height:60px" placeholder="Tightly held for 17 years, this brick-and-tile home..."></textarea></div>
+      <div class="field"><label class="lbl">卖点 <span>（可选，英文，每行一条；写成「标题: 内容」时标题会加粗）</span></label><textarea id="s-features" style="min-height:90px" placeholder="Top School Zones: Zoned for Willowbank Primary and Botany Downs Secondary College."></textarea></div>
+      <label class="check"><input type="checkbox" id="s-published" checked> 显示在网站上 <span>（取消勾选 = 先存着不公开）</span></label>
+      <button class="btn btn-green" id="s-save-btn" onclick="saveSold()">✓ 发布成交</button>
+    </div>
+    <div class="card">
+      <div class="card-title">当前成交 <span class="badge" id="sc">0</span></div>
+      <div id="sold-list"><div class="empty">加载中...</div></div>
     </div>
   </div>
 
@@ -175,6 +223,39 @@ textarea{min-height:160px;resize:vertical;line-height:1.6}
     </div>
   </div>
 </div>
+<!-- Sold Edit Drawer -->
+<div class="overlay" id="sold-edit-overlay" style="display:none;align-items:flex-end" onclick="if(event.target===this)closeSoldEdit()">
+  <div style="background:#fff;border-radius:16px 16px 0 0;width:100%;max-width:860px;margin:0 auto;max-height:90vh;overflow-y:auto;padding:24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <span style="font-size:15px;font-weight:600">编辑成交</span>
+      <button class="btn btn-ghost" style="padding:5px 12px" onclick="closeSoldEdit()">✕ 关闭</button>
+    </div>
+    <div class="input-row" style="flex-wrap:wrap;gap:8px">
+      <div class="field" style="flex:2;min-width:200px"><label class="lbl">地址 *</label><input type="text" id="se-address" /></div>
+      <div class="field" style="flex:1;min-width:120px"><label class="lbl">区域 Suburb *</label><input type="text" id="se-suburb" /></div>
+    </div>
+    <div class="input-row" style="flex-wrap:wrap;gap:8px">
+      <div class="field" style="flex:1;min-width:160px"><label class="lbl">标签</label><input type="text" id="se-badge" /></div>
+      <div class="field" style="flex:1;min-width:160px"><label class="lbl">成交价</label><input type="text" id="se-price" /></div>
+    </div>
+    <label class="check"><input type="checkbox" id="se-showprice"> 显示成交价 <span>（已 settle 才勾）</span></label>
+    <div class="input-row" style="flex-wrap:wrap;gap:8px">
+      <div class="field" style="flex:1;min-width:110px"><label class="lbl">地面积</label><input type="text" id="se-land" /></div>
+      <div class="field" style="flex:1;min-width:110px"><label class="lbl">建筑面积</label><input type="text" id="se-floor" /></div>
+      <div class="field" style="flex:1;min-width:110px"><label class="lbl">高于 CV</label><input type="text" id="se-cv" /></div>
+      <div class="field" style="flex:1;min-width:110px"><label class="lbl">在售时长</label><input type="text" id="se-dom" /></div>
+    </div>
+    <div class="field"><label class="lbl">图片 URL</label><input type="text" id="se-img" /></div>
+    <div class="field"><label class="lbl">Ray White 链接</label><input type="text" id="se-rw-url" /></div>
+    <div class="field"><label class="lbl">一句话介绍</label><textarea id="se-summary" style="min-height:60px"></textarea></div>
+    <div class="field"><label class="lbl">卖点（每行一条）</label><textarea id="se-features" style="min-height:110px"></textarea></div>
+    <label class="check"><input type="checkbox" id="se-published"> 显示在网站上</label>
+    <div style="display:flex;gap:8px;padding-top:4px">
+      <button class="btn btn-green" id="se-save-btn" style="flex:1;justify-content:center" onclick="saveSoldEdit()">✓ 保存修改</button>
+      <button class="btn btn-ghost" onclick="closeSoldEdit()">取消</button>
+    </div>
+  </div>
+</div>
 <div class="toast ok" id="toast" style="display:none"></div>
 
 <script>
@@ -191,10 +272,14 @@ function toast(msg,type='ok'){
   clearTimeout(el._t);el._t=setTimeout(()=>el.style.display='none',3200);
 }
 // ── Supabase ──────────────────────────────────
-async function sbGet(t){const r=await fetch(SB+'/rest/v1/'+t+'?select=*&order=created_at.desc',{headers:SBH});return r.json()}
-async function sbPost(t,d){const r=await fetch(SB+'/rest/v1/'+t,{method:'POST',headers:SBH,body:JSON.stringify(d)});return r.json()}
-async function sbPatch(t,id,d){const r=await fetch(SB+'/rest/v1/'+t+'?id=eq.'+id,{method:'PATCH',headers:SBH,body:JSON.stringify(d)});return r.json()}
-async function sbDel(t,id){await fetch(SB+'/rest/v1/'+t+'?id=eq.'+id,{method:'DELETE',headers:SBH})}
+// Every call checks the database's answer, so the page never says "saved" when nothing was saved.
+async function sbCheck(r){if(!r.ok){let m='';try{m=(await r.json()).message||''}catch(e){}throw new Error('HTTP '+r.status+' '+m)}return r}
+async function sbGet(t){const r=await sbCheck(await fetch(SB+'/rest/v1/'+t+'?select=*&order=created_at.desc',{headers:SBH}));return r.json()}
+async function sbPost(t,d){const r=await sbCheck(await fetch(SB+'/rest/v1/'+t,{method:'POST',headers:SBH,body:JSON.stringify(d)}));const j=await r.json();if(!Array.isArray(j)||!j.length)throw new Error('no row saved');return j}
+async function sbPatch(t,id,d){const r=await sbCheck(await fetch(SB+'/rest/v1/'+t+'?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:SBH,body:JSON.stringify(d)}));const j=await r.json();if(!Array.isArray(j)||!j.length)throw new Error('no row updated');return j}
+async function sbDel(t,id){const r=await sbCheck(await fetch(SB+'/rest/v1/'+t+'?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:SBH}));const j=await r.json().catch(()=>[]);if(Array.isArray(j)&&!j.length)throw new Error('nothing deleted');return j}
+function escH(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function showTab(n){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tab')===n));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id==='tab-'+n));if(n==='sold'&&!soldLoaded)loadSold();}
 
 // ── Listings ──────────────────────────────────
 function normAddr(a){return(a||'').toLowerCase().replace(/\s+/g,' ').trim()}
@@ -224,7 +309,7 @@ function saveManual(){
       .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     document.getElementById('dup-warn').style.display='none';
     loadListings();
-  }).catch(()=>toast('发布失败，请重试','err'));
+  }).catch(e=>toast('发布失败：'+e.message,'err'));
 }
 
 // ── Edit Listing ──────────────────────────────
@@ -268,7 +353,7 @@ async function saveEdit(){
       description:document.getElementById('e-desc').value.trim()
     });
     toast('已保存！');closeEdit();loadListings();
-  }catch(e){toast('保存失败，请重试','err');}
+  }catch(e){toast('保存失败：'+e.message,'err');}
   btn.innerHTML='✓ 保存修改';btn.disabled=false;
 }
 
@@ -306,11 +391,85 @@ function askDel(tbl,id,name){
 }
 async function doDelete(){
   if(!delTarget)return;
-  await sbDel(delTarget.tbl,delTarget.id);
-  toast('已删除');closeModal();
-  loadListings();
+  const tbl=delTarget.tbl;
+  try{await sbDel(tbl,delTarget.id);toast('已删除');}
+  catch(e){toast('删除失败：'+e.message,'err');}
+  closeModal();
+  if(tbl==='sold')loadSold();else loadListings();
 }
 function closeModal(){delTarget=null;document.getElementById('modal').style.display='none'}
+
+
+// ── Recent Sold ───────────────────────────────
+let currentSold=[],soldLoaded=false,soldEditId=null;
+const SF={address:'address',suburb:'suburb',badge:'badge',price:'sale_price',land:'land_area',floor:'floor_area',cv:'over_cv',dom:'time_on_market',img:'image_url','rw-url':'raywhite_url',summary:'summary',features:'features'};
+function soldData(prefix){
+  const d={};
+  Object.keys(SF).forEach(k=>{const el=document.getElementById(prefix+'-'+k);d[SF[k]]=el?el.value.trim():''});
+  d.show_price=document.getElementById(prefix+'-showprice').checked;
+  d.published=document.getElementById(prefix+'-published').checked;
+  return d;
+}
+function soldCheck(d){
+  if(!d.address){toast('请填写地址','err');return false}
+  if(!d.suburb){toast('请填写区域 Suburb','err');return false}
+  if(d.image_url&&!/^https?:\/\//i.test(d.image_url)&&!/^images\//i.test(d.image_url)){toast('图片 URL 要以 https:// 开头','err');return false}
+  if(d.show_price&&!d.sale_price){toast('勾了「显示成交价」但没填成交价','err');return false}
+  return true;
+}
+async function saveSold(){
+  const d=soldData('s');
+  if(!soldCheck(d))return;
+  if(currentSold.some(r=>normAddr(r.address)===normAddr(d.address))){document.getElementById('s-dup-warn').style.display='block';if(!confirm('这个地址已在成交列表里，确定再加一次？'))return}
+  const btn=document.getElementById('s-save-btn');btn.disabled=true;btn.innerHTML='<span class="spin"></span>保存中...';
+  try{
+    await sbPost('sold',d);
+    toast('成交已发布！');
+    Object.keys(SF).forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=''});
+    document.getElementById('s-showprice').checked=false;document.getElementById('s-published').checked=true;
+    document.getElementById('s-dup-warn').style.display='none';
+    loadSold();
+  }catch(e){toast('发布失败：'+e.message,'err')}
+  btn.disabled=false;btn.innerHTML='✓ 发布成交';
+}
+async function loadSold(){
+  const el=document.getElementById('sold-list');
+  try{
+    const data=await sbGet('sold');soldLoaded=true;
+    currentSold=Array.isArray(data)?data:[];
+    document.getElementById('sc').textContent=currentSold.length;
+    if(!currentSold.length){el.innerHTML='<div class="empty">暂无成交</div>';return}
+    el.innerHTML=currentSold.map(r=>{
+      const img=/^(https?:\/\/|images\/)/i.test(r.image_url||'')?r.image_url:'';
+      return '<div class="list-item">'+
+        (img?'<img class="list-thumb" src="'+escH(img)+'" onerror="this.style.opacity=\'.3\'" />':'<div class="list-thumb"></div>')+
+        '<div class="list-info"><div class="list-title">'+escH(r.address||'无地址')+(r.published?'':'<span class="tag-off">未公开</span>')+'</div>'+
+        '<div class="list-meta">'+escH(r.suburb||'')+' · '+(r.show_price&&r.sale_price?escH(r.sale_price):'不显示价格')+(r.badge?' · '+escH(r.badge):'')+'</div></div>'+
+        '<div class="list-actions">'+
+        '<button class="btn btn-ghost" style="font-size:12px;padding:5px 11px" data-id="'+escH(r.id)+'" onclick="openSoldEdit(this.dataset.id)">编辑</button>'+
+        '<button class="btn btn-danger" data-id="'+escH(r.id)+'" data-name="'+escH(r.address||'')+'" onclick="askDel(\'sold\',this.dataset.id,this.dataset.name)">删除</button>'+
+        '</div></div>';
+    }).join('');
+  }catch(e){el.innerHTML='<div class="empty">加载失败：'+escH(e.message)+'</div>'}
+}
+function openSoldEdit(id){
+  const r=currentSold.find(x=>x.id===id);if(!r)return;
+  soldEditId=id;
+  Object.keys(SF).forEach(k=>{const el=document.getElementById('se-'+k);if(el)el.value=r[SF[k]]||''});
+  document.getElementById('se-showprice').checked=!!r.show_price;
+  document.getElementById('se-published').checked=r.published!==false;
+  document.getElementById('sold-edit-overlay').style.display='flex';
+}
+function closeSoldEdit(){soldEditId=null;document.getElementById('sold-edit-overlay').style.display='none'}
+async function saveSoldEdit(){
+  if(!soldEditId)return;
+  const d=soldData('se');
+  if(!soldCheck(d))return;
+  const btn=document.getElementById('se-save-btn');btn.disabled=true;btn.innerHTML='<span class="spin"></span>保存中...';
+  try{await sbPatch('sold',soldEditId,d);toast('已保存！');closeSoldEdit();loadSold();}
+  catch(e){toast('保存失败：'+e.message,'err')}
+  btn.disabled=false;btn.innerHTML='✓ 保存修改';
+}
 
 loadListings();
 </script>

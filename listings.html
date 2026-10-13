@@ -20,7 +20,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:title" content="Current Listings | Team Eric Wu – Ray White Elite" />
 <meta property="og:description" content="Browse current properties for sale across East Auckland's most sought-after suburbs." />
 <meta property="og:type" content="website" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Current Property Listings – Team Eric Wu","itemListElement":[]}</script>
+<!-- LISTINGS-SCHEMA:START --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Current Property Listings – Team Eric Wu","itemListElement":[]}</script><!-- LISTINGS-SCHEMA:END -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 :root{--rw-yellow:#ffe500;--deep-dark:#111111;--footer-bg:#1a1a1a;--text-gray:#b3b3b3;--light-bg:#f8f9fa;--border-color:#eaeaea}
@@ -198,16 +198,16 @@ footer{background:var(--footer-bg);color:white;padding:80px 8% 40px}
   <p>Handpicked properties across East Auckland's most sought-after suburbs. Every listing is backed by our team's deep local expertise and commitment to exceptional results.</p>
 </section>
 
-<div class="filter-bar" id="filter-bar">
+<div class="filter-bar" id="filter-bar"><!-- LISTINGS-FILTERS:START -->
   <button class="filter-btn active" onclick="filterListings('all',this)">All Properties</button>
-</div>
+<!-- LISTINGS-FILTERS:END --></div>
 
-<div class="listings-container">
+<div class="listings-container" data-sitedata="listings" data-hash="">
   <main class="listings-main">
-    <div class="results-count" id="results-count"></div>
-    <div class="listings-grid" id="listings-grid">
+    <div class="results-count" id="results-count"><!-- LISTINGS-COUNT:START --><!-- LISTINGS-COUNT:END --></div>
+    <div class="listings-grid" id="listings-grid"><!-- LISTINGS-GRID:START -->
       <div class="listings-loading"><div class="loader"></div>Loading current listings...</div>
-    </div>
+    <!-- LISTINGS-GRID:END --></div>
   </main>
   <aside class="listings-sidebar">
     <div class="sidebar-widget">
@@ -302,99 +302,18 @@ footer{background:var(--footer-bg);color:white;padding:80px 8% 40px}
 
 
 <script>
-const SB_URL='https://lvdmqgyrgkzywoqvmjlh.supabase.co';
-const SB_KEY='sb_publishable_DpiOMXxxnYckRosCz1lAgw_DUBO7EBF';
-const CACHE_KEY='team_listings_sb_v1';
-const CACHE_TTL=5*60*1000;
-let allListings=[];
-
 window.addEventListener('scroll',()=>document.getElementById('main-header').classList.toggle('scrolled',scrollY>50));
-
-async function loadListings(){
-  try{
-    const raw=localStorage.getItem(CACHE_KEY);
-    const ts=localStorage.getItem(CACHE_KEY+'_t');
-    if(raw&&ts&&(Date.now()-parseInt(ts))<CACHE_TTL){
-      allListings=JSON.parse(raw);
-    }else{
-      const r=await fetch(SB_URL+'/rest/v1/listings?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY}});
-      allListings=await r.json();
-      if(!Array.isArray(allListings))allListings=[];
-      localStorage.setItem(CACHE_KEY,JSON.stringify(allListings));
-      localStorage.setItem(CACHE_KEY+'_t',Date.now().toString());
-    }
-    buildFilters();renderListings(allListings);updateSchema();
-  }catch(e){
-    document.getElementById('listings-grid').innerHTML='<div class="listings-empty"><h3>Unable to load listings</h3><p>Please refresh the page.</p></div>';
-  }
-}
-
-function buildFilters(){
-  const suburbs=[...new Set(allListings.map(l=>l.suburb).filter(Boolean))].sort();
-  const bar=document.getElementById('filter-bar');
-  suburbs.forEach(s=>{
-    const b=document.createElement('button');
-    b.className='filter-btn';b.textContent=s;
-    b.onclick=()=>filterListings(s,b);bar.appendChild(b);
-  });
-}
-
 function filterListings(suburb,btn){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderListings(suburb==='all'?allListings:allListings.filter(l=>l.suburb===suburb));
-}
-
-function renderListings(list){
-  const grid=document.getElementById('listings-grid');
+  if(btn)btn.classList.add('active');
+  let shown=0;
+  document.querySelectorAll('#listings-grid .listing-card').forEach(c=>{const on=suburb==='all'||c.getAttribute('data-suburb')===suburb;c.style.display=on?'':'none';if(on)shown++;});
   const count=document.getElementById('results-count');
-  if(!list.length){
-    grid.innerHTML='<div class="listings-empty"><h3>No listings at this time</h3><p>Check back soon or contact us about off-market opportunities.</p></div>';
-    count.innerHTML='';return;
-  }
-  count.innerHTML='Showing <strong>'+list.length+'</strong> propert'+(list.length===1?'y':'ies');
-  grid.innerHTML=list.map(function(l,i){
-    return '<article class="listing-card">'+
-      '<div class="listing-img-wrap">'+
-      (l.image_url?'<img src="'+l.image_url+'" alt="'+((l.address||'Property').replace(/"/g,''))+'" loading="'+(i<4?'eager':'lazy')+'" onerror="this.parentElement.innerHTML=\'<div class=listing-img-placeholder>🏠</div>\'" />'
-        :'<div class="listing-img-placeholder">🏠</div>')+
-      (l.suburb?'<span class="suburb-badge">'+l.suburb+'</span>':'')+
-      (l.price?'<span class="price-badge">'+l.price+'</span>':'')+
-      '</div>'+
-      '<div class="listing-body">'+
-      '<h2 class="listing-address">'+(l.address||'Address on request')+'</h2>'+
-      '<div class="listing-suburb-text">'+(l.suburb||'')+', Auckland</div>'+
-      '<div class="listing-stats">'+
-      (l.bedrooms?'<div class="stat">🛏 '+l.bedrooms+' Bed'+(l.bedrooms>1?'s':'')+'</div>':'')+
-      (l.bathrooms?'<div class="stat">🚿 '+l.bathrooms+' Bath'+(l.bathrooms>1?'s':'')+'</div>':'')+
-      (l.garages?'<div class="stat">🚗 '+l.garages+' Car'+(l.garages>1?'s':'')+'</div>':'')+
-      '</div>'+
-      (l.land_area||l.building_area?'<div class="listing-areas">'+(l.land_area?'<span>Land: '+l.land_area+'</span>':'')+' '+(l.building_area?'<span>Floor: '+l.building_area+'</span>':'')+'</div>':'')+
-      (l.description?'<p class="listing-desc">'+l.description.substring(0,160)+(l.description.length>160?'...':'')+'</p>':'')+
-      (l.raywhite_url?'<a href="'+l.raywhite_url+'" target="_blank" rel="noopener noreferrer" onclick="window.open(\''+l.raywhite_url+'\',\'_blank\');return false;" class="listing-cta">View Full Listing →</a>':'')+
-      '</div></article>';
-  }).join('');
+  if(count&&shown)count.innerHTML='Showing <strong>'+shown+'</strong> propert'+(shown===1?'y':'ies');
 }
-
-
-function updateSchema(){
-  const s=document.querySelector('script[type="application/ld+json"]');
-  if(!s)return;
-  s.textContent=JSON.stringify({
-    '@context':'https://schema.org','@type':'ItemList',
-    'name':'Current Property Listings – Team Eric Wu',
-    'numberOfItems':allListings.length,
-    'itemListElement':allListings.map(function(l,i){return{
-      '@type':'ListItem','position':i+1,
-      'item':{'@type':'SingleFamilyResidence','name':l.address,
-        'address':{'@type':'PostalAddress','streetAddress':l.address,'addressLocality':l.suburb,'addressRegion':'Auckland','addressCountry':'NZ'},
-        'numberOfBedrooms':l.bedrooms,'url':l.raywhite_url}
-    };}),
-  });
-}
-
-loadListings();
 </script>
+<script src="js/site-data.js"></script>
+<script>SiteData.refresh('listings');</script>
 <script id="site-header-js">
 /* Site header: swipeable menu on phones/tablets (shared by every page) */
 (function(){

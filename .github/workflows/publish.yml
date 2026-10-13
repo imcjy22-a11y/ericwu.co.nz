@@ -1,0 +1,57 @@
+# Publishes ericwu.co.nz.
+# Runs every time you push from GitHub Desktop, and once a day around 3am NZ time.
+# Before publishing it writes the latest Listings and Recently Sold (from the 管理后台) into the pages,
+# so Google and AI search can read them. Files in GitHub are not changed.
+name: Publish website
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '7 14 * * *'   # 14:07 UTC = about 3am in Auckland (daylight time), 2am in winter
+  workflow_dispatch:        # adds a "Run workflow" button in the Actions tab for an on-demand refresh
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Get the website files
+        uses: actions/checkout@v7
+
+      - name: Write latest Listings and Recently Sold into the pages
+        run: node scripts/build-data.js
+        continue-on-error: true
+
+      - name: Safety net — publish the files as they are if the step above failed
+        run: |
+          if [ ! -d _site ]; then
+            mkdir _site
+            for f in * .[!.]*; do
+              [ -e "$f" ] || continue
+              case "$f" in .git|.github|scripts|_site) ;; *) cp -r "$f" _site/ ;; esac
+            done
+          fi
+
+      - name: Prepare GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Package the website
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v5

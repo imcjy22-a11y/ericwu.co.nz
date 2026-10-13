@@ -287,6 +287,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
     </style>
+<style id="recent-sold-css">
+/* ===== Recently Sold (homepage) — cards come from the 管理后台 ===== */
+#recent-sold{min-height:auto;display:block;padding:90px 0 70px;background:#111;color:#fff}
+#recent-sold .section-header{padding:0 8%;margin-bottom:44px}
+#recent-sold .section-header h2{color:#fff}
+.rs-sub{margin-top:12px;color:#9a9a9a;font-size:.8rem;font-weight:600;letter-spacing:3px;text-transform:uppercase}
+.rs-sub::before,.rs-sub::after{content:"";display:inline-block;width:26px;height:1px;background:var(--rw-yellow);vertical-align:middle;margin:0 12px;opacity:.7}
+.rs-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab}
+.rs-viewport::-webkit-scrollbar{display:none}
+.rs-viewport.dragging{cursor:grabbing}
+.rs-track{display:flex;gap:24px;padding:10px 8% 24px;width:max-content}
+.rs-card{flex:0 0 320px;display:block;text-decoration:none;color:inherit;background:#1b1b1b;border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+.rs-card:hover{transform:translateY(-6px);border-color:rgba(255,229,0,.55)}
+.rs-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#262626}
+.rs-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease;-webkit-user-drag:none;user-select:none}
+.rs-card:hover .rs-img img{transform:scale(1.05)}
+.rs-badge{position:absolute;top:14px;left:14px;background:var(--rw-yellow);color:#111;font-size:.66rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 10px}
+.rs-body{padding:18px 20px 20px}
+.rs-suburb{display:block;color:var(--rw-yellow);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.rs-addr{font-family:'Playfair Display',serif;font-size:1.3rem;line-height:1.25;color:#fff;margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rs-meta{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;font-size:.8rem;color:#9a9a9a}
+.rs-meta strong{color:#fff;font-weight:600}
+.rs-foot{text-align:center;margin-top:26px;padding:0 8%}
+.rs-all{color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid var(--rw-yellow);padding-bottom:4px;transition:.3s}
+.rs-all:hover{color:var(--rw-yellow)}
+@media(max-width:768px){
+  #recent-sold{padding:60px 0 50px}
+  #recent-sold .section-header{padding:0 5%;margin-bottom:30px}
+  #recent-sold .section-header h2{font-size:2rem}
+  .rs-sub{font-size:.68rem;letter-spacing:2px}
+  .rs-sub::before,.rs-sub::after{width:16px;margin:0 8px}
+  .rs-track{gap:16px;padding:6px 5% 20px}
+  .rs-card{flex-basis:262px}
+  .rs-addr{font-size:1.15rem}
+}
+</style>
 <style id="site-header-css">
 /* ===== Site header (shared by every page — 2026-10). Change here, then re-apply to all pages. ===== */
 #main-header .hdr-logo{display:flex;align-items:center;text-decoration:none;flex:0 0 auto}
@@ -437,6 +473,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
             </div>
         </div>
+    </section>
+
+    <section id="recent-sold" data-sitedata="home" data-hash="">
+        <div class="section-header">
+            <h2>Recently Sold</h2>
+            <p class="rs-sub">Across East Auckland &amp; beyond</p>
+        </div>
+        <div class="rs-viewport" id="rs-viewport">
+            <div class="rs-track" id="rs-track"><!-- HOME-SOLD:START -->
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="https://cdn6.ep.dynamics.net/s3/rw-propertyimages/2f8c-H3447217-185515419__1770163948-34687-DJI202602022031280015D-fixed.jpg?bgcolor=595959&amp;height=1257&amp;mode=crop&amp;quality=90&amp;scale=both&amp;width=2400&amp;_ext=.jpg" alt="20 Eaglemont Drive, East Tāmaki Heights – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Sold for $2,000,000</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki Heights</span><h3 class="rs-addr">20 Eaglemont Drive</h3><div class="rs-meta"><span>Sold <strong>$2,000,000</strong></span><span>563 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="https://cdn6.ep.dynamics.net/s3/rw-propertyimages/6e77-H3358036-161416628__1756459699-108175-Dusk-75ArmoyDrive-RW-TeamEric-2964.jpg?bgcolor=595959&amp;height=1257&amp;mode=crop&amp;quality=90&amp;scale=both&amp;width=2400&amp;_ext=.jpg" alt="75 Armoy Drive, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Auction Success</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">75 Armoy Drive</h3><div class="rs-meta"><span>Sold <strong>$1,731,000</strong></span><span>580 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="https://cdn6.ep.dynamics.net/s3/rw-propertyimages/d324-H3328800-154515589__1751928240-24013-House-28FarmdaleCourt-RW-Jinny-9236.jpg?bgcolor=595959&amp;height=1073&amp;mode=crop&amp;quality=90&amp;scale=both&amp;width=2048&amp;_ext=.jpg" alt="28 Farmdale Court, Flat Bush – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Pre-Auction Success</span></div><div class="rs-body"><span class="rs-suburb">Flat Bush</span><h3 class="rs-addr">28 Farmdale Court</h3><div class="rs-meta"><span>Sold <strong>$1,075,000</strong></span><span>675 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="https://cdn6.ep.dynamics.net/s3/rw-propertyimages/4901-H3445154-184964031__1769848947-56696-JSP38183-b.jpg?bgcolor=595959&amp;height=1257&amp;mode=crop&amp;quality=90&amp;scale=both&amp;width=2400&amp;_ext=.jpg" alt="9/175 Harris Road, East Tāmaki – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Sold in 1 Week</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki</span><h3 class="rs-addr">9/175 Harris Road</h3><div class="rs-meta"><span>Sold <strong>$725,000</strong></span><span>143 sqm floor</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-1.jpeg" alt="7 Redcastle Drive, Botany Downs – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Auction Brought Forward</span></div><div class="rs-body"><span class="rs-suburb">Botany Downs</span><h3 class="rs-addr">7 Redcastle Drive</h3><div class="rs-meta"><span>Sold <strong>$1,380,000</strong></span><span>692 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-2.jpg" alt="1 &amp; 1A Snave Place, East Tāmaki – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Tender Success</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki</span><h3 class="rs-addr">1 &amp; 1A Snave Place</h3><div class="rs-meta"><span>Sold <strong>$1.64M</strong></span><span>313 sqm floor</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-3.jpg" alt="76 Skip Lane, East Tāmaki – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Premium Result</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki</span><h3 class="rs-addr">76 Skip Lane</h3><div class="rs-meta"><span>Sold <strong>$941K</strong></span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-4.jpg" alt="1 Maghera Drive, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Sold Under Hammer</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">1 Maghera Drive</h3><div class="rs-meta"><span>Sold <strong>$1.301M</strong></span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-5.jpg" alt="11 Matarangi Road, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Auction Success</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">11 Matarangi Road</h3><div class="rs-meta"><span>Sold <strong>$1.695M</strong></span><span>567 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-6.jpeg" alt="7 Kingsgate Place, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Auction Brought Forward</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">7 Kingsgate Place</h3><div class="rs-meta"><span>Sold <strong>$1.642M</strong></span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-7.jpg" alt="12 Ganymede Place, Bucklands Beach – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Outstanding Potential</span></div><div class="rs-body"><span class="rs-suburb">Bucklands Beach</span><h3 class="rs-addr">12 Ganymede Place</h3><div class="rs-meta"><span>Sold <strong>$2.05M</strong></span><span>708 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-8.jpg" alt="193 Whitford Road, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Premium Result</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">193 Whitford Road</h3><div class="rs-meta"><span>Sold <strong>$2,408,800</strong></span><span>1235 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-9.jpg" alt="22 Tralee Terrace, Dannemora – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Premium Result</span></div><div class="rs-body"><span class="rs-suburb">Dannemora</span><h3 class="rs-addr">22 Tralee Terrace</h3><div class="rs-meta"><span>Sold <strong>$1,465,000</strong></span><span>751 sqm land</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-10.jpg" alt="18 &amp; 18A Feeny Crescent, East Tāmaki – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Deadline Success</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki</span><h3 class="rs-addr">18 &amp; 18A Feeny Crescent</h3><div class="rs-meta"><span>Sold <strong>$1.7168M</strong></span><span>266 sqm floor</span></div></div></a>
+                <a class="rs-card" href="sold.html"><div class="rs-img"><img src="images/sold-11.jpg" alt="27 Matarangi Road, East Tāmaki – sold by Team Eric Wu, Ray White Botany" loading="lazy"><span class="rs-badge">Premium Result</span></div><div class="rs-body"><span class="rs-suburb">East Tāmaki</span><h3 class="rs-addr">27 Matarangi Road</h3><div class="rs-meta"><span>Sold <strong>$1,480,000</strong></span></div></div></a>
+            <!-- HOME-SOLD:END --></div>
+        </div>
+        <div class="rs-foot"><a href="sold.html" class="rs-all">View all sold properties &rarr;</a></div>
     </section>
 
     <section id="reviews">
@@ -739,7 +802,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             slider.scrollLeft = scrollLeft - walk;
         });
     </script>
-    <script id="site-header-js">
+    <script src="js/site-data.js"></script>
+<script>SiteData.carousel('rs-viewport','rs-track');SiteData.refresh('home',function(){SiteData.carousel('rs-viewport','rs-track');});</script>
+<script id="site-header-js">
 /* Site header: swipeable menu on phones/tablets (shared by every page) */
 (function(){
   var h=document.getElementById('main-header'),w=document.getElementById('hdr-nav-wrap'),n=document.getElementById('main-nav');
