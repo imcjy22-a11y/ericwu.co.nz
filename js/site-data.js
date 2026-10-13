@@ -261,7 +261,8 @@
       }).catch(function () { /* keep the published version */ });
     };
 
-    /* Homepage carousel: slow continuous flow, seamless loop, pauses on hover / touch, drag on desktop */
+    /* Homepage carousel: slow continuous flow, seamless loop. Mouse over it = slows right down (the strip is full
+     * width, so a full stop on hover meant it almost never moved on computers). Finger on it / dragging = stops. */
     api.carousel = function (viewportId, trackId) {
       var vp = document.getElementById(viewportId), track = document.getElementById(trackId);
       if (!vp || !track) return;
@@ -282,13 +283,14 @@
       measure(); state.pos = 0; vp.scrollLeft = 0;
       if (state.bound) return;
       state.bound = true;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Keeps moving even when the computer's "animation effects" setting is off (JY's decision, 2026-10-14),
+      // same as the reviews strip on the homepage.
       var SPEED = 32;
       function wrap() { if (!state.setWidth) return; if (state.pos >= state.setWidth) state.pos -= state.setWidth; if (state.pos < 0) state.pos += state.setWidth; }
       function tick(t) {
         var dt = state.last ? Math.min(t - state.last, 64) : 0; state.last = t;
-        var paused = reduce || state.hover || state.touching || state.down || t < state.resumeAt || document.hidden || !state.setWidth;
-        if (!paused) { state.pos += SPEED * dt / 1000; wrap(); vp.scrollLeft = state.pos; }
+        var paused = state.touching || state.down || t < state.resumeAt || document.hidden || !state.setWidth;
+        if (!paused) { state.pos += SPEED * (state.hover ? 0.3 : 1) * dt / 1000; wrap(); vp.scrollLeft = state.pos; }
         else if (!state.down && state.setWidth) { state.pos = vp.scrollLeft; if (state.pos >= state.setWidth || state.pos <= 0) { wrap(); vp.scrollLeft = state.pos; } }
         requestAnimationFrame(tick);
       }
